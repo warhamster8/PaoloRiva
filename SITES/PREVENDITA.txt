@@ -1,0 +1,29 @@
+PRE-VENDITA — dove finiscono le iscrizioni
+==========================================
+
+Ogni iscrizione dal form #prevendita arriva via FormSubmit a:
+  paoloriva.main@proton.me
+
+Oggetto email:
+  «Nuova iscrizione PRE-VENDITA — La Veglia»
+
+Campi salvati in ogni messaggio:
+  - nome
+  - cognome
+  - email
+  - lista = prevendita
+
+Come contare quanti sono
+------------------------
+1. Su Proton crea una cartella/etichetta «Pre-vendita».
+2. Filtra le email con oggetto PRE-VENDITA → sposta lì.
+3. Il numero di messaggi = numero iscritti (più semplice).
+
+Oppure dashboard FormSubmit:
+  https://formsubmit.co/
+  Accedi con la stessa email → vedi tutte le submission e il totale.
+
+Prima attivazione
+-----------------
+Al primo invio FormSubmit manda una mail di conferma a Proton:
+devi cliccare il link «Activate form», altrimenti gli invii restano bloccati.

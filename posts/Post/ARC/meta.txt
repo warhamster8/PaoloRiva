@@ -1,0 +1,8 @@
+id: ARC
+cartella: Post
+piattaforma: Instagram
+formato: carosello
+slide: 2
+libro: La Veglia
+stato: bozza
+note: CTA pre-vendita / ARC — spinge al sito

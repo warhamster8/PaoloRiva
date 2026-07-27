@@ -1,0 +1,11 @@
+id: 02_link_sito
+cartella: storie
+piattaforma: Instagram
+formato: storia
+ratio: 9:16
+libro: La Veglia
+stato: bozza
+note: Sticker link al sito — pre-vendita / ARC
+sticker: link
+url: https://warhamster8.github.io/PaoloRiva/SITES/
+cta: Iscriviti alla pre-vendita

@@ -1,0 +1,8 @@
+id: CITAZIONE
+cartella: Post
+piattaforma: Instagram
+formato: carosello
+slide: 3
+libro: La Veglia
+stato: bozza
+note: Citazione Clara — voce / prigione / reveal libro

@@ -1,0 +1,10 @@
+id: 03_reveal
+cartella: storie
+piattaforma: Instagram
+formato: storia
+ratio: 9:16
+libro: La Veglia
+stato: bozza
+note: Ripresa reveal post INTRO — sticker “Vedi post” sul carosello
+sticker: link_post
+cta: Scorri il post

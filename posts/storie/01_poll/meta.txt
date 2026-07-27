@@ -1,0 +1,10 @@
+id: 01_poll
+cartella: storie
+piattaforma: Instagram
+formato: storia
+ratio: 9:16
+libro: La Veglia
+stato: bozza
+note: Sticker sondaggio — Horror psicologico | Zombie classici
+sticker: poll
+opzioni: Horror psicologico / Zombie classici

@@ -1,7 +1,8 @@
 id: INTRO
+cartella: Post
 piattaforma: Instagram
 formato: carosello
 slide: 3
 libro: La Veglia
-stato: bozza
+stato: pubblicato
 note: Primo post di presentazione — hook / premessa / reveal titolo
