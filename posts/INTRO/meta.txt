@@ -1,0 +1,7 @@
+id: INTRO
+piattaforma: Instagram
+formato: carosello
+slide: 3
+libro: La Veglia
+stato: bozza
+note: Primo post di presentazione — hook / premessa / reveal titolo
