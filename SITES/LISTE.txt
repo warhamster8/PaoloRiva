@@ -1,0 +1,47 @@
+LISTE LETTORI — dove finiscono le iscrizioni
+============================================
+
+Tutti i form del sito arrivano via FormSubmit a:
+  paoloriva.main@proton.me
+
+1) PRE-VENDITA  (#prevendita)
+-----------------------------
+Oggetto email:
+  «Nuova iscrizione PRE-VENDITA — La Veglia»
+
+Campi:
+  - nome, cognome, email
+  - lista = prevendita
+
+Etichetta Proton consigliata: «Pre-vendita»
+
+
+2) ARC  (#arc)
+--------------
+Oggetto email:
+  «Nuova richiesta ARC — La Veglia»
+
+Campi:
+  - nome, cognome, email
+  - instagram (opzionale)
+  - format = epub | pdf
+  - lista = arc
+
+Etichetta Proton consigliata: «ARC»
+
+
+Come contare
+------------
+1. Crea su Proton due etichette/cartelle: «Pre-vendita» e «ARC».
+2. Filtra per oggetto PRE-VENDITA o ARC e sposta.
+3. Il numero di messaggi in ciascuna cartella = totale iscritti / richieste.
+
+Oppure dashboard FormSubmit:
+  https://formsubmit.co/
+  Accedi con la stessa email → vedi tutte le submission e i totali.
+
+
+Prima attivazione
+-----------------
+Al primo invio FormSubmit manda una mail di conferma a Proton:
+devi cliccare il link «Activate form», altrimenti gli invii restano bloccati.

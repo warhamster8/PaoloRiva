@@ -509,25 +509,33 @@
             <form id="arc-form" action="https://formsubmit.co/ajax/" data-endpoint-ready="true" method="POST" class="space-y-5">
               <input type="hidden" name="_subject" value="Nuova richiesta ARC — La Veglia" />
               <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="lista" value="arc" />
               <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
 
+              <div class="grid gap-5 sm:grid-cols-2">
+                <div>
+                  <label for="arc-nome" class="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Nome</label>
+                  <input id="arc-nome" name="nome" type="text" required placeholder="Nome"
+                    class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3.5 text-paper placeholder:text-ash/35" />
+                </div>
+                <div>
+                  <label for="arc-cognome" class="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Cognome</label>
+                  <input id="arc-cognome" name="cognome" type="text" required placeholder="Cognome"
+                    class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3.5 text-paper placeholder:text-ash/35" />
+                </div>
+              </div>
+
               <div>
-                <label for="name" class="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Nome</label>
-                <input id="name" name="name" type="text" required placeholder="Il tuo nome"
+                <label for="arc-email" class="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Indirizzo Email</label>
+                <input id="arc-email" name="email" type="email" required placeholder="nome@email.com"
                   class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3.5 text-paper placeholder:text-ash/35" />
               </div>
 
               <div>
-                <label for="email" class="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Indirizzo Email</label>
-                <input id="email" name="email" type="email" required placeholder="nome@email.com"
-                  class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3.5 text-paper placeholder:text-ash/35" />
-              </div>
-
-              <div>
-                <label for="instagram" class="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">
+                <label for="arc-instagram" class="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">
                   Handle Instagram <span class="text-ash/40">(opzionale)</span>
                 </label>
-                <input id="instagram" name="instagram" type="text" placeholder="@tuohandle"
+                <input id="arc-instagram" name="instagram" type="text" placeholder="@tuohandle"
                   class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3.5 text-paper placeholder:text-ash/35" />
               </div>
 
