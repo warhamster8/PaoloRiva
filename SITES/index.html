@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Paolo Riva — informatico di giorno, scrittore di notte. Scopri La Veglia e richiedi una copia ARC."
+  />
+  <title>Paolo Riva | Scrittore & Informatico</title>
+
+  <!-- Tipografia: serif letteraria + mono da terminale -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            mahogany: "#1a0f0c",
+            desk: "#241612",
+            ink: "#0d0a09",
+            paper: "#e8dfd2",
+            ash: "#cbbfb0",
+            wine: "#7a2430",
+            wineSoft: "#9a3a45",
+            leather: "#8b5e3c",
+            gold: "#c4a484",
+            circuit: "#a67c52"
+          },
+          fontFamily: {
+            display: ["\"Cormorant Garamond\"", "Georgia", "serif"],
+            sans: ["Outfit", "ui-sans-serif", "system-ui", "sans-serif"],
+            mono: ["\"JetBrains Mono\"", "ui-monospace", "monospace"]
+          },
+          boxShadow: {
+            soft: "0 24px 60px rgba(0,0,0,0.45)",
+            wine: "0 0 0 1px rgba(122,36,48,0.35), 0 18px 40px rgba(0,0,0,0.4)",
+            lift: "0 30px 80px rgba(0,0,0,0.55)"
+          },
+          animation: {
+            float: "float 7s ease-in-out infinite",
+            fadeUp: "fadeUp 0.9s ease-out both",
+            pulseGlow: "pulseGlow 3.5s ease-in-out infinite"
+          },
+          keyframes: {
+            float: {
+              "0%, 100%": { transform: "translateY(0px)" },
+              "50%": { transform: "translateY(-10px)" }
+            },
+            fadeUp: {
+              "0%": { opacity: "0", transform: "translateY(18px)" },
+              "100%": { opacity: "1", transform: "translateY(0)" }
+            },
+            pulseGlow: {
+              "0%, 100%": { opacity: "0.45" },
+              "50%": { opacity: "0.85" }
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: #120c0a;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(122, 36, 48, 0.28), transparent 55%),
+        radial-gradient(ellipse 60% 40% at 100% 20%, rgba(139, 94, 60, 0.12), transparent 50%),
+        linear-gradient(180deg, #1a0f0c 0%, #120c0a 40%, #0d0a09 100%);
+      color: #cbbfb0;
+    }
+
+    /* Texture legno + circuiti sottili */
+    .wood-grain {
+      background-image:
+        linear-gradient(90deg, rgba(0,0,0,0.15) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        radial-gradient(ellipse at 30% 20%, rgba(139,94,60,0.08), transparent 45%);
+      background-size: 80px 100%, 100% 28px, 100% 100%;
+    }
+
+    .circuit-bg {
+      background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23a67c52' stroke-opacity='0.12' stroke-width='1'%3E%3Cpath d='M10 10h40v20h20v30H40v20H10V10zm60 20h40v40H70V30zm-20 50h30v30H50V80z'/%3E%3Ccircle cx='50' cy='30' r='2' fill='%23a67c52' fill-opacity='0.25'/%3E%3Ccircle cx='70' cy='50' r='2' fill='%23a67c52' fill-opacity='0.25'/%3E%3Ccircle cx='50' cy='80' r='2' fill='%23a67c52' fill-opacity='0.25'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .panel {
+      background: linear-gradient(160deg, rgba(36,22,18,0.92), rgba(18,12,10,0.88));
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(196, 164, 132, 0.12);
+    }
+
+    .glass {
+      background: rgba(13, 10, 9, 0.55);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .hero-overlay {
+      background:
+        linear-gradient(180deg, rgba(13,10,9,0.42) 0%, rgba(13,10,9,0.62) 45%, rgba(13,10,9,0.94) 100%),
+        linear-gradient(90deg, rgba(13,10,9,0.55) 0%, rgba(13,10,9,0.18) 50%, rgba(13,10,9,0.45) 100%);
+    }
+
+    .book-shadow {
+      box-shadow:
+        0 2px 0 rgba(255,255,255,0.06),
+        12px 24px 50px rgba(0,0,0,0.55),
+        -2px 0 0 rgba(122,36,48,0.35);
+    }
+
+    .divider-ornament {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(196,164,132,0.45), transparent);
+    }
+
+    .quill-mark {
+      filter: drop-shadow(0 8px 24px rgba(122, 36, 48, 0.45));
+    }
+
+    .link-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(196, 164, 132, 0.45);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+    }
+
+    .input-field {
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .input-field:focus {
+      border-color: rgba(196, 164, 132, 0.55);
+      box-shadow: 0 0 0 3px rgba(196, 164, 132, 0.12);
+      outline: none;
+    }
+
+    .scanline {
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .animate-float, .animate-fadeUp, .animate-pulseGlow { animation: none !important; }
+    }
+  </style>
+</head>
+
+<body class="font-sans antialiased selection:bg-wine/70 selection:text-white">
+
+  <!-- ========== HEADER ========== -->
+  <header class="sticky top-0 z-50 glass">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5 sm:px-6 lg:px-8">
+      <a href="#top" class="group flex items-center gap-3">
+        <!-- Logo stilizzato: penna stilografica / fiamma -->
+        <svg class="quill-mark h-8 w-8 text-wineSoft" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+          <path d="M24 4c2 6 1.5 11-2 16-2.5 3.5-3 7-2 11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M22 8c4 3 8 4 14 3-4 5-7 10-7 16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" opacity="0.7"/>
+          <path d="M20 31c0 4 1 7 4 11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="24" cy="43" r="1.8" fill="currentColor"/>
+        </svg>
+        <div>
+          <p class="font-display text-sm tracking-[0.28em] text-paper sm:text-base">PAOLO RIVA</p>
+          <p class="font-mono text-[10px] tracking-[0.35em] text-gold/80">SCRITTORE · INFORMATICO</p>
+        </div>
+      </a>
+
+      <nav class="hidden items-center gap-7 font-mono text-[11px] uppercase tracking-[0.22em] text-ash/80 md:flex">
+        <a class="transition hover:text-paper" href="#chi-sono">Chi sono</a>
+        <a class="transition hover:text-paper" href="#la-veglia">La Veglia</a>
+        <a class="transition hover:text-paper" href="#arc">ARC</a>
+        <a class="transition hover:text-paper" href="#links">Link</a>
+      </nav>
+
+      <a
+        href="#arc"
+        class="hidden rounded-full bg-wine px-4 py-2 font-mono text-[11px] uppercase tracking-[0.18em] text-white transition hover:bg-wineSoft sm:inline-flex"
+      >
+        Richiedi ARC
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ========== HERO ========== -->
+    <section class="relative min-h-[92vh] overflow-hidden">
+      <!-- Atmosphere only: desk tech + letteratura (niente scritte nell'immagine) -->
+      <img
+        src="assets/hero-desk.png"
+        alt="Scrivania di Paolo Riva: tastiera meccanica, libri rilegati, taccuino e cuffie"
+        class="absolute inset-0 h-full w-full object-cover object-[center_40%]"
+      />
+      <div class="hero-overlay absolute inset-0"></div>
+      <div class="scanline absolute inset-0 opacity-40"></div>
+
+      <div class="relative mx-auto flex min-h-[92vh] max-w-6xl flex-col justify-end px-4 pb-16 pt-28 sm:px-6 sm:pb-20 lg:px-8 lg:pb-24">
+        <div class="max-w-3xl animate-fadeUp">
+          <div class="mb-5 inline-flex items-center gap-3 rounded-full border border-gold/20 bg-black/30 px-4 py-1.5 backdrop-blur-sm">
+            <span class="h-1.5 w-1.5 animate-pulseGlow rounded-full bg-wineSoft"></span>
+            <span class="font-mono text-[11px] uppercase tracking-[0.28em] text-gold">Debugging Reality · Encoding Stories</span>
+          </div>
+
+          <h1 class="font-display text-5xl leading-[0.95] text-paper sm:text-6xl lg:text-7xl">
+            Paolo&nbsp;Riva
+          </h1>
+          <p class="mt-3 font-display text-2xl italic text-gold/90 sm:text-3xl">
+            Debugging Reality. Encoding Stories.
+          </p>
+
+          <p class="mt-6 max-w-xl text-base leading-relaxed text-ash/90 sm:text-lg">
+            Di giorno costruisco sistemi e risolvo bug.
+            Di notte smonto la realtà e la ricompongo in storie.
+            Musica, viaggi e codice: tre linguaggi per lo stesso bisogno di capire.
+          </p>
+
+          <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <a
+              href="#arc"
+              class="inline-flex items-center justify-center rounded-full bg-wine px-7 py-3.5 text-sm font-semibold text-white shadow-wine transition hover:bg-wineSoft"
+            >
+              Cercasi lettori coraggiosi
+            </a>
+            <a
+              href="#la-veglia"
+              class="inline-flex items-center justify-center rounded-full border border-gold/30 bg-black/25 px-7 py-3.5 text-sm font-medium text-paper backdrop-blur-sm transition hover:border-gold/60"
+            >
+              Scopri <em class="ml-1 not-italic font-display text-lg">La Veglia</em>
+            </a>
+          </div>
+        </div>
+
+        <!-- Scroll hint -->
+        <div class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex">
+          <span class="font-mono text-[10px] tracking-[0.3em] text-gold/50">SCROLL</span>
+          <div class="h-8 w-px bg-gradient-to-b from-gold/50 to-transparent"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== CHI SONO / BIO CARDS ========== -->
+    <section id="chi-sono" class="relative wood-grain circuit-bg border-y border-gold/10">
+      <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <div class="mb-12 max-w-2xl">
+          <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-gold">Identità duale</p>
+          <h2 class="mt-3 font-display text-4xl text-paper sm:text-5xl">Tra terminale e taccuino</h2>
+          <p class="mt-4 text-base leading-relaxed text-ash/85 sm:text-lg">
+            Non scelgo tra logica e narrativa: le faccio dialogare.
+            Ogni bug ha una trama. Ogni capitolo è un stack di decisioni.
+          </p>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <!-- Informatico -->
+          <article class="panel group rounded-3xl p-6 shadow-soft transition hover:-translate-y-1 hover:border-gold/30">
+            <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-gold/15 bg-black/30 text-2xl">
+              ⌨️
+            </div>
+            <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-gold">01 · Day</p>
+            <h3 class="mt-2 font-display text-2xl text-paper">Informatico</h3>
+            <p class="mt-3 text-sm leading-6 text-ash/80">
+              Di giorno: architetture, debugging, sistemi che devono reggere. La precisione è un riflesso.
+            </p>
+          </article>
+
+          <!-- Scrittore -->
+          <article class="panel group rounded-3xl p-6 shadow-soft transition hover:-translate-y-1 hover:border-gold/30">
+            <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-gold/15 bg-black/30 text-2xl">
+              ✒️
+            </div>
+            <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-gold">02 · Night</p>
+            <h3 class="mt-2 font-display text-2xl italic text-paper">Scrittore</h3>
+            <p class="mt-3 text-sm leading-6 text-ash/80">
+              Esordiente di notte. Racconto ciò che resta quando la realtà si incrina — e non puoi più chiudere gli occhi.
+            </p>
+          </article>
+
+          <!-- Musica -->
+          <article class="panel group rounded-3xl p-6 shadow-soft transition hover:-translate-y-1 hover:border-gold/30">
+            <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-gold/15 bg-black/30 text-2xl">
+              🎧
+            </div>
+            <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-gold">03 · Sound</p>
+            <h3 class="mt-2 font-display text-2xl text-paper">Musica</h3>
+            <p class="mt-3 text-sm leading-6 text-ash/80">
+              La musica sposta le quinte del mio foglio bianco. Senza soundtrack, le scene restano al buio.
+            </p>
+          </article>
+
+          <!-- Viaggi -->
+          <article class="panel group rounded-3xl p-6 shadow-soft transition hover:-translate-y-1 hover:border-gold/30">
+            <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-gold/15 bg-black/30 text-2xl">
+              ✈️
+            </div>
+            <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-gold">04 · Elsewhere</p>
+            <h3 class="mt-2 font-display text-2xl text-paper">Viaggi</h3>
+            <p class="mt-3 text-sm leading-6 text-ash/80">
+              Sognando il prossimo viaggio. Ogni destinazione è un nuovo set di variabili narrative.
+            </p>
+          </article>
+        </div>
+
+        <!-- Strip citazione -->
+        <div class="mt-12 rounded-3xl border border-wine/30 bg-gradient-to-r from-wine/20 via-desk/80 to-leather/10 px-6 py-8 text-center sm:px-10">
+          <p class="font-display text-2xl italic leading-snug text-paper sm:text-3xl">
+            « Cercasi lettori coraggiosi per il mio debutto. »
+          </p>
+          <p class="mt-3 font-mono text-[11px] uppercase tracking-[0.28em] text-gold/70">— Paolo Riva · La Veglia</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== LA VEGLIA ========== -->
+    <section id="la-veglia" class="relative">
+      <div class="mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16 lg:px-8">
+
+        <!-- Cover frame -->
+        <div class="relative mx-auto w-full max-w-sm lg:max-w-none">
+          <!-- Glow dietro la cover -->
+          <div class="absolute -inset-6 rounded-[2rem] bg-wine/20 blur-3xl animate-pulseGlow"></div>
+          <div class="relative book-frame rounded-[1.75rem] border border-gold/20 bg-gradient-to-br from-leather/20 via-desk to-ink p-4 shadow-lift sm:p-5">
+            <div class="overflow-hidden rounded-[1.25rem] book-shadow">
+              <img
+                src="assets/la-veglia-cover.png"
+                alt="Copertina del romanzo La Veglia"
+                class="w-full object-cover"
+              />
+            </div>
+            <div class="mt-4 flex items-center justify-between px-1">
+              <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-gold/70">Romanzo d'esordio</p>
+              <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-ash/50">Horror · Coscienza</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sinossi -->
+        <div>
+          <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-gold">Il Libro</p>
+          <h2 class="mt-3 font-display text-5xl text-paper sm:text-6xl">La Veglia</h2>
+          <p class="mt-2 font-display text-xl italic text-gold/80">La coscienza dentro il mostro</p>
+          <div class="divider-ornament my-6"></div>
+
+          <div class="space-y-4 text-base leading-relaxed text-ash/90 sm:text-lg">
+            <p>
+              Un virus ha trasformato il mondo in predatori.
+              Clara Rinaldi è una di loro — ma dentro è ancora sveglia.
+            </p>
+            <p>
+              Vede. Sente. Ricorda. Soffre per ogni atto che il suo corpo compie senza di lei.
+              Il mondo la chiama mostro; lei sa ancora di chiamarsi Clara.
+            </p>
+            <p>
+              La dott.ssa Elena Marchetti scopre che non tutti i «soggetti R» sono vuoti:
+              in alcuni la coscienza è rimasta sepolta. Bisogna trovarli in tempo.
+              Tra scienza, orrore e un contatto proibito, Clara dovrà scegliere:
+              chiedere la morte — o restare abbastanza da liberare chi è ancora chiuso dentro.
+            </p>
+          </div>
+
+          <!-- Box ARC highlight -->
+          <div class="panel mt-8 rounded-3xl border-wine/40 p-6 shadow-wine sm:p-7">
+            <div class="flex items-start gap-4">
+              <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-wine/30 text-xl">📖</div>
+              <div>
+                <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-gold">Programma ARC</p>
+                <h3 class="mt-1 font-display text-2xl text-paper">Copia in anteprima, gratis</h3>
+                <p class="mt-3 text-sm leading-7 text-ash/85">
+                  Una <strong class="text-paper">Advance Reader Copy</strong> è una versione anticipata del libro,
+                  inviata prima del lancio a lettori selezionati. In cambio: una recensione
+                  <em class="text-gold">sincera</em> su Amazon al momento dell'uscita.
+                </p>
+                <a href="#arc" class="mt-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-wineSoft transition hover:text-paper">
+                  Vai al form →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== FORM ARC ========== -->
+    <section id="arc" class="border-y border-gold/10 bg-black/25 wood-grain">
+      <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
+
+          <div class="flex flex-col justify-center">
+            <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-gold">Richiesta ARC</p>
+            <h2 class="mt-3 font-display text-4xl text-paper sm:text-5xl">Partecipa al lancio</h2>
+            <p class="mt-5 text-base leading-relaxed text-ash/85">
+              Compila il modulo per candidarti a ricevere una copia ARC di
+              <span class="text-paper">La Veglia</span> nel formato che preferisci.
+            </p>
+
+            <ul class="mt-8 space-y-4">
+              <li class="flex items-start gap-3 text-sm text-ash/80">
+                <span class="mt-0.5 font-mono text-gold">01</span>
+                <span>Ricevi il file (ePub o PDF) prima dell'uscita ufficiale.</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm text-ash/80">
+                <span class="mt-0.5 font-mono text-gold">02</span>
+                <span>Leggi con calma. Nessuna pressione, solo curiosità.</span>
+              </li>
+              <li class="flex items-start gap-3 text-sm text-ash/80">
+                <span class="mt-0.5 font-mono text-gold">03</span>
+                <span>Se ti ha colpito, lascia una recensione sincera su Amazon.</span>
+              </li>
+            </ul>
+
+            <!-- Mini visual: snippet "code comment" -->
+            <pre class="mt-8 overflow-x-auto rounded-2xl border border-gold/10 bg-ink/80 p-4 font-mono text-[11px] leading-6 text-gold/70"><code><span class="text-wineSoft">// TODO:</span> find brave readers
+<span class="text-ash/40">const</span> debut = <span class="text-paper">"La Veglia"</span>;
+<span class="text-ash/40">await</span> sendARC(you);</code></pre>
+          </div>
+
+          <div class="rounded-3xl border border-gold/15 bg-[#160f0c] p-6 shadow-soft sm:p-8">
+            <!--
+              ═══════════════════════════════════════════════
+              INTEGRAZIONE FORM — inserisci qui l'action:
+              • Formspree:  action="https://formspree.io/f/xxxxx"
+              • MailerLite: action="URL_ENDPOINT_MAILERLITE"
+              • Tally:      sostituisci il form con un embed
+              ═══════════════════════════════════════════════
+            -->
+            <form action="#" method="POST" class="space-y-5">
+              <div>
+                <label for="name" class="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Nome</label>
+                <input id="name" name="name" type="text" required placeholder="Il tuo nome"
+                  class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3.5 text-paper placeholder:text-ash/35" />
+              </div>
+
+              <div>
+                <label for="email" class="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Indirizzo Email</label>
+                <input id="email" name="email" type="email" required placeholder="nome@email.com"
+                  class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3.5 text-paper placeholder:text-ash/35" />
+              </div>
+
+              <div>
+                <label for="instagram" class="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">
+                  Handle Instagram <span class="text-ash/40">(opzionale)</span>
+                </label>
+                <input id="instagram" name="instagram" type="text" placeholder="@tuohandle"
+                  class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3.5 text-paper placeholder:text-ash/35" />
+              </div>
+
+              <fieldset>
+                <legend class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Formato preferito</legend>
+                <div class="grid gap-3 sm:grid-cols-2">
+                  <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-white/10 bg-black/25 px-4 py-3.5 text-sm text-paper transition hover:border-gold/40">
+                    <input type="radio" name="format" value="epub" required class="accent-wine" />
+                    <span class="font-mono text-xs tracking-wide">ePub</span>
+                  </label>
+                  <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-white/10 bg-black/25 px-4 py-3.5 text-sm text-paper transition hover:border-gold/40">
+                    <input type="radio" name="format" value="pdf" required class="accent-wine" />
+                    <span class="font-mono text-xs tracking-wide">PDF</span>
+                  </label>
+                </div>
+              </fieldset>
+
+              <label class="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/25 px-4 py-4 text-sm leading-6 text-ash/80">
+                <input type="checkbox" name="privacy" required class="mt-1 accent-wine" />
+                <span>
+                  Accetto la Privacy Policy e autorizzo l'uso dei miei dati solo per la gestione della richiesta ARC.
+                  <!-- <a href="/privacy.html" class="text-gold underline">Privacy Policy</a> -->
+                </span>
+              </label>
+
+              <!-- <input type="hidden" name="_subject" value="Nuova richiesta ARC — La Veglia" /> -->
+
+              <button
+                type="submit"
+                class="inline-flex w-full items-center justify-center rounded-2xl bg-wine px-5 py-4 text-sm font-semibold tracking-wide text-white shadow-wine transition hover:bg-wineSoft focus:outline-none focus:ring-2 focus:ring-gold/30"
+              >
+                Richiedi la tua Copia ARC
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== LINK IN BIO ========== -->
+    <section id="links" class="relative">
+      <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
+        <div class="mb-10 text-center">
+          <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-gold">Link Rapidi</p>
+          <h2 class="mt-3 font-display text-4xl text-paper sm:text-5xl">Link in bio</h2>
+          <p class="mx-auto mt-4 max-w-md text-sm leading-relaxed text-ash/75">
+            Ottimizzati per smartphone — pronti da usare su Instagram.
+          </p>
+        </div>
+
+        <div class="grid gap-3.5">
+          <a href="#arc" class="link-card panel group flex items-center gap-4 rounded-3xl p-5 transition duration-200">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-wine/25 text-xl">📖</span>
+            <span class="min-w-0 flex-1">
+              <span class="block font-mono text-[10px] uppercase tracking-[0.25em] text-gold/60">01</span>
+              <span class="block text-base font-semibold text-paper sm:text-lg">Richiedi la copia ARC di «La Veglia»</span>
+            </span>
+            <span class="text-gold/40 transition group-hover:text-gold">→</span>
+          </a>
+
+          <!-- Sostituisci con il link Spotify reale -->
+          <a href="https://open.spotify.com/" target="_blank" rel="noreferrer"
+            class="link-card panel group flex items-center gap-4 rounded-3xl p-5 transition duration-200">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-leather/25 text-xl">🎧</span>
+            <span class="min-w-0 flex-1">
+              <span class="block font-mono text-[10px] uppercase tracking-[0.25em] text-gold/60">02</span>
+              <span class="block text-base font-semibold text-paper sm:text-lg">La Playlist di Scrittura su Spotify</span>
+            </span>
+            <span class="text-gold/40 transition group-hover:text-gold">→</span>
+          </a>
+
+          <!-- Sostituisci con l'email reale -->
+          <a href="mailto:paolo.riva@example.com"
+            class="link-card panel group flex items-center gap-4 rounded-3xl p-5 transition duration-200">
+            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gold/15 text-xl">✉️</span>
+            <span class="min-w-0 flex-1">
+              <span class="block font-mono text-[10px] uppercase tracking-[0.25em] text-gold/60">03</span>
+              <span class="block text-base font-semibold text-paper sm:text-lg">Contatta l'Autore via Email</span>
+            </span>
+            <span class="text-gold/40 transition group-hover:text-gold">→</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="border-t border-gold/10 bg-ink/80">
+    <div class="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-10 text-center sm:px-6 md:flex-row md:justify-between md:text-left lg:px-8">
+      <div>
+        <p class="font-display text-lg tracking-wide text-paper">Paolo Riva</p>
+        <p class="mt-1 text-sm text-ash/55">Copyright © Paolo Riva. Tutti i diritti riservati.</p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <!-- Sostituisci i link con i profili reali -->
+        <a href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"
+          class="rounded-full border border-gold/15 p-2.5 text-ash/70 transition hover:border-gold/40 hover:text-paper">
+          <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current" aria-hidden="true">
+            <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5a4.25 4.25 0 0 0 4.25 4.25h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5A3.5 3.5 0 1 0 12 15.5 3.5 3.5 0 0 0 12 8.5Zm5.38-2.17a1.12 1.12 0 1 1 0 2.24 1.12 1.12 0 0 1 0-2.24Z"/>
+          </svg>
+        </a>
+        <a href="https://github.com/" target="_blank" rel="noreferrer" aria-label="GitHub"
+          class="rounded-full border border-gold/15 p-2.5 text-ash/70 transition hover:border-gold/40 hover:text-paper">
+          <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current" aria-hidden="true">
+            <path d="M12 .5A12 12 0 0 0 8.2 23.88c.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.42-4.04-1.42-.55-1.38-1.33-1.74-1.33-1.74-1.08-.74.08-.73.08-.73 1.2.08 1.83 1.23 1.83 1.23 1.06 1.82 2.8 1.29 3.48.99.1-.78.41-1.29.74-1.58-2.66-.3-5.46-1.33-5.46-5.91 0-1.3.47-2.37 1.23-3.21-.12-.3-.53-1.53.12-3.18 0 0 1-.32 3.3 1.23A11.5 11.5 0 0 1 12 6.32c1.02 0 2.05.14 3.01.42 2.29-1.55 3.28-1.23 3.28-1.23.66 1.65.25 2.88.13 3.18.77.84 1.23 1.9 1.23 3.21 0 4.59-2.8 5.6-5.47 5.9.42.36.8 1.08.8 2.18v3.23c0 .32.22.7.83.58A12 12 0 0 0 12 .5Z"/>
+          </svg>
+        </a>
+        <a href="mailto:paolo.riva@example.com" aria-label="Email"
+          class="rounded-full border border-gold/15 p-2.5 text-ash/70 transition hover:border-gold/40 hover:text-paper">
+          <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current" aria-hidden="true">
+            <path d="M3 5.75A2.75 2.75 0 0 1 5.75 3h12.5A2.75 2.75 0 0 1 21 5.75v12.5A2.75 2.75 0 0 1 18.25 21H5.75A2.75 2.75 0 0 1 3 18.25V5.75Zm2.1-.95 6.9 5.34 6.9-5.34H5.1Zm14.4 1.9-6.58 5.09a1.5 1.5 0 0 1-1.84 0L4.5 6.7v11.55c0 .69.56 1.25 1.25 1.25h12.5c.69 0 1.25-.56 1.25-1.25V6.7Z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
