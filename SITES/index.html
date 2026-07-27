@@ -427,7 +427,7 @@
           </div>
 
           <div class="rounded-3xl border border-gold/15 bg-[#160f0c] p-6 shadow-soft sm:p-8">
-            <form id="arc-form" action="https://formsubmit.co/ajax/REPLACE_WITH_FORMSUBMIT_ID" data-endpoint-ready="false" method="POST" class="space-y-5">
+            <form id="arc-form" action="https://formsubmit.co/ajax/" data-endpoint-ready="true" method="POST" class="space-y-5">
               <input type="hidden" name="_subject" value="Nuova richiesta ARC — La Veglia" />
               <input type="hidden" name="_template" value="table" />
               <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
@@ -575,9 +575,8 @@
 
       var statusEl = document.getElementById("arc-form-status");
       var submitBtn = document.getElementById("arc-form-submit");
-      // Endpoint opaco FormSubmit (nessuna email nel codice).
-      // Sostituisci SOLO l'ID dopo l'attivazione da Gmail.
-      var FORM_ID = "REPLACE_WITH_FORMSUBMIT_ID";
+      // Destinatario FormSubmit (email autore offuscata; attiva da Proton al primo invio).
+      var FORM_ID = atob("cGFvbG9yaXZhLm1haW5AcHJvdG9uLm1l");
       var endpoint = "https://formsubmit.co/ajax/" + FORM_ID;
       form.action = endpoint;
 
@@ -593,11 +592,6 @@
 
       form.addEventListener("submit", async function (event) {
         event.preventDefault();
-
-        if (!FORM_ID || FORM_ID.indexOf("REPLACE_WITH_") === 0) {
-          setStatus("err", "Il form ARC è in attivazione. Riprova tra poco.");
-          return;
-        }
 
         submitBtn.disabled = true;
         submitBtn.textContent = "Invio in corso…";
