@@ -424,9 +424,11 @@
           </div>
 
           <div class="rounded-3xl border border-gold/15 bg-[#160f0c] p-6 shadow-soft sm:p-8">
-            <form id="prevendita-form" action="https://formsubmit.co/ajax/" method="POST" class="space-y-5">
-              <input type="hidden" name="_subject" value="Nuova iscrizione PRE-VENDITA — La Veglia" />
+            <form id="prevendita-form" action="https://formsubmit.co/ajax/" method="POST" class="space-y-5" data-lista="prevendita">
+              <input type="hidden" name="_subject" value="[PRE-VENDITA] Nuova iscrizione — La Veglia" />
               <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="Lista" value="PRE-VENDITA" />
               <input type="hidden" name="lista" value="prevendita" />
               <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
 
@@ -506,9 +508,11 @@
           </div>
 
           <div class="rounded-3xl border border-gold/15 bg-[#160f0c] p-6 shadow-soft sm:p-8">
-            <form id="arc-form" action="https://formsubmit.co/ajax/" data-endpoint-ready="true" method="POST" class="space-y-5">
-              <input type="hidden" name="_subject" value="Nuova richiesta ARC — La Veglia" />
+            <form id="arc-form" action="https://formsubmit.co/ajax/" method="POST" class="space-y-5" data-lista="arc">
+              <input type="hidden" name="_subject" value="[ARC] Nuova richiesta copia anteprima — La Veglia" />
               <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="Lista" value="ARC" />
               <input type="hidden" name="lista" value="arc" />
               <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
 
@@ -661,16 +665,88 @@
 
   <script>
     (function () {
-      // Destinatario FormSubmit (attiva da Proton al primo invio).
+      // FOGLIO GOOGLE — elenco iscritti separato (Pre-vendita / ARC).
+      // Dopo il setup in LISTE.txt, incolla qui l'URL dell'app web:
+      var SHEETS_ENDPOINT = "";
+
+      // VISITE — GoatCounter (gratis, senza cookie). Setup in LISTE.txt.
+      // Esempio: se il tuo sito è https://paoloriva.goatcounter.com → codice "paoloriva"
+      var GOATCOUNTER_CODE = "";
+
+      if (GOATCOUNTER_CODE) {
+        function goatPath() {
+          return location.pathname + location.search + location.hash;
+        }
+        window.goatcounter = { path: goatPath };
+        var gc = document.createElement("script");
+        gc.async = true;
+        gc.dataset.goatcounter = "https://" + GOATCOUNTER_CODE + ".goatcounter.com/count";
+        gc.src = "https://gc.zgo.at/count.js";
+        document.head.appendChild(gc);
+
+        window.addEventListener("hashchange", function () {
+          if (window.goatcounter && typeof window.goatcounter.count === "function") {
+            window.goatcounter.count({ path: goatPath() });
+          }
+        });
+      }
+
+      // FormSubmit → avviso email su Proton.
       var FORM_ID = "paoloriva.main@proton.me";
-      var endpoint = "https://formsubmit.co/ajax/" + FORM_ID;
+      var emailEndpoint = "https://formsubmit.co/ajax/" + FORM_ID;
+
+      function payloadFromForm(form) {
+        var fd = new FormData(form);
+        var formatEl = form.querySelector('input[name="format"]:checked');
+        return {
+          lista: form.getAttribute("data-lista") || fd.get("lista") || "",
+          nome: String(fd.get("nome") || "").trim(),
+          cognome: String(fd.get("cognome") || "").trim(),
+          email: String(fd.get("email") || "").trim(),
+          instagram: String(fd.get("instagram") || "").trim(),
+          format: formatEl ? formatEl.value : "",
+          privacy: fd.get("privacy") ? "accepted" : ""
+        };
+      }
+
+      async function saveToSheet(payload) {
+        var response = await fetch(SHEETS_ENDPOINT, {
+          method: "POST",
+          body: JSON.stringify(payload),
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          redirect: "follow"
+        });
+        var data = await response.json().catch(function () { return {}; });
+        if (!response.ok || data.ok === false) {
+          throw new Error((data && data.error) || "Salvataggio foglio non riuscito.");
+        }
+        return data;
+      }
+
+      async function notifyEmail(form) {
+        var response = await fetch(emailEndpoint, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" }
+        });
+        var data = await response.json().catch(function () { return {}; });
+        var msg = (data && (data.message || data.error)) || "";
+
+        if (String(msg).toLowerCase().indexOf("activation") !== -1) {
+          return { ok: false, activation: true };
+        }
+        if (!response.ok || data.success === "false" || data.success === false) {
+          throw new Error(msg || "Invio email non riuscito.");
+        }
+        return { ok: true };
+      }
 
       function wireForm(opts) {
         var form = document.getElementById(opts.formId);
         if (!form) return;
         var statusEl = document.getElementById(opts.statusId);
         var submitBtn = document.getElementById(opts.submitId);
-        form.action = endpoint;
+        form.action = emailEndpoint;
 
         function setStatus(kind, message) {
           statusEl.classList.remove("hidden", "border-wine/40", "bg-wine/15", "text-paper", "border-gold/30", "bg-gold/10", "text-gold");
@@ -689,23 +765,27 @@
           statusEl.classList.add("hidden");
 
           try {
-            var response = await fetch(endpoint, {
-              method: "POST",
-              body: new FormData(form),
-              headers: { Accept: "application/json" }
-            });
-            var data = await response.json().catch(function () { return {}; });
-            var msg = (data && (data.message || data.error)) || "";
+            var payload = payloadFromForm(form);
+            var sheetsOk = false;
 
-            if (String(msg).toLowerCase().indexOf("activation") !== -1) {
-              setStatus("err", "Attiva il form dall'email di conferma, poi riprova.");
+            if (SHEETS_ENDPOINT) {
+              await saveToSheet(payload);
+              sheetsOk = true;
+            }
+
+            var mail;
+            try {
+              mail = await notifyEmail(form);
+            } catch (mailErr) {
+              if (!sheetsOk) throw mailErr;
+              mail = { ok: false };
+            }
+
+            if (!sheetsOk && mail.activation) {
+              setStatus("err", "Attiva il form dall'email di conferma su Proton, poi riprova.");
               submitBtn.disabled = false;
               submitBtn.textContent = opts.idleLabel;
               return;
-            }
-
-            if (!response.ok || data.success === "false" || data.success === false) {
-              throw new Error(msg || "Invio non riuscito.");
             }
 
             form.reset();

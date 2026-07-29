@@ -1,47 +1,136 @@
-LISTE LETTORI — dove finiscono le iscrizioni
-============================================
+LISTE + VISITE — cosa monitorare
+================================
 
-Tutti i form del sito arrivano via FormSubmit a:
+A) Iscritti Pre-vendita / ARC  → foglio Google (+ email Proton)
+B) Visite al sito              → GoatCounter (dashboard online)
+
+
+══════════════════════════════════
+A) LISTE LETTORI
+══════════════════════════════════
+
+Hai DUE liste separate:
+
+  1) Pre-vendita  → foglio «Pre-vendita» + email [PRE-VENDITA]
+  2) ARC          → foglio «ARC»         + email [ARC]
+
+Il modo affidabile per vedere chi si è iscritto è il FOGLIO GOOGLE.
+L’email su Proton è solo un avviso.
+
+
+SETUP FOGLIO GOOGLE (una volta sola, ~5 minuti)
+-----------------------------------------------
+
+1. Apri Google Drive con un tuo account Google.
+2. Crea un nuovo Foglio di calcolo, rinominato ad es. «La Veglia — Liste».
+3. Menu: Estensioni → Apps Script.
+4. Cancella il codice di default e incolla tutto il contenuto di:
+     SITES/liste/Code.gs
+5. Salva (icona floppy / Ctrl+S). Nome progetto: «Liste La Veglia».
+6. In alto: Distribuisci → Nuova distribuzione → tipo «App web».
+     - Descrizione: liste
+     - Esegui come: Me
+     - Chi può accedere: Chiunque
+7. Distribuisci → autorizza l’account Google quando richiesto.
+8. Copia l’URL che finisce con /exec
+9. Apri SITES/index.html e incolla l’URL qui:
+
+     var SHEETS_ENDPOINT = "INCOLLA_QUI_L_URL_EXEC";
+
+10. (Opzionale) In Apps Script, seleziona la funzione setupFogli e premi Esegui:
+    crea subito i fogli «Pre-vendita» e «ARC» con le intestazioni.
+
+11. Pubblica il sito (push su GitHub) così la modifica va online.
+
+
+COME LEGGERE LE LISTE
+---------------------
+
+Apri il foglio Google «La Veglia — Liste»:
+
+  • Scheda «Pre-vendita» = chi vuole l’avviso di pre-ordine
+      Colonne: Data | Nome | Cognome | Email | Privacy
+
+  • Scheda «ARC» = chi vuole la copia in anteprima (copywriter / beta reader)
+      Colonne: Data | Nome | Cognome | Email | Instagram | Formato | Privacy
+
+Il numero di righe (meno 1 di intestazione) = totale iscritti.
+
+
+AVVISO EMAIL (Proton)
+---------------------
+
+Ogni iscrizione manda anche una mail a:
   paoloriva.main@proton.me
 
-1) PRE-VENDITA  (#prevendita)
------------------------------
-Oggetto email:
-  «Nuova iscrizione PRE-VENDITA — La Veglia»
+Oggetti chiari:
+  [PRE-VENDITA] Nuova iscrizione — La Veglia
+  [ARC] Nuova richiesta copia anteprima — La Veglia
 
-Campi:
-  - nome, cognome, email
-  - lista = prevendita
-
-Etichetta Proton consigliata: «Pre-vendita»
+Al PRIMO invio FormSubmit manda una mail di attivazione:
+clicca «Activate form», altrimenti l’avviso email resta bloccato
+(il foglio Google continua a funzionare lo stesso).
 
 
-2) ARC  (#arc)
---------------
-Oggetto email:
-  «Nuova richiesta ARC — La Veglia»
-
-Campi:
-  - nome, cognome, email
-  - instagram (opzionale)
-  - format = epub | pdf
-  - lista = arc
-
-Etichetta Proton consigliata: «ARC»
-
-
-Come contare
-------------
-1. Crea su Proton due etichette/cartelle: «Pre-vendita» e «ARC».
-2. Filtra per oggetto PRE-VENDITA o ARC e sposta.
-3. Il numero di messaggi in ciascuna cartella = totale iscritti / richieste.
-
-Oppure dashboard FormSubmit:
-  https://formsubmit.co/
-  Accedi con la stessa email → vedi tutte le submission e i totali.
-
-
-Prima attivazione
+TEST RAPIDO LISTE
 -----------------
-Al primo invio FormSubmit manda una mail di conferma a Proton:
-devi cliccare il link «Activate form», altrimenti gli invii restano bloccati.
+
+1. Compila il form Pre-vendita sul sito con un’email tua.
+2. Controlla che appaia una riga nel foglio «Pre-vendita».
+3. Compila il form ARC.
+4. Controlla che appaia una riga nel foglio «ARC».
+5. Controlla le due email su Proton.
+
+
+SENZA FOGLIO (solo temporaneo)
+------------------------------
+
+Se SHEETS_ENDPOINT è ancora vuoto, le iscrizioni arrivano solo via email.
+Per usarle come copywriter conviene completare il setup sopra.
+
+
+══════════════════════════════════
+B) CONTEGGIO VISITE (GoatCounter)
+══════════════════════════════════
+
+Servizio gratis, senza cookie, adatto a un sito personale.
+Dashboard con: visite totali, visitatori unici, pagine, referrer
+(utile per capire se arrivano da Instagram).
+
+
+SETUP GOATCOUNTER (~2 minuti)
+-----------------------------
+
+1. Vai su https://www.goatcounter.com/signup
+2. Crea un account gratis (email + password).
+3. Crea un sito / code, es. «paoloriva»
+   → la dashboard sarà: https://paoloriva.goatcounter.com
+4. Apri SITES/index.html e imposta:
+
+     var GOATCOUNTER_CODE = "paoloriva";
+
+   (usa il codice che hai scelto tu, senza .goatcounter.com)
+
+5. Pubblica il sito (push su GitHub).
+
+
+COME LEGGERE LE VISITE
+----------------------
+
+Apri https://TUOCODICE.goatcounter.com e accedi.
+
+Vedrai:
+  • Visite / pageview nel tempo
+  • Visitatori unici
+  • Da dove arrivano (Instagram, Google, link diretto…)
+  • Quali sezioni aprono (#prevendita, #arc, … se usano path/hash)
+
+Niente widget sul sito pubblico: i numeri li vedi solo tu in dashboard.
+
+
+TEST RAPIDO VISITE
+------------------
+
+1. Apri il sito pubblicato in una finestra in incognito.
+2. Ricarica un paio di volte.
+3. Controlla la dashboard GoatCounter (può impiegare qualche secondo).
