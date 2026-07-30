@@ -1,8 +1,8 @@
 LISTE + VISITE — cosa monitorare
 ================================
 
-A) Iscritti Pre-vendita / ARC  → foglio Google (+ email Proton)
-B) Visite al sito              → GoatCounter (dashboard online)
+A) Iscritti Pre-vendita / Anteprima  → foglio Google (+ email Proton)
+B) Visite al sito                    → GoatCounter (dashboard online)
 
 
 ══════════════════════════════════
@@ -12,10 +12,11 @@ A) LISTE LETTORI
 Hai DUE liste separate:
 
   1) Pre-vendita  → foglio «Pre-vendita» + email [PRE-VENDITA]
-  2) ARC          → foglio «ARC»         + email [ARC]
+  2) Anteprima    → foglio «Anteprima»   + email [ANTEPRIMA]
+     (copia del libro inviata gratis prima dell'uscita)
 
 Il modo affidabile per vedere chi si è iscritto è il FOGLIO GOOGLE.
-L’email su Proton è solo un avviso.
+L'email su Proton è solo un avviso.
 
 
 SETUP FOGLIO GOOGLE (una volta sola, ~5 minuti)
@@ -31,14 +32,14 @@ SETUP FOGLIO GOOGLE (una volta sola, ~5 minuti)
      - Descrizione: liste
      - Esegui come: Me
      - Chi può accedere: Chiunque
-7. Distribuisci → autorizza l’account Google quando richiesto.
-8. Copia l’URL che finisce con /exec
-9. Apri SITES/index.html e incolla l’URL qui:
+7. Distribuisci → autorizza l'account Google quando richiesto.
+8. Copia l'URL che finisce con /exec
+9. Apri SITES/index.html e incolla l'URL qui:
 
      var SHEETS_ENDPOINT = "INCOLLA_QUI_L_URL_EXEC";
 
 10. (Opzionale) In Apps Script, seleziona la funzione setupFogli e premi Esegui:
-    crea subito i fogli «Pre-vendita» e «ARC» con le intestazioni.
+    crea subito i fogli «Pre-vendita» e «Anteprima» con le intestazioni.
 
 11. Pubblica il sito (push su GitHub) così la modifica va online.
 
@@ -48,10 +49,10 @@ COME LEGGERE LE LISTE
 
 Apri il foglio Google «La Veglia — Liste»:
 
-  • Scheda «Pre-vendita» = chi vuole l’avviso di pre-ordine
+  • Scheda «Pre-vendita» = chi vuole l'avviso di pre-ordine
       Colonne: Data | Nome | Cognome | Email | Privacy
 
-  • Scheda «ARC» = chi vuole la copia in anteprima (copywriter / beta reader)
+  • Scheda «Anteprima» = chi vuole la copia in anteprima (lettori selezionati)
       Colonne: Data | Nome | Cognome | Email | Instagram | Formato | Privacy
 
 Il numero di righe (meno 1 di intestazione) = totale iscritti.
@@ -65,20 +66,20 @@ Ogni iscrizione manda anche una mail a:
 
 Oggetti chiari:
   [PRE-VENDITA] Nuova iscrizione — La Veglia
-  [ARC] Nuova richiesta copia anteprima — La Veglia
+  [ANTEPRIMA] Nuova richiesta copia in anteprima — La Veglia
 
 Al PRIMO invio FormSubmit manda una mail di attivazione:
-clicca «Activate form», altrimenti l’avviso email resta bloccato
+clicca «Activate form», altrimenti l'avviso email resta bloccato
 (il foglio Google continua a funzionare lo stesso).
 
 
 TEST RAPIDO LISTE
 -----------------
 
-1. Compila il form Pre-vendita sul sito con un’email tua.
+1. Compila il form Pre-vendita sul sito con un'email tua.
 2. Controlla che appaia una riga nel foglio «Pre-vendita».
-3. Compila il form ARC.
-4. Controlla che appaia una riga nel foglio «ARC».
+3. Compila il form Anteprima.
+4. Controlla che appaia una riga nel foglio «Anteprima».
 5. Controlla le due email su Proton.
 
 
@@ -86,7 +87,7 @@ SENZA FOGLIO (solo temporaneo)
 ------------------------------
 
 Se SHEETS_ENDPOINT è ancora vuoto, le iscrizioni arrivano solo via email.
-Per usarle come copywriter conviene completare il setup sopra.
+Per usarle come elenco lettori conviene completare il setup sopra.
 
 
 ══════════════════════════════════

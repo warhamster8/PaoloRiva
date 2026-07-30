@@ -4,13 +4,13 @@
  * Incolla questo file in: Foglio Google → Estensioni → Apps Script
  * Poi pubblica come app web (vedi LISTE.txt).
  *
- * Crea automaticamente due fogli: "Pre-vendita" e "ARC".
+ * Crea automaticamente due fogli: "Pre-vendita" e "Anteprima".
  * Ogni iscrizione dal sito arriva sulla riga corretta.
  */
 
 var FOGLI = {
   prevendita: "Pre-vendita",
-  arc: "ARC"
+  arc: "Anteprima"
 };
 
 var INTESTAZIONI = {

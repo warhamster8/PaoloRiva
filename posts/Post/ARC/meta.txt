@@ -5,4 +5,4 @@ formato: carosello
 slide: 2
 libro: La Veglia
 stato: bozza
-note: CTA pre-vendita / ARC — spinge al sito
+note: CTA pre-vendita / copia in anteprima — spinge al sito

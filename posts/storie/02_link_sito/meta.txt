@@ -5,7 +5,7 @@ formato: storia
 ratio: 9:16
 libro: La Veglia
 stato: bozza
-note: Sticker link al sito — pre-vendita / ARC
+note: Sticker link al sito — pre-vendita / anteprima
 sticker: link
 url: https://warhamster8.github.io/PaoloRiva/SITES/
 cta: Iscriviti alla pre-vendita
