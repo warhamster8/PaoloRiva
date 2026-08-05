@@ -786,7 +786,9 @@
       }
 
       // FormSubmit → avviso email su Proton.
-      var FORM_ID = "paoloriva.main@proton.me";
+      // Notifiche email: le gestisce Apps Script (MailApp → Proton).
+      // FormSubmit resta solo come fallback se il foglio fallisce.
+      var FORM_ID = "paoloriva_main@proton.me";
       var emailEndpoint = "https://formsubmit.co/ajax/" + FORM_ID;
 
       function payloadFromForm(form) {
@@ -867,19 +869,16 @@
               sheetsOk = true;
             }
 
-            var mail;
-            try {
-              mail = await notifyEmail(form);
-            } catch (mailErr) {
-              if (!sheetsOk) throw mailErr;
-              mail = { ok: false };
-            }
-
-            if (!sheetsOk && mail.activation) {
-              setStatus("err", "Attiva il form dall'email di conferma su Proton, poi riprova.");
-              submitBtn.disabled = false;
-              submitBtn.textContent = opts.idleLabel;
-              return;
+            // Se il foglio ha salvato, la mail parte da Apps Script.
+            // FormSubmit solo come fallback se il foglio non è configurato.
+            if (!sheetsOk) {
+              var mail = await notifyEmail(form);
+              if (mail.activation) {
+                setStatus("err", "Attiva il form dall'email di conferma su Proton, poi riprova.");
+                submitBtn.disabled = false;
+                submitBtn.textContent = opts.idleLabel;
+                return;
+              }
             }
 
             form.reset();
