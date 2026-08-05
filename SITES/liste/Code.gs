@@ -10,12 +10,14 @@
 
 var FOGLI = {
   prevendita: "Pre-vendita",
-  arc: "Anteprima"
+  arc: "Anteprima",
+  finito: "Letture completate"
 };
 
 var INTESTAZIONI = {
   prevendita: ["Data", "Nome", "Cognome", "Email", "Privacy"],
-  arc: ["Data", "Nome", "Cognome", "Email", "Instagram", "Formato", "Privacy"]
+  arc: ["Data", "Nome", "Cognome", "Email", "Instagram", "Formato", "Privacy"],
+  finito: ["Data", "Nome", "Cognome", "Email", "Pagine viste", "Note"]
 };
 
 function doPost(e) {
@@ -23,7 +25,7 @@ function doPost(e) {
     var data = parseBody_(e);
     var lista = String(data.lista || "").toLowerCase().trim();
 
-    if (lista !== "prevendita" && lista !== "arc") {
+    if (lista !== "prevendita" && lista !== "arc" && lista !== "finito") {
       return json_({ ok: false, error: "lista non valida" });
     }
 
@@ -31,7 +33,11 @@ function doPost(e) {
     var cognome = String(data.cognome || "").trim();
     var email = String(data.email || "").trim();
 
-    if (!nome || !cognome || !email) {
+    if (lista === "finito") {
+      if (!email) {
+        return json_({ ok: false, error: "email obbligatoria" });
+      }
+    } else if (!nome || !cognome || !email) {
       return json_({ ok: false, error: "campi obbligatori mancanti" });
     }
 
@@ -46,7 +52,7 @@ function doPost(e) {
         email,
         String(data.privacy || "")
       ]);
-    } else {
+    } else if (lista === "arc") {
       sheet.appendRow([
         now,
         nome,
@@ -55,6 +61,15 @@ function doPost(e) {
         String(data.instagram || ""),
         String(data.format || ""),
         String(data.privacy || "")
+      ]);
+    } else {
+      sheet.appendRow([
+        now,
+        nome || "—",
+        cognome || "—",
+        email,
+        String(data.pagine || ""),
+        String(data.note || "lettura completata")
       ]);
     }
 
@@ -72,7 +87,7 @@ function doGet() {
   return json_({
     ok: true,
     service: "Liste La Veglia",
-    fogli: [FOGLI.prevendita, FOGLI.arc]
+    fogli: [FOGLI.prevendita, FOGLI.arc, FOGLI.finito]
   });
 }
 
@@ -120,8 +135,9 @@ function json_(obj) {
     .setMimeType(ContentService.MimeType.JSON);
 }
 
-/** Esegui una volta da Apps Script per preparare i due fogli a mano. */
+/** Esegui una volta da Apps Script per preparare i fogli a mano. */
 function setupFogli() {
   getOrCreateSheet_("prevendita");
   getOrCreateSheet_("arc");
+  getOrCreateSheet_("finito");
 }

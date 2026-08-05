@@ -135,3 +135,52 @@ TEST RAPIDO VISITE
 1. Apri il sito pubblicato in una finestra in incognito.
 2. Ricarica un paio di volte.
 3. Controlla la dashboard GoatCounter (può impiegare qualche secondo).
+
+
+══════════════════════════════════
+C) PAGINA ANTEPRIMA NASCOSTA
+══════════════════════════════════
+
+URL (non linkata dal sito pubblico):
+  https://warhamster8.github.io/PaoloRiva/SITES/lettura/
+
+Codice di accesso: nome+cognome della protagonista, senza spazi
+  (es. NomeCognome — quello concordato in privato)
+Scadenza: 4 settembre 2026 (30 giorni da creazione)
+
+Come usarla:
+  1. Seleziona i lettori dal foglio «Anteprima».
+  2. Mandagli in privato URL + codice (email / DM).
+  3. Non pubblicare il link su Instagram o in bio.
+  4. Non scrivere il codice in chiaro in questo repo.
+
+Protezioni attive:
+  • Codice hashed nel sorgente (non in chiaro)
+  • Sessione locale fino alla scadenza
+  • PDF con watermark + niente stampa/copia/modifica
+  • Viewer senza pulsante download; blocco tasto destro,
+    Ctrl+S / Ctrl+P / Ctrl+C; overlay se lasci la scheda
+  • noindex / robots disallow
+
+Limiti reali (GitHub Pages è statico):
+  screenshot di sistema e copia avanzata non si possono
+  impedire al 100%. Il watermark resta la traccia principale.
+
+Tu (autore) puoi sempre riaprire la pagina con lo stesso codice.
+  Se scade per i lettori, allunga EXPIRES_AT in
+  SITES/lettura/index.html e fai push. Il PDF locale resta
+  anche in LaVeglia/export/.
+
+
+LETTURE COMPLETATE
+------------------
+
+In fondo alla pagina i lettori possono premere
+«Segnala lettura completata» (email obbligatoria).
+
+Compare nel foglio Google «Letture completate».
+
+Per attivarlo (una volta):
+  1. Aggiorna Apps Script con SITES/liste/Code.gs (nuovo)
+  2. Distribuisci → Gestisci distribuzione → Nuova versione
+  3. Esegui setupFogli (crea il foglio «Letture completate»)
