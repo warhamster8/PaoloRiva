@@ -1,9 +1,5 @@
-# Deploy statico via GitHub Actions (evita la coda legacy pages-build-deployment
-# che resta bloccata in deployment_queued fino al timeout di deploy-pages).
-#
-# Dopo il primo push: Settings → Pages → Build and deployment → Source → GitHub Actions.
-# Se un deploy resta in coda: Settings → Environments → github-pages → cancella
-# i deployment "Active" / "In progress" bloccati, poi riesegui questo workflow.
+# Deploy Pages con timeout lungo.
+# La piattaforma resta spesso in coda/in_progress oltre i 10 minuti di default.
 name: Deploy Pages
 
 on:
@@ -36,7 +32,6 @@ jobs:
           mkdir -p _site/SITES
           cp index.html CNAME robots.txt _site/
           touch _site/.nojekyll
-          # Esclude mockups di design e file di setup non pubblici
           rsync -a \
             --exclude 'assets/mockups/' \
             --exclude 'LISTE.txt' \
@@ -51,7 +46,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 60
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -59,3 +54,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          # 45 minuti — il default (10) scade mentre Pages è ancora in_progress
+          timeout: 2700000
