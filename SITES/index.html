@@ -225,6 +225,52 @@
       animation: shimmer 8s ease-in-out infinite;
     }
 
+    .shelf-rail {
+      background:
+        linear-gradient(180deg, rgba(48,30,24,0.35) 0%, rgba(22,15,12,0.92) 100%);
+      border-top: 1px solid rgba(232,160,112,0.18);
+    }
+
+    .shelf-ledge {
+      height: 10px;
+      border-radius: 999px;
+      background:
+        linear-gradient(180deg, rgba(154,107,69,0.55), rgba(36,22,18,0.95));
+      box-shadow:
+        0 10px 28px rgba(0,0,0,0.45),
+        0 0 24px rgba(232,160,112,0.12);
+    }
+
+    .shelf-book {
+      width: 5.5rem;
+      flex-shrink: 0;
+      transition: transform 0.35s ease, opacity 0.35s ease, box-shadow 0.35s ease;
+      opacity: 0.62;
+    }
+    @media (min-width: 640px) {
+      .shelf-book { width: 7rem; }
+    }
+    .shelf-book.is-active {
+      opacity: 1;
+      transform: translateY(-10px) scale(1.04);
+      box-shadow: 0 18px 36px rgba(0,0,0,0.5), 0 0 0 1px rgba(232,160,112,0.45);
+    }
+    .shelf-book:hover {
+      opacity: 1;
+      transform: translateY(-6px);
+    }
+    .shelf-book.is-active:hover {
+      transform: translateY(-10px) scale(1.04);
+    }
+
+    .spotlight-fade {
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .spotlight-fade.is-switching {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .animate-float, .animate-fadeUp, .animate-pulseGlow,
       .animate-kenBurns, .animate-shimmer, .animate-drift,
@@ -232,6 +278,7 @@
         animation: none !important;
       }
       .reveal { opacity: 1; transform: none; transition: none; }
+      .shelf-book, .spotlight-fade { transition: none; }
     }
   </style>
 </head>
@@ -253,7 +300,7 @@
 
       <nav class="hidden items-center gap-7 font-mono text-[11px] uppercase tracking-[0.22em] text-ash/80 md:flex">
         <a class="transition hover:text-paper" href="#chi-sono">Chi sono</a>
-        <a class="transition hover:text-paper" href="#la-veglia">La Veglia</a>
+        <a class="transition hover:text-paper" href="#libri">I Libri</a>
         <a class="transition hover:text-paper" href="#arc">Anteprima</a>
         <a class="transition hover:text-paper" href="#links">Link</a>
       </nav>
@@ -308,10 +355,10 @@
               Richiedi l'anteprima
             </a>
             <a
-              href="#la-veglia"
+              href="#libri"
               class="inline-flex items-center justify-center rounded-full border border-ember/40 bg-black/30 px-7 py-3.5 text-sm font-medium text-paper backdrop-blur-sm transition hover:border-ember/80 hover:bg-black/45"
             >
-              Scopri <em class="ml-1 not-italic font-display text-lg">La Veglia</em>
+              Scopri <em class="ml-1 not-italic font-display text-lg">i libri</em>
             </a>
           </div>
         </div>
@@ -395,70 +442,85 @@
       </div>
     </section>
 
-    <!-- ========== LA VEGLIA ========== -->
-    <section id="la-veglia" class="relative">
+    <!-- ========== I LIBRI — spotlight + scaffale ========== -->
+    <section id="libri" class="relative">
+      <div id="la-veglia" class="absolute -top-24" aria-hidden="true"></div>
       <div class="ambient-orb pointer-events-none absolute -right-20 top-20 h-64 w-64 bg-wine/25" aria-hidden="true"></div>
-      <div class="mx-auto grid max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16 lg:px-8">
 
-        <!-- Cover frame -->
-        <div class="relative mx-auto w-full max-w-sm reveal lg:max-w-none">
-          <div class="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-wine/30 via-ember/15 to-transparent blur-3xl animate-pulseGlow"></div>
-          <div class="relative book-frame rounded-[1.75rem] border border-ember/25 bg-gradient-to-br from-leather/25 via-desk to-ink p-4 shadow-lift sm:p-5">
-            <div class="overflow-hidden rounded-[1.25rem] book-shadow">
-              <img
-                src="assets/la-veglia-cover.png"
-                alt="Copertina del romanzo La Veglia"
-                class="w-full object-cover transition duration-700 hover:scale-[1.03]"
-              />
-            </div>
-            <div class="mt-4 flex items-center justify-between px-1">
-              <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-ember/80">Romanzo d'esordio</p>
-              <p class="font-mono text-[10px] uppercase tracking-[0.2em] text-ash/55">Horror · Coscienza</p>
-            </div>
-          </div>
+      <div class="mx-auto max-w-6xl px-4 pt-16 sm:px-6 sm:pt-24 lg:px-8">
+        <div class="mb-10 max-w-2xl reveal">
+          <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-ember">Opere</p>
+          <h2 class="mt-3 font-display text-4xl text-paper sm:text-5xl">I Libri</h2>
+          <p class="mt-3 text-base leading-relaxed text-ash/85 sm:text-lg">
+            Copertine, sinossi e anteprime. Seleziona un titolo dallo scaffale.
+          </p>
         </div>
 
-        <!-- Sinossi -->
-        <div class="reveal" style="transition-delay:0.12s">
-          <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-ember">Il Libro</p>
-          <h2 class="mt-3 font-display text-5xl text-paper sm:text-6xl">La Veglia</h2>
-          <p class="mt-2 font-display text-xl italic text-ember/90">La coscienza dentro il mostro</p>
-          <div class="divider-ornament my-6"></div>
-
-          <div class="space-y-4 text-base leading-relaxed text-ash/90 sm:text-lg">
-            <p>
-              Un virus ha trasformato il mondo in predatori.
-              Clara Rinaldi è una di loro — ma dentro è ancora sveglia.
-            </p>
-            <p>
-              Vede. Sente. Ricorda. Soffre per ogni atto che il suo corpo compie senza di lei.
-              Il mondo la chiama mostro; lei sa ancora di chiamarsi Clara.
-            </p>
-            <p>
-              La dott.ssa Elena Marchetti scopre che non tutti i «soggetti R» sono vuoti:
-              in alcuni la coscienza è rimasta sepolta. Bisogna trovarli in tempo.
-              Tra scienza, orrore e un contatto proibito, Clara dovrà scegliere:
-              chiedere la morte — o restare abbastanza da liberare chi è ancora chiuso dentro.
-            </p>
-          </div>
-
-          <!-- Box copia in anteprima -->
-          <div class="panel mt-8 rounded-3xl border-wine/40 p-6 shadow-wine sm:p-7">
-            <div class="flex items-start gap-4">
-              <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-wine/30 text-xl">📖</div>
-              <div>
-                <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-gold">Lettori selezionati</p>
-                <h3 class="mt-1 font-display text-2xl text-paper">Copia in anteprima, gratis</h3>
-                <p class="mt-3 text-sm leading-7 text-ash/85">
-                  Una <strong class="text-paper">copia in anteprima</strong> si legge sul sito,
-                  in una pagina nascosta e protetta da password.
-                  In cambio: una recensione <em class="text-gold">sincera</em> su Amazon al momento dell'uscita.
-                </p>
-                <a href="#arc" class="mt-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-wineSoft transition hover:text-paper">
-                  Vai al form →
-                </a>
+        <div id="book-spotlight" class="spotlight-fade grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
+          <!-- Cover -->
+          <div class="relative mx-auto w-full max-w-sm reveal lg:max-w-none">
+            <div class="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-wine/30 via-ember/15 to-transparent blur-3xl animate-pulseGlow"></div>
+            <div class="relative book-frame rounded-[1.75rem] border border-ember/25 bg-gradient-to-br from-leather/25 via-desk to-ink p-4 shadow-lift sm:p-5">
+              <div class="overflow-hidden rounded-[1.25rem] book-shadow">
+                <img
+                  id="book-cover"
+                  src="assets/la-veglia-cover.png"
+                  alt="Copertina del romanzo La Veglia"
+                  class="w-full object-cover transition duration-700 hover:scale-[1.03]"
+                />
+              </div>
+              <div class="mt-4 flex items-center justify-between gap-3 px-1">
+                <p id="book-badge" class="font-mono text-[10px] uppercase tracking-[0.3em] text-ember/80">Romanzo d'esordio</p>
+                <p id="book-genres" class="font-mono text-[10px] uppercase tracking-[0.2em] text-ash/55">Horror · Coscienza</p>
               </div>
             </div>
+          </div>
+
+          <!-- Testo -->
+          <div class="reveal" style="transition-delay:0.12s">
+            <p id="book-kicker" class="font-mono text-[11px] uppercase tracking-[0.35em] text-ember">Il Libro</p>
+            <h3 id="book-title" class="mt-3 font-display text-5xl text-paper sm:text-6xl">La Veglia</h3>
+            <p id="book-subtitle" class="mt-2 font-display text-xl italic text-ember/90">La coscienza dentro il mostro</p>
+            <div class="divider-ornament my-6"></div>
+            <div id="book-synopsis" class="space-y-4 text-base leading-relaxed text-ash/90 sm:text-lg"></div>
+            <div id="book-preview" class="panel mt-8 rounded-3xl border-wine/40 p-6 shadow-wine sm:p-7" hidden></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scaffale -->
+      <div class="shelf-rail mt-14 sm:mt-20">
+        <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+          <div class="flex items-center gap-3 sm:gap-5">
+            <button
+              type="button"
+              id="shelf-prev"
+              class="hidden shrink-0 rounded-full border border-ember/30 p-2.5 text-ember transition hover:border-ember/70 hover:text-paper disabled:cursor-default disabled:opacity-30"
+              aria-label="Libro precedente"
+            >
+              <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path d="M15 5 8 12l7 7" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+
+            <div class="min-w-0 flex-1">
+              <div id="book-shelf" class="flex items-end justify-center gap-4 overflow-x-auto px-1 pb-3 pt-4 sm:gap-6" role="listbox" aria-label="Scaffale dei libri"></div>
+              <div class="shelf-ledge mx-auto max-w-3xl"></div>
+              <p class="mt-4 text-center font-mono text-[10px] uppercase tracking-[0.28em] text-ash/50">
+                Seleziona una copertina
+              </p>
+            </div>
+
+            <button
+              type="button"
+              id="shelf-next"
+              class="hidden shrink-0 rounded-full border border-ember/30 p-2.5 text-ember transition hover:border-ember/70 hover:text-paper disabled:cursor-default disabled:opacity-30"
+              aria-label="Libro successivo"
+            >
+              <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                <path d="m9 5 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
           </div>
         </div>
       </div>
@@ -639,6 +701,164 @@
 
   <script>
     (function () {
+      // Catalogo libri — aggiungi oggetti qui per nuovi titoli sullo scaffale.
+      var BOOKS = [
+        {
+          id: "la-veglia",
+          title: "La Veglia",
+          subtitle: "La coscienza dentro il mostro",
+          kicker: "Il Libro",
+          badge: "Romanzo d'esordio",
+          genres: "Horror · Coscienza",
+          cover: "assets/la-veglia-cover.png",
+          coverAlt: "Copertina del romanzo La Veglia",
+          synopsis: [
+            "Un virus ha trasformato il mondo in predatori. Clara Rinaldi è una di loro — ma dentro è ancora sveglia.",
+            "Vede. Sente. Ricorda. Soffre per ogni atto che il suo corpo compie senza di lei. Il mondo la chiama mostro; lei sa ancora di chiamarsi Clara.",
+            "La dott.ssa Elena Marchetti scopre che non tutti i «soggetti R» sono vuoti: in alcuni la coscienza è rimasta sepolta. Bisogna trovarli in tempo. Tra scienza, orrore e un contatto proibito, Clara dovrà scegliere: chiedere la morte — o restare abbastanza da liberare chi è ancora chiuso dentro."
+          ],
+          preview: {
+            label: "Lettori selezionati",
+            heading: "Copia in anteprima, gratis",
+            bodyHtml:
+              'Una <strong class="text-paper">copia in anteprima</strong> si legge sul sito, ' +
+              'in una pagina nascosta e protetta da password. ' +
+              'In cambio: una recensione <em class="text-gold">sincera</em> su Amazon al momento dell\'uscita.',
+            ctaHref: "#arc",
+            ctaLabel: "Vai al form →"
+          }
+        }
+        // Esempio per il prossimo titolo:
+        // {
+        //   id: "opera-ii",
+        //   title: "…",
+        //   subtitle: "…",
+        //   kicker: "Il Libro",
+        //   badge: "In lavorazione",
+        //   genres: "…",
+        //   cover: "assets/….png",
+        //   coverAlt: "…",
+        //   synopsis: ["…"],
+        //   preview: null
+        // }
+      ];
+
+      var activeBookIndex = 0;
+      var spotlightEl = document.getElementById("book-spotlight");
+      var shelfEl = document.getElementById("book-shelf");
+      var prevBtn = document.getElementById("shelf-prev");
+      var nextBtn = document.getElementById("shelf-next");
+
+      function setText(id, value) {
+        var el = document.getElementById(id);
+        if (el) el.textContent = value || "";
+      }
+
+      function renderPreview(book) {
+        var box = document.getElementById("book-preview");
+        if (!box) return;
+        if (!book.preview) {
+          box.hidden = true;
+          box.innerHTML = "";
+          return;
+        }
+        box.hidden = false;
+        box.innerHTML =
+          '<div class="flex items-start gap-4">' +
+            '<div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-wine/30 text-xl" aria-hidden="true">📖</div>' +
+            '<div>' +
+              '<p class="font-mono text-[10px] uppercase tracking-[0.3em] text-gold">' + book.preview.label + '</p>' +
+              '<h4 class="mt-1 font-display text-2xl text-paper">' + book.preview.heading + '</h4>' +
+              '<p class="mt-3 text-sm leading-7 text-ash/85">' + book.preview.bodyHtml + '</p>' +
+              '<a href="' + book.preview.ctaHref + '" class="mt-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-wineSoft transition hover:text-paper">' +
+                book.preview.ctaLabel +
+              '</a>' +
+            '</div>' +
+          '</div>';
+      }
+
+      function renderSpotlight(book) {
+        var cover = document.getElementById("book-cover");
+        if (cover) {
+          cover.src = book.cover;
+          cover.alt = book.coverAlt || ("Copertina di " + book.title);
+        }
+        setText("book-badge", book.badge);
+        setText("book-genres", book.genres);
+        setText("book-kicker", book.kicker);
+        setText("book-title", book.title);
+        setText("book-subtitle", book.subtitle);
+
+        var synopsis = document.getElementById("book-synopsis");
+        if (synopsis) {
+          synopsis.innerHTML = (book.synopsis || [])
+            .map(function (p) { return "<p>" + p + "</p>"; })
+            .join("");
+        }
+        renderPreview(book);
+      }
+
+      function renderShelf() {
+        if (!shelfEl) return;
+        shelfEl.innerHTML = "";
+        BOOKS.forEach(function (book, index) {
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "shelf-book overflow-hidden rounded-lg border border-ember/20 bg-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-ember/70" +
+            (index === activeBookIndex ? " is-active" : "");
+          btn.setAttribute("role", "option");
+          btn.setAttribute("aria-selected", index === activeBookIndex ? "true" : "false");
+          btn.setAttribute("aria-label", book.title);
+          btn.dataset.index = String(index);
+          btn.innerHTML =
+            '<img src="' + book.cover + '" alt="" class="aspect-[2/3] w-full object-cover" width="140" height="210" loading="lazy" />';
+          btn.addEventListener("click", function () { selectBook(index); });
+          shelfEl.appendChild(btn);
+        });
+
+        var showNav = BOOKS.length > 1;
+        if (prevBtn) {
+          prevBtn.classList.toggle("hidden", !showNav);
+          prevBtn.disabled = activeBookIndex <= 0;
+        }
+        if (nextBtn) {
+          nextBtn.classList.toggle("hidden", !showNav);
+          nextBtn.disabled = activeBookIndex >= BOOKS.length - 1;
+        }
+      }
+
+      function selectBook(index, instant) {
+        if (index < 0 || index >= BOOKS.length) return;
+        if (index === activeBookIndex && !instant) return;
+
+        activeBookIndex = index;
+        var apply = function () {
+          renderSpotlight(BOOKS[activeBookIndex]);
+          renderShelf();
+          if (spotlightEl) spotlightEl.classList.remove("is-switching");
+        };
+        if (instant || !spotlightEl) {
+          apply();
+          return;
+        }
+        spotlightEl.classList.add("is-switching");
+        window.setTimeout(apply, 180);
+      }
+
+      if (BOOKS.length && shelfEl) {
+        selectBook(0, true);
+        if (prevBtn) {
+          prevBtn.addEventListener("click", function () {
+            selectBook(Math.max(0, activeBookIndex - 1));
+          });
+        }
+        if (nextBtn) {
+          nextBtn.addEventListener("click", function () {
+            selectBook(Math.min(BOOKS.length - 1, activeBookIndex + 1));
+          });
+        }
+      }
+
       // Reveal on scroll
       var revealEls = document.querySelectorAll(".reveal");
       if ("IntersectionObserver" in window && revealEls.length) {

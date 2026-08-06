@@ -1,0 +1,61 @@
+# Deploy statico via GitHub Actions (evita la coda legacy pages-build-deployment
+# che resta bloccata in deployment_queued fino al timeout di deploy-pages).
+#
+# Dopo il primo push: Settings → Pages → Build and deployment → Source → GitHub Actions.
+# Se un deploy resta in coda: Settings → Environments → github-pages → cancella
+# i deployment "Active" / "In progress" bloccati, poi riesegui questo workflow.
+name: Deploy Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Assemble site
+        run: |
+          set -euo pipefail
+          mkdir -p _site/SITES
+          cp index.html CNAME robots.txt _site/
+          touch _site/.nojekyll
+          # Esclude mockups di design e file di setup non pubblici
+          rsync -a \
+            --exclude 'assets/mockups/' \
+            --exclude 'LISTE.txt' \
+            --exclude 'liste/' \
+            SITES/ _site/SITES/
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
