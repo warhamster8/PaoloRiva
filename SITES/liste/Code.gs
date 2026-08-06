@@ -4,7 +4,7 @@
  * Incolla questo file in: Foglio Google → Estensioni → Apps Script
  * Poi pubblica come app web (vedi LISTE.txt).
  *
- * Fogli: "Pre-vendita", "Anteprima", "Letture completate".
+ * Fogli: "Anteprima", "Letture completate" (e legacy "Pre-vendita").
  * Notifica email a ogni invio form.
  */
 
@@ -18,7 +18,7 @@ var FOGLI = {
 
 var INTESTAZIONI = {
   prevendita: ["Data", "Nome", "Cognome", "Email", "Privacy"],
-  arc: ["Data", "Nome", "Cognome", "Email", "Instagram", "Formato", "Privacy"],
+  arc: ["Data", "Nome", "Cognome", "Email", "Instagram", "Privacy"],
   finito: ["Data", "Nome", "Cognome", "Email", "Pagine viste", "Note"]
 };
 
@@ -67,7 +67,6 @@ function doPost(e) {
         cognome,
         email,
         String(data.instagram || ""),
-        String(data.format || ""),
         String(data.privacy || "")
       ]);
     } else {
@@ -120,7 +119,7 @@ function notifyEmail_(lista, data, when) {
 
   if (lista === "arc") {
     lines.push("Instagram: " + String(data.instagram || "—"));
-    lines.push("Formato: " + String(data.format || "—"));
+    lines.push("Accesso: pagina nascosta protetta da password");
   }
   if (lista === "finito") {
     lines.push("Pagine: " + String(data.pagine || "—"));

@@ -5,13 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta
     name="description"
-    content="Paolo Riva — informatico di giorno, scrittore di notte. Scopri La Veglia e iscriviti alla pre-vendita."
+    content="Paolo Riva — informatico di giorno, scrittore di notte. Scopri La Veglia e candidati all'anteprima."
   />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Paolo Riva | Scrittore & Informatico" />
   <meta
     property="og:description"
-    content="Debugging Reality. Encoding Stories. Scopri La Veglia e iscriviti alla pre-vendita."
+    content="Debugging Reality. Encoding Stories. Scopri La Veglia e candidati all'anteprima."
   />
   <meta property="og:image" content="assets/facebook-banner.png" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -254,16 +254,15 @@
       <nav class="hidden items-center gap-7 font-mono text-[11px] uppercase tracking-[0.22em] text-ash/80 md:flex">
         <a class="transition hover:text-paper" href="#chi-sono">Chi sono</a>
         <a class="transition hover:text-paper" href="#la-veglia">La Veglia</a>
-        <a class="transition hover:text-paper" href="#prevendita">Pre-vendita</a>
         <a class="transition hover:text-paper" href="#arc">Anteprima</a>
         <a class="transition hover:text-paper" href="#links">Link</a>
       </nav>
 
       <a
-        href="#prevendita"
+        href="#arc"
         class="hidden rounded-full cta-shimmer px-4 py-2 font-mono text-[11px] uppercase tracking-[0.18em] text-white transition hover:brightness-110 sm:inline-flex"
       >
-        Pre-vendita
+        Anteprima
       </a>
     </div>
   </header>
@@ -303,10 +302,10 @@
 
           <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
             <a
-              href="#prevendita"
+              href="#arc"
               class="cta-shimmer inline-flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-glow transition hover:brightness-110"
             >
-              Iscriviti alla pre-vendita
+              Richiedi l'anteprima
             </a>
             <a
               href="#la-veglia"
@@ -451,9 +450,9 @@
                 <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-gold">Lettori selezionati</p>
                 <h3 class="mt-1 font-display text-2xl text-paper">Copia in anteprima, gratis</h3>
                 <p class="mt-3 text-sm leading-7 text-ash/85">
-                  Una <strong class="text-paper">copia in anteprima</strong> è il libro inviato
-                  prima del lancio a lettori selezionati. In cambio: una recensione
-                  <em class="text-gold">sincera</em> su Amazon al momento dell'uscita.
+                  Una <strong class="text-paper">copia in anteprima</strong> si legge sul sito,
+                  in una pagina nascosta e protetta da password.
+                  In cambio: una recensione <em class="text-gold">sincera</em> su Amazon al momento dell'uscita.
                 </p>
                 <a href="#arc" class="mt-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-wineSoft transition hover:text-paper">
                   Vai al form →
@@ -465,118 +464,38 @@
       </div>
     </section>
 
-    <!-- ========== FORM PRE-VENDITA ========== -->
-    <section id="prevendita" class="border-y border-gold/10 bg-black/25 wood-grain">
-      <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-        <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
-
-          <div class="flex flex-col justify-center">
-            <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-gold">Lista d'attesa</p>
-            <h2 class="mt-3 font-display text-4xl text-paper sm:text-5xl">Pre-vendita</h2>
-            <p class="mt-5 text-base leading-relaxed text-ash/85">
-              Lascia nome e email: ti avviso appena
-              <span class="text-paper">La Veglia</span> è disponibile in pre-ordine.
-              Nessuno spam — solo l'uscita del libro.
-            </p>
-
-            <ul class="mt-8 space-y-4">
-              <li class="flex items-start gap-3 text-sm text-ash/80">
-                <span class="mt-0.5 font-mono text-gold">01</span>
-                <span>Entri nella lista ufficiale della pre-vendita.</span>
-              </li>
-              <li class="flex items-start gap-3 text-sm text-ash/80">
-                <span class="mt-0.5 font-mono text-gold">02</span>
-                <span>Ricevi un avviso quando apre l'acquisto anticipato.</span>
-              </li>
-              <li class="flex items-start gap-3 text-sm text-ash/80">
-                <span class="mt-0.5 font-mono text-gold">03</span>
-                <span>Se vuoi anche una copia in anteprima, c'è il form dedicato sotto.</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="rounded-3xl border border-gold/15 bg-[#160f0c] p-6 shadow-soft sm:p-8">
-            <form id="prevendita-form" action="https://formsubmit.co/ajax/" method="POST" class="space-y-5" data-lista="prevendita">
-              <input type="hidden" name="_subject" value="[PRE-VENDITA] Nuova iscrizione — La Veglia" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="Lista" value="PRE-VENDITA" />
-              <input type="hidden" name="lista" value="prevendita" />
-              <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
-
-              <div class="grid gap-5 sm:grid-cols-2">
-                <div>
-                  <label for="pv-nome" class="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Nome</label>
-                  <input id="pv-nome" name="nome" type="text" required placeholder="Nome"
-                    class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3.5 text-paper placeholder:text-ash/35" />
-                </div>
-                <div>
-                  <label for="pv-cognome" class="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Cognome</label>
-                  <input id="pv-cognome" name="cognome" type="text" required placeholder="Cognome"
-                    class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3.5 text-paper placeholder:text-ash/35" />
-                </div>
-              </div>
-
-              <div>
-                <label for="pv-email" class="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Email</label>
-                <input id="pv-email" name="email" type="email" required placeholder="nome@email.com"
-                  class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3.5 text-paper placeholder:text-ash/35" />
-              </div>
-
-              <label class="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/25 px-4 py-4 text-sm leading-6 text-ash/80">
-                <input type="checkbox" name="privacy" value="accepted" required class="mt-1 accent-wine" />
-                <span>
-                  Accetto che i miei dati siano usati solo per avvisarmi della pre-vendita di «La Veglia».
-                </span>
-              </label>
-
-              <p id="prevendita-form-status" class="hidden rounded-2xl border px-4 py-3 text-sm" role="status" aria-live="polite"></p>
-
-              <button
-                id="prevendita-form-submit"
-                type="submit"
-                class="cta-shimmer inline-flex w-full items-center justify-center rounded-full px-5 py-4 text-sm font-semibold tracking-wide text-white shadow-glow transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-ember/40 disabled:cursor-not-allowed disabled:opacity-60"
-              >
-                Iscrivimi alla pre-vendita
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- ========== FORM COPIA IN ANTEPRIMA ========== -->
-    <section id="arc" class="border-y border-gold/10 bg-ink/40">
+    <section id="arc" class="border-y border-gold/10 bg-ink/40 wood-grain">
       <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
         <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
 
           <div class="flex flex-col justify-center">
-            <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-gold">Copia in anteprima</p>
+            <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-ember">Copia in anteprima</p>
             <h2 class="mt-3 font-display text-4xl text-paper sm:text-5xl">Partecipa al lancio</h2>
             <p class="mt-5 text-base leading-relaxed text-ash/85">
-              Compila il modulo per candidarti a ricevere una copia in anteprima di
-              <span class="text-paper">La Veglia</span> nel formato che preferisci.
+              Compila il modulo per candidarti a leggere
+              <span class="text-paper">La Veglia</span> in anteprima.
+              Se sei selezionato, riceverai il link a una pagina nascosta del sito, protetta da password.
             </p>
 
             <ul class="mt-8 space-y-4">
               <li class="flex items-start gap-3 text-sm text-ash/80">
-                <span class="mt-0.5 font-mono text-gold">01</span>
-                <span>Ricevi il file (ePub o PDF) prima dell'uscita ufficiale.</span>
+                <span class="mt-0.5 font-mono text-ember">01</span>
+                <span>Candidati con nome e email.</span>
               </li>
               <li class="flex items-start gap-3 text-sm text-ash/80">
-                <span class="mt-0.5 font-mono text-gold">02</span>
-                <span>Leggi con calma. Nessuna pressione, solo curiosità.</span>
+                <span class="mt-0.5 font-mono text-ember">02</span>
+                <span>Se sei in lista, ti invio link e password per la pagina di lettura riservata.</span>
               </li>
               <li class="flex items-start gap-3 text-sm text-ash/80">
-                <span class="mt-0.5 font-mono text-gold">03</span>
-                <span>Se ti ha colpito, lascia una recensione sincera su Amazon.</span>
+                <span class="mt-0.5 font-mono text-ember">03</span>
+                <span>Leggi sul sito. Se ti ha colpito, lascia una recensione sincera su Amazon all'uscita.</span>
               </li>
             </ul>
 
-            <!-- Mini visual: snippet "code comment" -->
             <pre class="mt-8 overflow-x-auto rounded-2xl border border-gold/10 bg-ink/80 p-4 font-mono text-[11px] leading-6 text-gold/70"><code><span class="text-wineSoft">// TODO:</span> find brave readers
 <span class="text-ash/40">const</span> debut = <span class="text-paper">"La Veglia"</span>;
-<span class="text-ash/40">await</span> sendAnteprima(you);</code></pre>
+<span class="text-ash/40">await</span> unlockHiddenPage(you);</code></pre>
           </div>
 
           <div class="rounded-3xl border border-gold/15 bg-[#160f0c] p-6 shadow-soft sm:p-8">
@@ -615,20 +534,6 @@
                   class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3.5 text-paper placeholder:text-ash/35" />
               </div>
 
-              <fieldset>
-                <legend class="mb-3 font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Formato preferito</legend>
-                <div class="grid gap-3 sm:grid-cols-2">
-                  <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-white/10 bg-black/25 px-4 py-3.5 text-sm text-paper transition hover:border-gold/40">
-                    <input type="radio" name="format" value="epub" required class="accent-wine" />
-                    <span class="font-mono text-xs tracking-wide">ePub</span>
-                  </label>
-                  <label class="flex cursor-pointer items-center gap-3 rounded-2xl border border-white/10 bg-black/25 px-4 py-3.5 text-sm text-paper transition hover:border-gold/40">
-                    <input type="radio" name="format" value="pdf" required class="accent-wine" />
-                    <span class="font-mono text-xs tracking-wide">PDF</span>
-                  </label>
-                </div>
-              </fieldset>
-
               <label class="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/25 px-4 py-4 text-sm leading-6 text-ash/80">
                 <input type="checkbox" name="privacy" value="accepted" required class="mt-1 accent-wine" />
                 <span>
@@ -663,19 +568,10 @@
         </div>
 
         <div class="grid gap-3.5">
-          <a href="#prevendita" class="link-card panel group flex items-center gap-4 rounded-3xl p-5 transition duration-200">
-            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-wine/25 text-xl">📝</span>
-            <span class="min-w-0 flex-1">
-              <span class="block font-mono text-[10px] uppercase tracking-[0.25em] text-gold/60">01</span>
-              <span class="block text-base font-semibold text-paper sm:text-lg">Iscriviti alla pre-vendita di «La Veglia»</span>
-            </span>
-            <span class="text-gold/40 transition group-hover:text-gold">→</span>
-          </a>
-
           <a href="#arc" class="link-card panel group flex items-center gap-4 rounded-3xl p-5 transition duration-200">
             <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-wine/25 text-xl">📖</span>
             <span class="min-w-0 flex-1">
-              <span class="block font-mono text-[10px] uppercase tracking-[0.25em] text-gold/60">02</span>
+              <span class="block font-mono text-[10px] uppercase tracking-[0.25em] text-gold/60">01</span>
               <span class="block text-base font-semibold text-paper sm:text-lg">Richiedi la copia in anteprima di «La Veglia»</span>
             </span>
             <span class="text-gold/40 transition group-hover:text-gold">→</span>
@@ -686,7 +582,7 @@
             class="link-card panel group flex items-center gap-4 rounded-3xl p-5 transition duration-200">
             <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-leather/25 text-xl">🎧</span>
             <span class="min-w-0 flex-1">
-              <span class="block font-mono text-[10px] uppercase tracking-[0.25em] text-gold/60">03</span>
+              <span class="block font-mono text-[10px] uppercase tracking-[0.25em] text-gold/60">02</span>
               <span class="block text-base font-semibold text-paper sm:text-lg">La Playlist di Scrittura su Spotify</span>
             </span>
             <span class="text-gold/40 transition group-hover:text-gold">→</span>
@@ -759,7 +655,7 @@
         revealEls.forEach(function (el) { el.classList.add("is-visible"); });
       }
 
-      // FOGLIO GOOGLE — elenco iscritti separato (Pre-vendita / Anteprima).
+      // FOGLIO GOOGLE — elenco candidati anteprima.
       // Dopo il setup in LISTE.txt, incolla qui l'URL dell'app web:
       var SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbxd7IzVaLR77FvjTQp3gyligToXpCIudG9z2_LdbeAWRz-dUTx__r_u0c0SKdwgG3yA5w/exec";
 
@@ -793,14 +689,12 @@
 
       function payloadFromForm(form) {
         var fd = new FormData(form);
-        var formatEl = form.querySelector('input[name="format"]:checked');
         return {
           lista: form.getAttribute("data-lista") || fd.get("lista") || "",
           nome: String(fd.get("nome") || "").trim(),
           cognome: String(fd.get("cognome") || "").trim(),
           email: String(fd.get("email") || "").trim(),
           instagram: String(fd.get("instagram") || "").trim(),
-          format: formatEl ? formatEl.value : "",
           privacy: fd.get("privacy") ? "accepted" : ""
         };
       }
@@ -893,21 +787,12 @@
       }
 
       wireForm({
-        formId: "prevendita-form",
-        statusId: "prevendita-form-status",
-        submitId: "prevendita-form-submit",
-        idleLabel: "Iscrivimi alla pre-vendita",
-        doneLabel: "Iscrizione inviata",
-        okMessage: "Sei in lista. Ti avviserò all'apertura della pre-vendita."
-      });
-
-      wireForm({
         formId: "arc-form",
         statusId: "arc-form-status",
         submitId: "arc-form-submit",
         idleLabel: "Richiedi la copia in anteprima",
         doneLabel: "Richiesta inviata",
-        okMessage: "Richiesta inviata. Ti risponderò al più presto."
+        okMessage: "Richiesta inviata. Se sei selezionato, ti mando link e password della pagina di lettura."
       });
     })();
   </script>
