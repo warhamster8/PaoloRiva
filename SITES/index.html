@@ -225,42 +225,171 @@
       animation: shimmer 8s ease-in-out infinite;
     }
 
-    .shelf-rail {
+    /* —— Sezione Libri (allineata al mockup spotlight+scaffale) —— */
+    .libri-stage {
       background:
-        linear-gradient(180deg, rgba(48,30,24,0.35) 0%, rgba(22,15,12,0.92) 100%);
-      border-top: 1px solid rgba(232,160,112,0.18);
+        radial-gradient(ellipse 50% 55% at 8% 28%, rgba(232,160,112,0.14), transparent 58%),
+        radial-gradient(ellipse 35% 40% at 92% 18%, rgba(143,45,58,0.18), transparent 55%),
+        linear-gradient(180deg, #17110e 0%, #100c0a 48%, #0c0908 100%);
     }
 
-    .shelf-ledge {
-      height: 10px;
-      border-radius: 999px;
+    .libri-stage::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: min(42%, 28rem);
+      height: 62%;
       background:
-        linear-gradient(180deg, rgba(154,107,69,0.55), rgba(36,22,18,0.95));
+        linear-gradient(90deg, rgba(12,9,7,0.15) 0%, rgba(12,9,7,0.75) 88%, transparent 100%),
+        linear-gradient(180deg, transparent 55%, #100c0a 100%),
+        url("assets/facebook-banner.png") left 40% top 30% / cover no-repeat;
+      opacity: 0.38;
+      filter: saturate(0.65) brightness(0.5);
+      pointer-events: none;
+    }
+
+    .spotlight-cover {
+      position: relative;
+      isolation: isolate;
+    }
+    .spotlight-cover::before {
+      content: "";
+      position: absolute;
+      inset: -8% -12%;
+      background: radial-gradient(ellipse at center, rgba(232,160,112,0.5), transparent 70%);
+      filter: blur(16px);
+      z-index: -1;
+      animation: pulseGlow 3.5s ease-in-out infinite;
+    }
+    .spotlight-cover img {
+      border-radius: 2px;
       box-shadow:
-        0 10px 28px rgba(0,0,0,0.45),
-        0 0 24px rgba(232,160,112,0.12);
+        0 0 0 1.5px rgba(232,160,112,0.65),
+        0 0 32px rgba(232,160,112,0.32),
+        16px 26px 50px rgba(0,0,0,0.6);
+    }
+
+    .ornament-diamond {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin: 1.1rem 0 1.25rem;
+    }
+    .ornament-diamond::before,
+    .ornament-diamond::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(232,160,112,0.55));
+    }
+    .ornament-diamond::after {
+      background: linear-gradient(90deg, rgba(232,160,112,0.55), transparent);
+    }
+    .ornament-diamond span {
+      color: rgba(232,160,112,0.8);
+      font-size: 0.55rem;
+      line-height: 1;
+    }
+
+    .shelf-scene {
+      position: relative;
+      margin-top: 3.25rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid rgba(232,160,112,0.1);
+      background: linear-gradient(180deg, rgba(8,6,5,0.35) 0%, #0c0908 100%);
+    }
+
+    /* Listello sottile luminoso come nel mockup */
+    .shelf-plank {
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(154,107,69,0.35) 12%,
+        #d4b48c 35%,
+        #e8a070 50%,
+        #d4b48c 65%,
+        rgba(154,107,69,0.35) 88%,
+        transparent 100%);
+      box-shadow:
+        0 0 14px rgba(232,160,112,0.35),
+        0 6px 18px rgba(0,0,0,0.4);
+      position: relative;
     }
 
     .shelf-book {
       width: 5.5rem;
       flex-shrink: 0;
-      transition: transform 0.35s ease, opacity 0.35s ease, box-shadow 0.35s ease;
-      opacity: 0.62;
+      position: relative;
+      margin-bottom: 1.15rem; /* gap tra bordo inferiore copertina e listello */
+      transition: transform 0.35s ease, filter 0.35s ease;
+      filter: brightness(0.72);
+      border: none;
+      background: transparent;
+      padding: 0;
+      cursor: pointer;
     }
     @media (min-width: 640px) {
-      .shelf-book { width: 7rem; }
+      .shelf-book { width: 6.75rem; margin-bottom: 1.35rem; }
+    }
+    .shelf-book img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      object-fit: cover;
+      border-radius: 2px;
+      box-shadow:
+        2px 0 0 rgba(0,0,0,0.4),
+        8px 12px 20px rgba(0,0,0,0.45);
+    }
+    .shelf-book::after {
+      content: "";
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      bottom: -1.15rem;
+      height: 2px;
+      border-radius: 999px;
+      background: transparent;
+      transition: background 0.3s ease, box-shadow 0.3s ease, bottom 0.3s ease;
+    }
+    @media (min-width: 640px) {
+      .shelf-book::after { bottom: -1.35rem; }
     }
     .shelf-book.is-active {
-      opacity: 1;
-      transform: translateY(-10px) scale(1.04);
-      box-shadow: 0 18px 36px rgba(0,0,0,0.5), 0 0 0 1px rgba(232,160,112,0.45);
+      filter: brightness(1);
+      transform: translateY(-8px);
+      z-index: 2;
+    }
+    .shelf-book.is-active img {
+      box-shadow:
+        0 0 0 1.5px rgba(232,160,112,0.7),
+        0 0 18px rgba(232,160,112,0.35),
+        8px 14px 22px rgba(0,0,0,0.5);
+    }
+    .shelf-book.is-active::after {
+      background: #e8a070;
+      box-shadow: 0 0 10px rgba(232,160,112,0.85);
     }
     .shelf-book:hover {
-      opacity: 1;
-      transform: translateY(-6px);
+      filter: brightness(0.95);
+      transform: translateY(-4px);
     }
     .shelf-book.is-active:hover {
-      transform: translateY(-10px) scale(1.04);
+      transform: translateY(-8px);
+    }
+
+    .shelf-nav {
+      color: rgba(212,180,140,0.4);
+      transition: color 0.2s ease, opacity 0.2s ease;
+      align-self: center;
+      margin-bottom: 2.4rem;
+    }
+    .shelf-nav:hover { color: #f0e6d8; }
+    .shelf-nav:disabled {
+      opacity: 0.18;
+      cursor: default;
     }
 
     .spotlight-fade {
@@ -268,17 +397,39 @@
     }
     .spotlight-fade.is-switching {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(8px);
+    }
+
+    .preview-box {
+      border: 1px solid rgba(143,45,58,0.55);
+      background: linear-gradient(160deg, rgba(48,30,24,0.92), rgba(18,12,10,0.95));
+      border-radius: 0.85rem;
+      box-shadow: 0 0 0 1px rgba(143,45,58,0.15), 0 16px 36px rgba(0,0,0,0.35);
+    }
+
+    .hero-book-panel {
+      background:
+        linear-gradient(160deg, rgba(16,11,9,0.35) 0%, rgba(16,11,9,0.72) 55%, rgba(16,11,9,0.88) 100%);
+      border-left: 1px solid rgba(232,160,112,0.18);
+      backdrop-filter: blur(6px);
+    }
+
+    .hero-book {
+      transition: transform 0.45s ease;
+    }
+    .hero-book:hover {
+      transform: translateY(-4px);
     }
 
     @media (prefers-reduced-motion: reduce) {
       .animate-float, .animate-fadeUp, .animate-pulseGlow,
       .animate-kenBurns, .animate-shimmer, .animate-drift,
-      .cta-shimmer, .quote-strip, .ambient-orb {
+      .cta-shimmer, .quote-strip, .ambient-orb,
+      .spotlight-cover::before {
         animation: none !important;
       }
       .reveal { opacity: 1; transform: none; transition: none; }
-      .shelf-book, .spotlight-fade { transition: none; }
+      .shelf-book, .spotlight-fade, .hero-book { transition: none; }
     }
   </style>
 </head>
@@ -317,7 +468,7 @@
   <main id="top">
 
     <!-- ========== HERO ========== -->
-    <section class="relative min-h-[92vh] overflow-hidden">
+    <section class="relative min-h-[78vh] overflow-hidden lg:min-h-[82vh]">
       <img
         src="assets/facebook-banner.png"
         alt="Scrivania di Paolo Riva: tastiera, libri e illustrazione penna e circuiti"
@@ -329,54 +480,74 @@
       <div class="scanline absolute inset-0 opacity-35"></div>
       <div class="ambient-orb -left-10 top-24 h-56 w-56 bg-ember/25"></div>
       <div class="ambient-orb right-0 top-1/3 h-72 w-72 bg-wineSoft/20" style="animation-delay: -4s"></div>
-      <div class="ambient-orb bottom-16 left-1/3 h-40 w-40 bg-roseGlow/20" style="animation-delay: -7s"></div>
 
-      <!-- Circuit pulse lines -->
-      <svg class="pointer-events-none absolute inset-x-0 bottom-0 h-40 w-full opacity-60" viewBox="0 0 1200 160" fill="none" aria-hidden="true">
-        <path class="animate-circuitPulse" d="M0 110 H180 L220 70 H420 L460 110 H700 L760 50 H980 L1020 110 H1200" stroke="#e8a070" stroke-width="1.2" stroke-opacity="0.45" stroke-dasharray="6 10"/>
-        <circle cx="220" cy="70" r="3" fill="#e8a070" fill-opacity="0.7" class="animate-pulseGlow"/>
-        <circle cx="760" cy="50" r="3" fill="#e8a070" fill-opacity="0.7" class="animate-pulseGlow" style="animation-delay:1s"/>
-      </svg>
+      <div class="relative mx-auto grid min-h-[78vh] max-w-6xl lg:min-h-[82vh] lg:grid-cols-[1.05fr_0.95fr]">
+        <!-- Sinistra: brand + CTA -->
+        <div class="flex flex-col justify-end px-4 pb-12 pt-24 sm:px-6 sm:pb-14 lg:px-8 lg:pb-16">
+          <div class="max-w-xl animate-fadeUp">
+            <h1 class="font-display text-5xl leading-[0.95] text-paper sm:text-6xl lg:text-7xl">
+              Paolo&nbsp;Riva
+            </h1>
+            <p class="mt-3 max-w-md text-base leading-relaxed text-paper/90 sm:text-lg">
+              Di giorno costruisco sistemi. Di notte smonto la realtà e la ricompongo in storie.
+            </p>
 
-      <div class="relative mx-auto flex min-h-[92vh] max-w-6xl flex-col justify-end px-4 pb-16 pt-28 sm:px-6 sm:pb-20 lg:px-8 lg:pb-24">
-        <div class="max-w-3xl animate-fadeUp">
-          <h1 class="font-display text-5xl leading-[0.95] text-paper sm:text-6xl lg:text-7xl">
-            Paolo&nbsp;Riva
-          </h1>
-          <p class="mt-4 max-w-xl text-base leading-relaxed text-paper/90 sm:text-lg">
-            Di giorno costruisco sistemi. Di notte smonto la realtà e la ricompongo in storie.
-          </p>
+            <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <a
+                href="#arc"
+                class="cta-shimmer inline-flex items-center justify-center rounded-full px-7 py-3 text-sm font-semibold text-white shadow-glow transition hover:brightness-110"
+              >
+                Richiedi l'anteprima
+              </a>
+              <a
+                href="#libri"
+                class="inline-flex items-center justify-center rounded-full border border-ember/40 bg-black/30 px-7 py-3 text-sm font-medium text-paper backdrop-blur-sm transition hover:border-ember/80 hover:bg-black/45"
+              >
+                Scopri <em class="ml-1 not-italic font-display text-lg">i libri</em>
+              </a>
+            </div>
+          </div>
 
-          <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <a
-              href="#arc"
-              class="cta-shimmer inline-flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold text-white shadow-glow transition hover:brightness-110"
-            >
-              Richiedi l'anteprima
-            </a>
-            <a
-              href="#libri"
-              class="inline-flex items-center justify-center rounded-full border border-ember/40 bg-black/30 px-7 py-3.5 text-sm font-medium text-paper backdrop-blur-sm transition hover:border-ember/80 hover:bg-black/45"
-            >
-              Scopri <em class="ml-1 not-italic font-display text-lg">i libri</em>
-            </a>
+          <div class="mt-10 hidden items-center gap-2 sm:flex lg:mt-12">
+            <span class="font-mono text-[10px] tracking-[0.3em] text-ember/70">SCROLL</span>
+            <div class="h-px w-10 bg-gradient-to-r from-ember/60 to-transparent"></div>
           </div>
         </div>
 
-        <div class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex animate-float">
-          <span class="font-mono text-[10px] tracking-[0.3em] text-ember/70">SCROLL</span>
-          <div class="h-8 w-px bg-gradient-to-b from-ember/60 to-transparent"></div>
-        </div>
+        <!-- Destra: pannello ultimo libro -->
+        <a
+          href="#libri"
+          id="hero-latest-book"
+          class="hero-book hero-book-panel group relative flex flex-col items-center justify-center px-6 py-10 sm:py-12 lg:px-10"
+          aria-label="Ultimo libro: La Veglia — vai alla vetrina"
+        >
+          <div class="absolute inset-0 bg-gradient-to-l from-ink/50 via-transparent to-transparent opacity-80" aria-hidden="true"></div>
+          <div class="relative flex w-full max-w-[13.5rem] flex-col items-center text-center sm:max-w-[15rem]">
+            <p class="font-mono text-[10px] uppercase tracking-[0.32em] text-ember">Ultimo libro</p>
+            <div class="relative mt-4 w-full">
+              <div class="absolute -inset-4 rounded-lg bg-ember/20 blur-2xl transition group-hover:bg-ember/30" aria-hidden="true"></div>
+              <img
+                src="assets/la-veglia-cover.png"
+                alt="Copertina di La Veglia"
+                class="relative w-full rounded-sm object-cover shadow-lift ring-1 ring-ember/50"
+                width="240"
+                height="360"
+              />
+            </div>
+            <p class="mt-4 font-display text-2xl text-paper sm:text-3xl">La Veglia</p>
+            <p class="mt-1 font-display text-sm italic text-ember/85 sm:text-base">La coscienza dentro il mostro</p>
+          </div>
+        </a>
       </div>
     </section>
 
     <!-- ========== CHI SONO / BIO CARDS ========== -->
     <section id="chi-sono" class="relative wood-grain circuit-bg border-y border-gold/10">
-      <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-        <div class="mb-12 max-w-2xl reveal">
+      <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8">
+        <div class="mb-8 max-w-2xl reveal">
           <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-ember">Identità duale</p>
-          <h2 class="mt-3 font-display text-4xl text-paper sm:text-5xl">Tra terminale e taccuino</h2>
-          <p class="mt-4 text-base leading-relaxed text-ash/90 sm:text-lg">
+          <h2 class="mt-2 font-display text-4xl text-paper sm:text-5xl">Tra terminale e taccuino</h2>
+          <p class="mt-3 text-base leading-relaxed text-ash/90 sm:text-lg">
             Non scelgo tra logica e narrativa: le faccio dialogare.
             Ogni bug ha una trama. Ogni capitolo è un stack di decisioni.
           </p>
@@ -433,91 +604,82 @@
         </div>
 
         <!-- Strip citazione -->
-        <div class="quote-strip reveal mt-12 rounded-3xl border border-ember/25 px-6 py-8 text-center shadow-glow sm:px-10">
+        <div class="quote-strip reveal mt-8 rounded-3xl border border-ember/25 px-6 py-6 text-center shadow-glow sm:px-10 sm:py-7">
           <p class="font-display text-2xl italic leading-snug text-paper sm:text-3xl">
             « Cercasi lettori coraggiosi per il mio debutto. »
           </p>
-          <p class="mt-3 font-mono text-[11px] uppercase tracking-[0.28em] text-ember/80">— Paolo Riva · La Veglia</p>
+          <p class="mt-2 font-mono text-[11px] uppercase tracking-[0.28em] text-ember/80">— Paolo Riva · La Veglia</p>
         </div>
       </div>
     </section>
 
-    <!-- ========== I LIBRI — spotlight + scaffale ========== -->
-    <section id="libri" class="relative">
+    <!-- ========== I LIBRI — spotlight + scaffale (mockup A) ========== -->
+    <section id="libri" class="libri-stage relative overflow-hidden">
       <div id="la-veglia" class="absolute -top-24" aria-hidden="true"></div>
-      <div class="ambient-orb pointer-events-none absolute -right-20 top-20 h-64 w-64 bg-wine/25" aria-hidden="true"></div>
 
-      <div class="mx-auto max-w-6xl px-4 pt-16 sm:px-6 sm:pt-24 lg:px-8">
-        <div class="mb-10 max-w-2xl reveal">
-          <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-ember">Opere</p>
-          <h2 class="mt-3 font-display text-4xl text-paper sm:text-5xl">I Libri</h2>
-          <p class="mt-3 text-base leading-relaxed text-ash/85 sm:text-lg">
-            Copertine, sinossi e anteprime. Seleziona un titolo dallo scaffale.
-          </p>
-        </div>
+      <div class="relative mx-auto max-w-6xl px-4 pt-14 sm:px-6 sm:pt-16 lg:px-8 lg:pt-20">
+        <div id="book-spotlight" class="spotlight-fade grid items-start gap-10 lg:grid-cols-[0.85fr_1fr_1.2fr] lg:items-center lg:gap-12">
+          <!-- Colonna sinistra: OPERE / I Libri sul fondale scrivania -->
+          <div class="reveal relative z-[1] self-start pt-1 lg:pt-4">
+            <p class="font-mono text-[11px] uppercase tracking-[0.38em] text-ember">Opere</p>
+            <h2 class="mt-2 font-display text-5xl leading-none text-paper sm:text-6xl lg:text-[4.25rem]">I Libri</h2>
+          </div>
 
-        <div id="book-spotlight" class="spotlight-fade grid items-center gap-12 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
-          <!-- Cover -->
-          <div class="relative mx-auto w-full max-w-sm reveal lg:max-w-none">
-            <div class="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-wine/30 via-ember/15 to-transparent blur-3xl animate-pulseGlow"></div>
-            <div class="relative book-frame rounded-[1.75rem] border border-ember/25 bg-gradient-to-br from-leather/25 via-desk to-ink p-4 shadow-lift sm:p-5">
-              <div class="overflow-hidden rounded-[1.25rem] book-shadow">
-                <img
-                  id="book-cover"
-                  src="assets/la-veglia-cover.png"
-                  alt="Copertina del romanzo La Veglia"
-                  class="w-full object-cover transition duration-700 hover:scale-[1.03]"
-                />
-              </div>
-              <div class="mt-4 flex items-center justify-between gap-3 px-1">
-                <p id="book-badge" class="font-mono text-[10px] uppercase tracking-[0.3em] text-ember/80">Romanzo d'esordio</p>
-                <p id="book-genres" class="font-mono text-[10px] uppercase tracking-[0.2em] text-ash/55">Horror · Coscienza</p>
-              </div>
+          <!-- Copertina grande -->
+          <div class="relative z-[1] mx-auto w-full max-w-[16.5rem] reveal sm:max-w-[18rem]">
+            <div class="spotlight-cover">
+              <img
+                id="book-cover"
+                src="assets/la-veglia-cover.png"
+                alt="Copertina del romanzo La Veglia"
+                class="w-full object-cover"
+                width="400"
+                height="600"
+              />
             </div>
           </div>
 
-          <!-- Testo -->
-          <div class="reveal" style="transition-delay:0.12s">
-            <p id="book-kicker" class="font-mono text-[11px] uppercase tracking-[0.35em] text-ember">Il Libro</p>
-            <h3 id="book-title" class="mt-3 font-display text-5xl text-paper sm:text-6xl">La Veglia</h3>
+          <!-- Dettaglio testo -->
+          <div class="relative z-[1] reveal" style="transition-delay:0.1s">
+            <h3 id="book-title" class="font-display text-5xl leading-none text-paper sm:text-6xl">La Veglia</h3>
             <p id="book-subtitle" class="mt-2 font-display text-xl italic text-ember/90">La coscienza dentro il mostro</p>
-            <div class="divider-ornament my-6"></div>
-            <div id="book-synopsis" class="space-y-4 text-base leading-relaxed text-ash/90 sm:text-lg"></div>
-            <div id="book-preview" class="panel mt-8 rounded-3xl border-wine/40 p-6 shadow-wine sm:p-7" hidden></div>
+            <div class="ornament-diamond" aria-hidden="true"><span>◆</span></div>
+            <div id="book-synopsis" class="space-y-3.5 text-[0.98rem] leading-relaxed text-ash/90 sm:text-base"></div>
+            <div id="book-preview" class="preview-box mt-6 p-5 sm:p-6" hidden></div>
           </div>
         </div>
       </div>
 
-      <!-- Scaffale -->
-      <div class="shelf-rail mt-14 sm:mt-20">
-        <div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
-          <div class="flex items-center gap-3 sm:gap-5">
-            <button
-              type="button"
-              id="shelf-prev"
-              class="hidden shrink-0 rounded-full border border-ember/30 p-2.5 text-ember transition hover:border-ember/70 hover:text-paper disabled:cursor-default disabled:opacity-30"
-              aria-label="Libro precedente"
-            >
-              <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+      <!-- Scaffale sottile -->
+      <div class="shelf-scene">
+        <div class="mx-auto max-w-4xl px-4 pb-9 sm:px-6 lg:px-8">
+          <div class="flex items-end gap-2 sm:gap-5">
+            <button type="button" id="shelf-prev" class="shelf-nav shrink-0 p-1" aria-label="Libro precedente">
+              <svg viewBox="0 0 24 24" class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="1.35" aria-hidden="true">
                 <path d="M15 5 8 12l7 7" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </button>
 
             <div class="min-w-0 flex-1">
-              <div id="book-shelf" class="flex items-end justify-center gap-4 overflow-x-auto px-1 pb-3 pt-4 sm:gap-6" role="listbox" aria-label="Scaffale dei libri"></div>
-              <div class="shelf-ledge mx-auto max-w-3xl"></div>
-              <p class="mt-4 text-center font-mono text-[10px] uppercase tracking-[0.28em] text-ash/50">
+              <div
+                id="book-shelf"
+                class="flex items-end justify-center gap-5 overflow-x-auto px-1 pt-2 sm:gap-7"
+                role="listbox"
+                aria-label="Scaffale dei libri"
+              ></div>
+              <div class="shelf-plank mx-auto max-w-xl sm:max-w-2xl"></div>
+              <p class="mt-5 flex items-center justify-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.3em] text-ash/45">
+                <svg viewBox="0 0 24 16" class="h-3 w-4 opacity-60" fill="currentColor" aria-hidden="true">
+                  <rect x="1" y="2" width="5" height="12" rx="0.5"/>
+                  <rect x="9.5" y="1" width="5" height="14" rx="0.5"/>
+                  <rect x="18" y="3" width="5" height="11" rx="0.5"/>
+                </svg>
                 Seleziona una copertina
               </p>
             </div>
 
-            <button
-              type="button"
-              id="shelf-next"
-              class="hidden shrink-0 rounded-full border border-ember/30 p-2.5 text-ember transition hover:border-ember/70 hover:text-paper disabled:cursor-default disabled:opacity-30"
-              aria-label="Libro successivo"
-            >
-              <svg viewBox="0 0 24 24" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <button type="button" id="shelf-next" class="shelf-nav shrink-0 p-1" aria-label="Libro successivo">
+              <svg viewBox="0 0 24 24" class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="1.35" aria-hidden="true">
                 <path d="m9 5 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </button>
@@ -528,19 +690,19 @@
 
     <!-- ========== FORM COPIA IN ANTEPRIMA ========== -->
     <section id="arc" class="border-y border-gold/10 bg-ink/40 wood-grain">
-      <div class="mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-        <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
+      <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8">
+        <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
 
           <div class="flex flex-col justify-center">
             <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-ember">Copia in anteprima</p>
-            <h2 class="mt-3 font-display text-4xl text-paper sm:text-5xl">Partecipa al lancio</h2>
-            <p class="mt-5 text-base leading-relaxed text-ash/85">
+            <h2 class="mt-2 font-display text-4xl text-paper sm:text-5xl">Partecipa al lancio</h2>
+            <p class="mt-4 text-base leading-relaxed text-ash/85">
               Compila il modulo per candidarti a leggere
               <span class="text-paper">La Veglia</span> in anteprima.
               Se sei selezionato, riceverai il link a una pagina nascosta del sito, protetta da password.
             </p>
 
-            <ul class="mt-8 space-y-4">
+            <ul class="mt-6 space-y-3">
               <li class="flex items-start gap-3 text-sm text-ash/80">
                 <span class="mt-0.5 font-mono text-ember">01</span>
                 <span>Candidati con nome e email.</span>
@@ -555,7 +717,7 @@
               </li>
             </ul>
 
-            <pre class="mt-8 overflow-x-auto rounded-2xl border border-gold/10 bg-ink/80 p-4 font-mono text-[11px] leading-6 text-gold/70"><code><span class="text-wineSoft">// TODO:</span> find brave readers
+            <pre class="mt-6 overflow-x-auto rounded-2xl border border-gold/10 bg-ink/80 p-4 font-mono text-[11px] leading-6 text-gold/70"><code><span class="text-wineSoft">// TODO:</span> find brave readers
 <span class="text-ash/40">const</span> debut = <span class="text-paper">"La Veglia"</span>;
 <span class="text-ash/40">await</span> unlockHiddenPage(you);</code></pre>
           </div>
@@ -620,11 +782,11 @@
 
     <!-- ========== LINK IN BIO ========== -->
     <section id="links" class="relative">
-      <div class="mx-auto max-w-3xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8">
-        <div class="mb-10 text-center reveal">
+      <div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8">
+        <div class="mb-8 text-center reveal">
           <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-ember">Link Rapidi</p>
-          <h2 class="mt-3 font-display text-4xl text-paper sm:text-5xl">Link in bio</h2>
-          <p class="mx-auto mt-4 max-w-md text-sm leading-relaxed text-ash/80">
+          <h2 class="mt-2 font-display text-4xl text-paper sm:text-5xl">Link in bio</h2>
+          <p class="mx-auto mt-3 max-w-md text-sm leading-relaxed text-ash/80">
             Ottimizzati per smartphone — pronti da usare su Instagram.
           </p>
         </div>
@@ -635,17 +797,6 @@
             <span class="min-w-0 flex-1">
               <span class="block font-mono text-[10px] uppercase tracking-[0.25em] text-gold/60">01</span>
               <span class="block text-base font-semibold text-paper sm:text-lg">Richiedi la copia in anteprima di «La Veglia»</span>
-            </span>
-            <span class="text-gold/40 transition group-hover:text-gold">→</span>
-          </a>
-
-          <!-- Sostituisci con il link Spotify reale -->
-          <a href="https://open.spotify.com/" target="_blank" rel="noreferrer"
-            class="link-card panel group flex items-center gap-4 rounded-3xl p-5 transition duration-200">
-            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-leather/25 text-xl">🎧</span>
-            <span class="min-w-0 flex-1">
-              <span class="block font-mono text-[10px] uppercase tracking-[0.25em] text-gold/60">02</span>
-              <span class="block text-base font-semibold text-paper sm:text-lg">La Playlist di Scrittura su Spotify</span>
             </span>
             <span class="text-gold/40 transition group-hover:text-gold">→</span>
           </a>
@@ -707,9 +858,6 @@
           id: "la-veglia",
           title: "La Veglia",
           subtitle: "La coscienza dentro il mostro",
-          kicker: "Il Libro",
-          badge: "Romanzo d'esordio",
-          genres: "Horror · Coscienza",
           cover: "assets/la-veglia-cover.png",
           coverAlt: "Copertina del romanzo La Veglia",
           synopsis: [
@@ -719,7 +867,7 @@
           ],
           preview: {
             label: "Lettori selezionati",
-            heading: "Copia in anteprima, gratis",
+            heading: "Copia in anteprima",
             bodyHtml:
               'Una <strong class="text-paper">copia in anteprima</strong> si legge sul sito, ' +
               'in una pagina nascosta e protetta da password. ' +
@@ -733,9 +881,6 @@
         //   id: "opera-ii",
         //   title: "…",
         //   subtitle: "…",
-        //   kicker: "Il Libro",
-        //   badge: "In lavorazione",
-        //   genres: "…",
         //   cover: "assets/….png",
         //   coverAlt: "…",
         //   synopsis: ["…"],
@@ -748,6 +893,7 @@
       var shelfEl = document.getElementById("book-shelf");
       var prevBtn = document.getElementById("shelf-prev");
       var nextBtn = document.getElementById("shelf-next");
+      var heroLatest = document.getElementById("hero-latest-book");
 
       function setText(id, value) {
         var el = document.getElementById(id);
@@ -777,15 +923,27 @@
           '</div>';
       }
 
+      function renderHeroLatest(book) {
+        if (!heroLatest || !book) return;
+        var img = heroLatest.querySelector("img");
+        var title = heroLatest.querySelector(".font-display.text-2xl");
+        var subtitle = heroLatest.querySelector(".italic");
+        if (img) {
+          img.src = book.cover;
+          img.alt = book.coverAlt || ("Copertina di " + book.title);
+        }
+        if (title) title.textContent = book.title;
+        if (subtitle) subtitle.textContent = book.subtitle || "";
+        heroLatest.setAttribute("aria-label", "Ultimo libro: " + book.title + " — vai alla vetrina");
+        heroLatest.href = "#libri";
+      }
+
       function renderSpotlight(book) {
         var cover = document.getElementById("book-cover");
         if (cover) {
           cover.src = book.cover;
           cover.alt = book.coverAlt || ("Copertina di " + book.title);
         }
-        setText("book-badge", book.badge);
-        setText("book-genres", book.genres);
-        setText("book-kicker", book.kicker);
         setText("book-title", book.title);
         setText("book-subtitle", book.subtitle);
 
@@ -804,27 +962,19 @@
         BOOKS.forEach(function (book, index) {
           var btn = document.createElement("button");
           btn.type = "button";
-          btn.className = "shelf-book overflow-hidden rounded-lg border border-ember/20 bg-ink focus:outline-none focus-visible:ring-2 focus-visible:ring-ember/70" +
-            (index === activeBookIndex ? " is-active" : "");
+          btn.className = "shelf-book" + (index === activeBookIndex ? " is-active" : "");
           btn.setAttribute("role", "option");
           btn.setAttribute("aria-selected", index === activeBookIndex ? "true" : "false");
           btn.setAttribute("aria-label", book.title);
           btn.dataset.index = String(index);
           btn.innerHTML =
-            '<img src="' + book.cover + '" alt="" class="aspect-[2/3] w-full object-cover" width="140" height="210" loading="lazy" />';
+            '<img src="' + book.cover + '" alt="" width="140" height="210" loading="lazy" />';
           btn.addEventListener("click", function () { selectBook(index); });
           shelfEl.appendChild(btn);
         });
 
-        var showNav = BOOKS.length > 1;
-        if (prevBtn) {
-          prevBtn.classList.toggle("hidden", !showNav);
-          prevBtn.disabled = activeBookIndex <= 0;
-        }
-        if (nextBtn) {
-          nextBtn.classList.toggle("hidden", !showNav);
-          nextBtn.disabled = activeBookIndex >= BOOKS.length - 1;
-        }
+        if (prevBtn) prevBtn.disabled = activeBookIndex <= 0 || BOOKS.length <= 1;
+        if (nextBtn) nextBtn.disabled = activeBookIndex >= BOOKS.length - 1 || BOOKS.length <= 1;
       }
 
       function selectBook(index, instant) {
@@ -845,17 +995,22 @@
         window.setTimeout(apply, 180);
       }
 
-      if (BOOKS.length && shelfEl) {
-        selectBook(0, true);
-        if (prevBtn) {
-          prevBtn.addEventListener("click", function () {
-            selectBook(Math.max(0, activeBookIndex - 1));
-          });
-        }
-        if (nextBtn) {
-          nextBtn.addEventListener("click", function () {
-            selectBook(Math.min(BOOKS.length - 1, activeBookIndex + 1));
-          });
+      if (BOOKS.length) {
+        renderHeroLatest(BOOKS[0]);
+        if (shelfEl) {
+          selectBook(0, true);
+          if (prevBtn) {
+            prevBtn.addEventListener("click", function () {
+              selectBook(Math.max(0, activeBookIndex - 1));
+            });
+          }
+          if (nextBtn) {
+            nextBtn.addEventListener("click", function () {
+              selectBook(Math.min(BOOKS.length - 1, activeBookIndex + 1));
+            });
+          }
+        } else {
+          renderSpotlight(BOOKS[0]);
         }
       }
 
