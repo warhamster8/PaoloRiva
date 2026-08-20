@@ -20,7 +20,6 @@
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <link rel="apple-touch-icon" href="assets/instagram_avatar.png" />
 
-  <!-- Tipografia: serif letteraria + mono da terminale -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -54,24 +53,16 @@
           },
           boxShadow: {
             soft: "0 24px 60px rgba(0,0,0,0.45)",
-            wine: "0 0 0 1px rgba(143,45,58,0.4), 0 18px 40px rgba(0,0,0,0.4)",
             lift: "0 30px 80px rgba(0,0,0,0.55)",
             glow: "0 0 40px rgba(232,160,112,0.22)"
           },
           animation: {
-            float: "float 7s ease-in-out infinite",
             fadeUp: "fadeUp 0.9s ease-out both",
             pulseGlow: "pulseGlow 3.5s ease-in-out infinite",
             kenBurns: "kenBurns 28s ease-in-out infinite alternate",
-            shimmer: "shimmer 3.2s ease-in-out infinite",
-            drift: "drift 12s ease-in-out infinite",
-            circuitPulse: "circuitPulse 4s ease-in-out infinite"
+            shimmer: "shimmer 3.2s ease-in-out infinite"
           },
           keyframes: {
-            float: {
-              "0%, 100%": { transform: "translateY(0px)" },
-              "50%": { transform: "translateY(-10px)" }
-            },
             fadeUp: {
               "0%": { opacity: "0", transform: "translateY(22px)" },
               "100%": { opacity: "1", transform: "translateY(0)" }
@@ -87,14 +78,6 @@
             shimmer: {
               "0%, 100%": { backgroundPosition: "0% 50%" },
               "50%": { backgroundPosition: "100% 50%" }
-            },
-            drift: {
-              "0%, 100%": { transform: "translate(0, 0)" },
-              "50%": { transform: "translate(18px, -14px)" }
-            },
-            circuitPulse: {
-              "0%, 100%": { opacity: "0.25", strokeDashoffset: "0" },
-              "50%": { opacity: "0.7", strokeDashoffset: "-24" }
             }
           }
         }
@@ -118,45 +101,21 @@
     .wood-grain {
       background-image:
         linear-gradient(90deg, rgba(0,0,0,0.12) 1px, transparent 1px),
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
         radial-gradient(ellipse at 30% 20%, rgba(232,160,112,0.07), transparent 45%);
-      background-size: 80px 100%, 100% 28px, 100% 100%;
-    }
-
-    .circuit-bg {
-      background-image: url("data:image/svg+xml,%3Csvg width='120' height='120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23b8895c' stroke-opacity='0.16' stroke-width='1'%3E%3Cpath d='M10 10h40v20h20v30H40v20H10V10zm60 20h40v40H70V30zm-20 50h30v30H50V80z'/%3E%3Ccircle cx='50' cy='30' r='2' fill='%23e8a070' fill-opacity='0.35'/%3E%3Ccircle cx='70' cy='50' r='2' fill='%23e8a070' fill-opacity='0.35'/%3E%3Ccircle cx='50' cy='80' r='2' fill='%23e8a070' fill-opacity='0.35'/%3E%3C/g%3E%3C/svg%3E");
-    }
-
-    .panel {
-      background: linear-gradient(160deg, rgba(48,30,24,0.94), rgba(22,15,12,0.9));
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(212, 180, 140, 0.16);
-      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+      background-size: 80px 100%, 100% 100%;
     }
 
     .glass {
       background: rgba(16, 11, 9, 0.62);
       backdrop-filter: blur(16px);
-      border: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
 
     .hero-overlay {
       background:
-        linear-gradient(180deg, rgba(16,11,9,0.28) 0%, rgba(16,11,9,0.48) 42%, rgba(16,11,9,0.92) 100%),
-        linear-gradient(90deg, rgba(16,11,9,0.55) 0%, rgba(16,11,9,0.12) 48%, rgba(16,11,9,0.4) 100%),
-        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(232,160,112,0.14), transparent 65%);
-    }
-
-    .book-shadow {
-      box-shadow:
-        0 2px 0 rgba(255,255,255,0.06),
-        12px 24px 50px rgba(0,0,0,0.55),
-        -2px 0 0 rgba(143,45,58,0.4);
-    }
-
-    .divider-ornament {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(232,160,112,0.55), transparent);
+        linear-gradient(180deg, rgba(16,11,9,0.28) 0%, rgba(16,11,9,0.52) 45%, rgba(16,11,9,0.94) 100%),
+        linear-gradient(90deg, rgba(16,11,9,0.5) 0%, rgba(16,11,9,0.12) 50%, rgba(16,11,9,0.4) 100%),
+        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(232,160,112,0.12), transparent 65%);
     }
 
     .brand-logo {
@@ -168,10 +127,10 @@
       transform: translateY(-1px);
     }
 
-    .link-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(232, 160, 112, 0.45);
-      box-shadow: 0 22px 44px rgba(0,0,0,0.38), 0 0 28px rgba(232,160,112,0.12);
+    .cta-shimmer {
+      background-image: linear-gradient(110deg, #8f2d3a 0%, #b44552 35%, #e8a070 50%, #b44552 65%, #8f2d3a 100%);
+      background-size: 220% 100%;
+      animation: shimmer 3.2s ease-in-out infinite;
     }
 
     .input-field {
@@ -183,70 +142,21 @@
       outline: none;
     }
 
-    .scanline {
-      pointer-events: none;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0,0,0,0.025) 2px,
-        rgba(0,0,0,0.025) 4px
-      );
-    }
-
-    .ambient-orb {
-      position: absolute;
-      border-radius: 9999px;
-      filter: blur(48px);
-      pointer-events: none;
-      animation: drift 12s ease-in-out infinite;
-    }
-
-    .cta-shimmer {
-      background-image: linear-gradient(110deg, #8f2d3a 0%, #b44552 35%, #e8a070 50%, #b44552 65%, #8f2d3a 100%);
-      background-size: 220% 100%;
-      animation: shimmer 3.2s ease-in-out infinite;
-    }
-
     .reveal {
       opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transform: translateY(24px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
     }
     .reveal.is-visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .quote-strip {
-      background:
-        linear-gradient(120deg, rgba(143,45,58,0.35), rgba(36,22,18,0.85) 45%, rgba(232,160,112,0.18));
-      background-size: 200% 200%;
-      animation: shimmer 8s ease-in-out infinite;
-    }
-
-    /* —— Sezione Libri (allineata al mockup spotlight+scaffale) —— */
     .libri-stage {
       background:
-        radial-gradient(ellipse 50% 55% at 8% 28%, rgba(232,160,112,0.14), transparent 58%),
-        radial-gradient(ellipse 35% 40% at 92% 18%, rgba(143,45,58,0.18), transparent 55%),
-        linear-gradient(180deg, #17110e 0%, #100c0a 48%, #0c0908 100%);
-    }
-
-    .libri-stage::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: min(42%, 28rem);
-      height: 62%;
-      background:
-        linear-gradient(90deg, rgba(12,9,7,0.15) 0%, rgba(12,9,7,0.75) 88%, transparent 100%),
-        linear-gradient(180deg, transparent 55%, #100c0a 100%),
-        url("assets/facebook-banner.png") left 40% top 30% / cover no-repeat;
-      opacity: 0.38;
-      filter: saturate(0.65) brightness(0.5);
-      pointer-events: none;
+        radial-gradient(ellipse 45% 50% at 6% 20%, rgba(232,160,112,0.1), transparent 55%),
+        radial-gradient(ellipse 30% 35% at 95% 10%, rgba(143,45,58,0.14), transparent 50%),
+        linear-gradient(180deg, #17110e 0%, #100c0a 100%);
     }
 
     .spotlight-cover {
@@ -257,7 +167,7 @@
       content: "";
       position: absolute;
       inset: -8% -12%;
-      background: radial-gradient(ellipse at center, rgba(232,160,112,0.5), transparent 70%);
+      background: radial-gradient(ellipse at center, rgba(232,160,112,0.48), transparent 70%);
       filter: blur(16px);
       z-index: -1;
       animation: pulseGlow 3.5s ease-in-out infinite;
@@ -266,41 +176,43 @@
       border-radius: 2px;
       box-shadow:
         0 0 0 1.5px rgba(232,160,112,0.65),
-        0 0 32px rgba(232,160,112,0.32),
-        16px 26px 50px rgba(0,0,0,0.6);
+        0 0 28px rgba(232,160,112,0.28),
+        14px 22px 44px rgba(0,0,0,0.55);
     }
 
-    .ornament-diamond {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      margin: 1.1rem 0 1.25rem;
+    .bio-panel {
+      background: linear-gradient(160deg, rgba(48,30,24,0.72), rgba(22,15,12,0.88));
+      border: 1px solid rgba(212, 180, 140, 0.14);
     }
-    .ornament-diamond::before,
-    .ornament-diamond::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(232,160,112,0.55));
+
+    .bio-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.85rem 0 0;
     }
-    .ornament-diamond::after {
-      background: linear-gradient(90deg, rgba(232,160,112,0.55), transparent);
+    .bio-list li {
+      position: relative;
+      padding-left: 1.1rem;
+      margin-top: 0.45rem;
+      color: rgba(212, 198, 180, 0.88);
+      font-size: 0.92rem;
+      line-height: 1.55;
     }
-    .ornament-diamond span {
-      color: rgba(232,160,112,0.8);
-      font-size: 0.55rem;
-      line-height: 1;
+    .bio-list li::before {
+      content: "◆";
+      position: absolute;
+      left: 0;
+      top: 0.15em;
+      font-size: 0.45rem;
+      color: rgba(232, 160, 112, 0.75);
     }
 
     .shelf-scene {
-      position: relative;
-      margin-top: 3.25rem;
-      padding-top: 1.75rem;
+      margin-top: 1.75rem;
+      padding-top: 1.25rem;
       border-top: 1px solid rgba(232,160,112,0.1);
-      background: linear-gradient(180deg, rgba(8,6,5,0.35) 0%, #0c0908 100%);
     }
 
-    /* Listello sottile luminoso come nel mockup */
     .shelf-plank {
       height: 3px;
       border-radius: 999px;
@@ -315,14 +227,13 @@
       box-shadow:
         0 0 14px rgba(232,160,112,0.35),
         0 6px 18px rgba(0,0,0,0.4);
-      position: relative;
     }
 
     .shelf-book {
-      width: 5.5rem;
+      width: 4.75rem;
       flex-shrink: 0;
       position: relative;
-      margin-bottom: 1.15rem; /* gap tra bordo inferiore copertina e listello */
+      margin-bottom: 1rem;
       transition: transform 0.35s ease, filter 0.35s ease;
       filter: brightness(0.72);
       border: none;
@@ -331,7 +242,7 @@
       cursor: pointer;
     }
     @media (min-width: 640px) {
-      .shelf-book { width: 6.75rem; margin-bottom: 1.35rem; }
+      .shelf-book { width: 5.75rem; margin-bottom: 1.15rem; }
     }
     .shelf-book img {
       display: block;
@@ -339,33 +250,31 @@
       aspect-ratio: 2 / 3;
       object-fit: cover;
       border-radius: 2px;
-      box-shadow:
-        2px 0 0 rgba(0,0,0,0.4),
-        8px 12px 20px rgba(0,0,0,0.45);
+      box-shadow: 2px 0 0 rgba(0,0,0,0.4), 8px 12px 20px rgba(0,0,0,0.45);
     }
     .shelf-book::after {
       content: "";
       position: absolute;
       left: 8%;
       right: 8%;
-      bottom: -1.15rem;
+      bottom: -1rem;
       height: 2px;
       border-radius: 999px;
       background: transparent;
-      transition: background 0.3s ease, box-shadow 0.3s ease, bottom 0.3s ease;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
     }
     @media (min-width: 640px) {
-      .shelf-book::after { bottom: -1.35rem; }
+      .shelf-book::after { bottom: -1.15rem; }
     }
     .shelf-book.is-active {
       filter: brightness(1);
-      transform: translateY(-8px);
+      transform: translateY(-6px);
       z-index: 2;
     }
     .shelf-book.is-active img {
       box-shadow:
         0 0 0 1.5px rgba(232,160,112,0.7),
-        0 0 18px rgba(232,160,112,0.35),
+        0 0 16px rgba(232,160,112,0.35),
         8px 14px 22px rgba(0,0,0,0.5);
     }
     .shelf-book.is-active::after {
@@ -374,17 +283,15 @@
     }
     .shelf-book:hover {
       filter: brightness(0.95);
-      transform: translateY(-4px);
+      transform: translateY(-3px);
     }
-    .shelf-book.is-active:hover {
-      transform: translateY(-8px);
-    }
+    .shelf-book.is-active:hover { transform: translateY(-6px); }
 
     .shelf-nav {
       color: rgba(212,180,140,0.4);
       transition: color 0.2s ease, opacity 0.2s ease;
       align-self: center;
-      margin-bottom: 2.4rem;
+      margin-bottom: 2rem;
     }
     .shelf-nav:hover { color: #f0e6d8; }
     .shelf-nav:disabled {
@@ -407,58 +314,40 @@
       box-shadow: 0 0 0 1px rgba(143,45,58,0.15), 0 16px 36px rgba(0,0,0,0.35);
     }
 
-    .hero-book-panel {
-      background:
-        linear-gradient(160deg, rgba(16,11,9,0.35) 0%, rgba(16,11,9,0.72) 55%, rgba(16,11,9,0.88) 100%);
-      border-left: 1px solid rgba(232,160,112,0.18);
-      backdrop-filter: blur(6px);
-    }
-
-    .hero-book {
-      transition: transform 0.45s ease;
-    }
-    .hero-book:hover {
-      transform: translateY(-4px);
-    }
-
     @media (prefers-reduced-motion: reduce) {
-      .animate-float, .animate-fadeUp, .animate-pulseGlow,
-      .animate-kenBurns, .animate-shimmer, .animate-drift,
-      .cta-shimmer, .quote-strip, .ambient-orb,
+      .animate-fadeUp, .animate-pulseGlow, .animate-kenBurns, .cta-shimmer,
       .spotlight-cover::before {
         animation: none !important;
       }
       .reveal { opacity: 1; transform: none; transition: none; }
-      .shelf-book, .spotlight-fade, .hero-book { transition: none; }
+      .shelf-book, .spotlight-fade { transition: none; }
     }
   </style>
 </head>
 
 <body class="font-sans antialiased selection:bg-wine/70 selection:text-white">
 
-  <!-- ========== HEADER ========== -->
   <header class="sticky top-0 z-50 glass">
-    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5 sm:px-6 lg:px-8">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
       <a href="#top" class="group flex items-center" aria-label="Paolo Riva — torna all'inizio">
         <img
           src="assets/logo-light.png"
           alt="Paolo Riva"
-          class="brand-logo h-11 w-auto sm:h-12"
+          class="brand-logo h-10 w-auto sm:h-11"
           width="114"
           height="123"
         />
       </a>
 
       <nav class="hidden items-center gap-7 font-mono text-[11px] uppercase tracking-[0.22em] text-ash/80 md:flex">
-        <a class="transition hover:text-paper" href="#chi-sono">Chi sono</a>
         <a class="transition hover:text-paper" href="#libri">I Libri</a>
+        <a class="transition hover:text-paper" href="#chi-sono">Chi sono</a>
         <a class="transition hover:text-paper" href="#arc">Anteprima</a>
-        <a class="transition hover:text-paper" href="#links">Link</a>
       </nav>
 
       <a
         href="#arc"
-        class="hidden rounded-full cta-shimmer px-4 py-2 font-mono text-[11px] uppercase tracking-[0.18em] text-white transition hover:brightness-110 sm:inline-flex"
+        class="rounded-full cta-shimmer px-4 py-2 font-mono text-[11px] uppercase tracking-[0.18em] text-white transition hover:brightness-110"
       >
         Anteprima
       </a>
@@ -467,8 +356,8 @@
 
   <main id="top">
 
-    <!-- ========== HERO ========== -->
-    <section class="relative min-h-[78vh] overflow-hidden lg:min-h-[82vh]">
+    <!-- ========== 1. HERO ========== -->
+    <section class="relative min-h-[58vh] overflow-hidden lg:min-h-[62vh]">
       <img
         src="assets/facebook-banner.png"
         alt="Scrivania di Paolo Riva: tastiera, libri e illustrazione penna e circuiti"
@@ -477,253 +366,180 @@
         height="480"
       />
       <div class="hero-overlay absolute inset-0"></div>
-      <div class="scanline absolute inset-0 opacity-35"></div>
-      <div class="ambient-orb -left-10 top-24 h-56 w-56 bg-ember/25"></div>
-      <div class="ambient-orb right-0 top-1/3 h-72 w-72 bg-wineSoft/20" style="animation-delay: -4s"></div>
 
-      <div class="relative mx-auto grid min-h-[78vh] max-w-6xl lg:min-h-[82vh] lg:grid-cols-[1.05fr_0.95fr]">
-        <!-- Sinistra: brand + CTA -->
-        <div class="flex flex-col justify-end px-4 pb-12 pt-24 sm:px-6 sm:pb-14 lg:px-8 lg:pb-16">
-          <div class="max-w-xl animate-fadeUp">
-            <h1 class="font-display text-5xl leading-[0.95] text-paper sm:text-6xl lg:text-7xl">
-              Paolo&nbsp;Riva
-            </h1>
-            <p class="mt-3 max-w-md text-base leading-relaxed text-paper/90 sm:text-lg">
-              Di giorno costruisco sistemi. Di notte smonto la realtà e la ricompongo in storie.
-            </p>
-
-            <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <a
-                href="#arc"
-                class="cta-shimmer inline-flex items-center justify-center rounded-full px-7 py-3 text-sm font-semibold text-white shadow-glow transition hover:brightness-110"
-              >
-                Richiedi l'anteprima
-              </a>
-              <a
-                href="#libri"
-                class="inline-flex items-center justify-center rounded-full border border-ember/40 bg-black/30 px-7 py-3 text-sm font-medium text-paper backdrop-blur-sm transition hover:border-ember/80 hover:bg-black/45"
-              >
-                Scopri <em class="ml-1 not-italic font-display text-lg">i libri</em>
-              </a>
-            </div>
-          </div>
-
-          <div class="mt-10 hidden items-center gap-2 sm:flex lg:mt-12">
-            <span class="font-mono text-[10px] tracking-[0.3em] text-ember/70">SCROLL</span>
-            <div class="h-px w-10 bg-gradient-to-r from-ember/60 to-transparent"></div>
+      <div class="relative mx-auto flex min-h-[58vh] max-w-6xl flex-col justify-end gap-8 px-4 pb-10 pt-20 sm:px-6 sm:pb-12 lg:min-h-[62vh] lg:flex-row lg:items-end lg:justify-between lg:px-8 lg:pb-14">
+        <div class="max-w-xl animate-fadeUp">
+          <h1 class="font-display text-5xl leading-[0.95] text-paper sm:text-6xl lg:text-7xl">
+            Paolo&nbsp;Riva
+          </h1>
+          <p class="mt-3 max-w-md text-base leading-relaxed text-paper/90 sm:text-lg">
+            Di giorno costruisco sistemi. Di notte smonto la realtà e la ricompongo in storie.
+          </p>
+          <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <a
+              href="#arc"
+              class="cta-shimmer inline-flex items-center justify-center rounded-full px-7 py-3 text-sm font-semibold text-white shadow-glow transition hover:brightness-110"
+            >
+              Richiedi l'anteprima
+            </a>
+            <a
+              href="#libri"
+              class="inline-flex items-center justify-center rounded-full border border-ember/40 bg-black/30 px-7 py-3 text-sm font-medium text-paper backdrop-blur-sm transition hover:border-ember/80 hover:bg-black/45"
+            >
+              Scopri <em class="ml-1 font-display text-lg not-italic">i libri</em>
+            </a>
           </div>
         </div>
 
-        <!-- Destra: pannello ultimo libro -->
         <a
           href="#libri"
           id="hero-latest-book"
-          class="hero-book hero-book-panel group relative flex flex-col items-center justify-center px-6 py-10 sm:py-12 lg:px-10"
+          class="flex shrink-0 items-end gap-4 transition hover:-translate-y-1"
           aria-label="Ultimo libro: La Veglia — vai alla vetrina"
         >
-          <div class="absolute inset-0 bg-gradient-to-l from-ink/50 via-transparent to-transparent opacity-80" aria-hidden="true"></div>
-          <div class="relative flex w-full max-w-[13.5rem] flex-col items-center text-center sm:max-w-[15rem]">
-            <p class="font-mono text-[10px] uppercase tracking-[0.32em] text-ember">Ultimo libro</p>
-            <div class="relative mt-4 w-full">
-              <div class="absolute -inset-4 rounded-lg bg-ember/20 blur-2xl transition group-hover:bg-ember/30" aria-hidden="true"></div>
-              <img
-                src="assets/la-veglia-cover.png"
-                alt="Copertina di La Veglia"
-                class="relative w-full rounded-sm object-cover shadow-lift ring-1 ring-ember/50"
-                width="240"
-                height="360"
-              />
-            </div>
-            <p class="mt-4 font-display text-2xl text-paper sm:text-3xl">La Veglia</p>
-            <p class="mt-1 font-display text-sm italic text-ember/85 sm:text-base">La coscienza dentro il mostro</p>
+          <img
+            src="assets/la-veglia-cover.png"
+            alt="Copertina di La Veglia"
+            class="w-28 rounded-sm object-cover shadow-lift ring-1 ring-ember/50 sm:w-32"
+            width="160"
+            height="240"
+          />
+          <div class="pb-1">
+            <p class="font-mono text-[10px] uppercase tracking-[0.28em] text-ember">Ultimo libro</p>
+            <p class="mt-1 font-display text-2xl text-paper sm:text-3xl">La Veglia</p>
+            <p class="font-display text-sm italic text-ember/85">La coscienza dentro il mostro</p>
           </div>
         </a>
       </div>
     </section>
 
-    <!-- ========== CHI SONO / BIO CARDS ========== -->
-    <section id="chi-sono" class="relative wood-grain circuit-bg border-y border-gold/10">
-      <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8">
-        <div class="mb-8 max-w-2xl reveal">
-          <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-ember">Identità duale</p>
-          <h2 class="mt-2 font-display text-4xl text-paper sm:text-5xl">Tra terminale e taccuino</h2>
-          <p class="mt-3 text-base leading-relaxed text-ash/90 sm:text-lg">
-            Non scelgo tra logica e narrativa: le faccio dialogare.
-            Ogni bug ha una trama. Ogni capitolo è un stack di decisioni.
-          </p>
-        </div>
-
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          <!-- Informatico -->
-          <article class="panel group reveal rounded-3xl p-6 shadow-soft" style="transition-delay:0.05s">
-            <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-ember/25 bg-gradient-to-br from-ember/20 to-black/30 text-2xl transition group-hover:scale-110">
-              ⌨️
-            </div>
-            <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-ember">01 · Day</p>
-            <h3 class="mt-2 font-display text-2xl text-paper">Informatico</h3>
-            <p class="mt-3 text-sm leading-6 text-ash/85">
-              Di giorno: architetture, debugging, sistemi che devono reggere. La precisione è un riflesso.
-            </p>
-          </article>
-
-          <!-- Scrittore -->
-          <article class="panel group reveal rounded-3xl p-6 shadow-soft" style="transition-delay:0.12s">
-            <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-wineSoft/30 bg-gradient-to-br from-wine/25 to-black/30 text-2xl transition group-hover:scale-110">
-              ✒️
-            </div>
-            <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-ember">02 · Night</p>
-            <h3 class="mt-2 font-display text-2xl italic text-paper">Scrittore</h3>
-            <p class="mt-3 text-sm leading-6 text-ash/85">
-              Esordiente di notte. Racconto ciò che resta quando la realtà si incrina — e non puoi più chiudere gli occhi.
-            </p>
-          </article>
-
-          <!-- Musica -->
-          <article class="panel group reveal rounded-3xl p-6 shadow-soft" style="transition-delay:0.19s">
-            <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-roseGlow/30 bg-gradient-to-br from-roseGlow/20 to-black/30 text-2xl transition group-hover:scale-110">
-              🎧
-            </div>
-            <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-ember">03 · Sound</p>
-            <h3 class="mt-2 font-display text-2xl text-paper">Musica</h3>
-            <p class="mt-3 text-sm leading-6 text-ash/85">
-              La musica sposta le quinte del mio foglio bianco. Senza soundtrack, le scene restano al buio.
-            </p>
-          </article>
-
-          <!-- Viaggi -->
-          <article class="panel group reveal rounded-3xl p-6 shadow-soft" style="transition-delay:0.26s">
-            <div class="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-gold/25 bg-gradient-to-br from-leather/25 to-black/30 text-2xl transition group-hover:scale-110">
-              ✈️
-            </div>
-            <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-ember">04 · Elsewhere</p>
-            <h3 class="mt-2 font-display text-2xl text-paper">Viaggi</h3>
-            <p class="mt-3 text-sm leading-6 text-ash/85">
-              Sognando il prossimo viaggio. Ogni destinazione è un nuovo set di variabili narrative.
-            </p>
-          </article>
-        </div>
-
-        <!-- Strip citazione -->
-        <div class="quote-strip reveal mt-8 rounded-3xl border border-ember/25 px-6 py-6 text-center shadow-glow sm:px-10 sm:py-7">
-          <p class="font-display text-2xl italic leading-snug text-paper sm:text-3xl">
-            « Cercasi lettori coraggiosi per il mio debutto. »
-          </p>
-          <p class="mt-2 font-mono text-[11px] uppercase tracking-[0.28em] text-ember/80">— Paolo Riva · La Veglia</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ========== I LIBRI — spotlight + scaffale (mockup A) ========== -->
-    <section id="libri" class="libri-stage relative overflow-hidden">
+    <!-- ========== 2. LIBRI + CHI SONO ========== -->
+    <section id="libri" class="libri-stage relative border-y border-gold/10">
       <div id="la-veglia" class="absolute -top-24" aria-hidden="true"></div>
 
-      <div class="relative mx-auto max-w-6xl px-4 pt-14 sm:px-6 sm:pt-16 lg:px-8 lg:pt-20">
-        <div id="book-spotlight" class="spotlight-fade grid items-start gap-10 lg:grid-cols-[0.85fr_1fr_1.2fr] lg:items-center lg:gap-12">
-          <!-- Colonna sinistra: OPERE / I Libri sul fondale scrivania -->
-          <div class="reveal relative z-[1] self-start pt-1 lg:pt-4">
-            <p class="font-mono text-[11px] uppercase tracking-[0.38em] text-ember">Opere</p>
-            <h2 class="mt-2 font-display text-5xl leading-none text-paper sm:text-6xl lg:text-[4.25rem]">I Libri</h2>
-          </div>
+      <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+        <div class="mb-8 reveal">
+          <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-ember">Opere</p>
+          <h2 class="mt-1 font-display text-4xl text-paper sm:text-5xl">I Libri</h2>
+        </div>
 
-          <!-- Copertina grande -->
-          <div class="relative z-[1] mx-auto w-full max-w-[16.5rem] reveal sm:max-w-[18rem]">
-            <div class="spotlight-cover">
-              <img
-                id="book-cover"
-                src="assets/la-veglia-cover.png"
-                alt="Copertina del romanzo La Veglia"
-                class="w-full object-cover"
-                width="400"
-                height="600"
-              />
+        <div class="grid items-start gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:gap-12">
+
+          <!-- Colonna sinistra: libro selezionato + scaffale -->
+          <div>
+            <div id="book-spotlight" class="spotlight-fade grid gap-6 sm:grid-cols-[auto_1fr] sm:items-start sm:gap-8">
+              <div class="mx-auto w-full max-w-[13.5rem] sm:mx-0 sm:max-w-[14.5rem]">
+                <div class="spotlight-cover">
+                  <img
+                    id="book-cover"
+                    src="assets/la-veglia-cover.png"
+                    alt="Copertina del romanzo La Veglia"
+                    class="w-full object-cover"
+                    width="400"
+                    height="600"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <h3 id="book-title" class="font-display text-4xl leading-none text-paper sm:text-5xl">La Veglia</h3>
+                <p id="book-subtitle" class="mt-2 font-display text-lg italic text-ember/90 sm:text-xl">
+                  La coscienza dentro il mostro
+                </p>
+                <div id="book-synopsis" class="mt-4 space-y-3 text-[0.95rem] leading-relaxed text-ash/90"></div>
+                <div id="book-preview" class="preview-box mt-5 p-4 sm:p-5" hidden></div>
+              </div>
+            </div>
+
+            <!-- Scaffale (pronto per più titoli) -->
+            <div class="shelf-scene">
+              <div class="flex items-end gap-2 sm:gap-4">
+                <button type="button" id="shelf-prev" class="shelf-nav shrink-0 p-1" aria-label="Libro precedente">
+                  <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.35" aria-hidden="true">
+                    <path d="M15 5 8 12l7 7" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+
+                <div class="min-w-0 flex-1">
+                  <div
+                    id="book-shelf"
+                    class="flex items-end justify-center gap-4 overflow-x-auto px-1 pt-1 sm:gap-5"
+                    role="listbox"
+                    aria-label="Scaffale dei libri"
+                  ></div>
+                  <div class="shelf-plank mx-auto max-w-md sm:max-w-lg"></div>
+                  <p class="mt-4 text-center font-mono text-[10px] uppercase tracking-[0.28em] text-ash/40">
+                    Seleziona una copertina
+                  </p>
+                </div>
+
+                <button type="button" id="shelf-next" class="shelf-nav shrink-0 p-1" aria-label="Libro successivo">
+                  <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.35" aria-hidden="true">
+                    <path d="m9 5 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
 
-          <!-- Dettaglio testo -->
-          <div class="relative z-[1] reveal" style="transition-delay:0.1s">
-            <h3 id="book-title" class="font-display text-5xl leading-none text-paper sm:text-6xl">La Veglia</h3>
-            <p id="book-subtitle" class="mt-2 font-display text-xl italic text-ember/90">La coscienza dentro il mostro</p>
-            <div class="ornament-diamond" aria-hidden="true"><span>◆</span></div>
-            <div id="book-synopsis" class="space-y-3.5 text-[0.98rem] leading-relaxed text-ash/90 sm:text-base"></div>
-            <div id="book-preview" class="preview-box mt-6 p-5 sm:p-6" hidden></div>
-          </div>
-        </div>
-      </div>
+          <!-- Colonna destra: chi sono -->
+          <aside id="chi-sono" class="bio-panel reveal rounded-3xl p-6 sm:p-7 lg:sticky lg:top-24">
+            <p class="font-mono text-[10px] uppercase tracking-[0.32em] text-ember">Chi sono</p>
+            <h2 class="mt-2 font-display text-3xl text-paper sm:text-4xl">Paolo Riva</h2>
 
-      <!-- Scaffale sottile -->
-      <div class="shelf-scene">
-        <div class="mx-auto max-w-4xl px-4 pb-9 sm:px-6 lg:px-8">
-          <div class="flex items-end gap-2 sm:gap-5">
-            <button type="button" id="shelf-prev" class="shelf-nav shrink-0 p-1" aria-label="Libro precedente">
-              <svg viewBox="0 0 24 24" class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="1.35" aria-hidden="true">
-                <path d="M15 5 8 12l7 7" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-
-            <div class="min-w-0 flex-1">
-              <div
-                id="book-shelf"
-                class="flex items-end justify-center gap-5 overflow-x-auto px-1 pt-2 sm:gap-7"
-                role="listbox"
-                aria-label="Scaffale dei libri"
-              ></div>
-              <div class="shelf-plank mx-auto max-w-xl sm:max-w-2xl"></div>
-              <p class="mt-5 flex items-center justify-center gap-2.5 font-mono text-[10px] uppercase tracking-[0.3em] text-ash/45">
-                <svg viewBox="0 0 24 16" class="h-3 w-4 opacity-60" fill="currentColor" aria-hidden="true">
-                  <rect x="1" y="2" width="5" height="12" rx="0.5"/>
-                  <rect x="9.5" y="1" width="5" height="14" rx="0.5"/>
-                  <rect x="18" y="3" width="5" height="11" rx="0.5"/>
-                </svg>
-                Seleziona una copertina
+            <div class="mt-4 space-y-3.5 text-sm leading-relaxed text-ash/90 sm:text-[0.95rem]">
+              <p>
+                C’è un momento esatto in cui capisci che la lettura ti è sfuggita di mano:
+                quando tua moglie usa il numero di libri che accumuli come unità di misura
+                per prenderti in giro.
+              </p>
+              <p>
+                Mi chiamo Paolo Riva, vivo all’ombra della Mole, classe 1984.
+                Nella vita reale mi occupo di informatica, condivido le giornate con tre figli
+                e una pazienza che alleno quotidianamente.
+              </p>
+              <p>
+                Fino al liceo i libri per me erano semplici oggetti d’arredamento da evitare con cura.
+                Poi è arrivato <em class="text-paper not-italic">Ivanhoe</em>, ha acceso la miccia
+                e ha fatto crollare le difese. Da quel giorno:
+              </p>
+              <ul class="bio-list">
+                <li><em class="text-paper not-italic">Il Signore degli Anelli</em> riletto 7 volte (senza rimpianti).</li>
+                <li>Amore incondizionato per Dumas, Asimov, Agatha Christie e i grandi intrecci d’avventura.</li>
+                <li>Un’incompatibilità diplomatica con il romance: ci abbiamo provato, ma siamo rimasti buoni estranei.</li>
+              </ul>
+              <p class="pt-1 text-paper/95">
+                Circa sette mesi fa ho fatto il grande salto: passare dal leggere storie al provare a scriverne una.
+                … benvenuti nella mia pagina.
               </p>
             </div>
-
-            <button type="button" id="shelf-next" class="shelf-nav shrink-0 p-1" aria-label="Libro successivo">
-              <svg viewBox="0 0 24 24" class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="1.35" aria-hidden="true">
-                <path d="m9 5 7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </button>
-          </div>
+          </aside>
         </div>
       </div>
     </section>
 
-    <!-- ========== FORM COPIA IN ANTEPRIMA ========== -->
-    <section id="arc" class="border-y border-gold/10 bg-ink/40 wood-grain">
-      <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8">
-        <div class="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
+    <!-- ========== 3. ANTEPRIMA (Google Sheets) ========== -->
+    <section id="arc" class="border-b border-gold/10 bg-ink/40 wood-grain">
+      <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+        <div class="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-10">
 
-          <div class="flex flex-col justify-center">
+          <div class="flex flex-col justify-center reveal">
             <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-ember">Copia in anteprima</p>
-            <h2 class="mt-2 font-display text-4xl text-paper sm:text-5xl">Partecipa al lancio</h2>
+            <h2 class="mt-2 font-display text-4xl text-paper sm:text-5xl">Iscriviti all’anteprima</h2>
             <p class="mt-4 text-base leading-relaxed text-ash/85">
               Compila il modulo per candidarti a leggere
-              <span class="text-paper">La Veglia</span> in anteprima.
+              <span id="arc-book-name" class="text-paper">La Veglia</span> in anteprima.
               Se sei selezionato, riceverai il link a una pagina nascosta del sito, protetta da password.
             </p>
-
-            <ul class="mt-6 space-y-3">
-              <li class="flex items-start gap-3 text-sm text-ash/80">
-                <span class="mt-0.5 font-mono text-ember">01</span>
-                <span>Candidati con nome e email.</span>
-              </li>
-              <li class="flex items-start gap-3 text-sm text-ash/80">
-                <span class="mt-0.5 font-mono text-ember">02</span>
-                <span>Se sei in lista, ti invio link e password per la pagina di lettura riservata.</span>
-              </li>
-              <li class="flex items-start gap-3 text-sm text-ash/80">
-                <span class="mt-0.5 font-mono text-ember">03</span>
-                <span>Leggi sul sito. Se ti ha colpito, lascia una recensione sincera su Amazon all'uscita.</span>
-              </li>
+            <ul class="mt-5 space-y-2.5 text-sm text-ash/80">
+              <li class="flex gap-3"><span class="font-mono text-ember">01</span><span>Candidati con nome e email.</span></li>
+              <li class="flex gap-3"><span class="font-mono text-ember">02</span><span>Se sei in lista, ti invio link e password.</span></li>
+              <li class="flex gap-3"><span class="font-mono text-ember">03</span><span>All’uscita, una recensione sincera su Amazon.</span></li>
             </ul>
-
-            <pre class="mt-6 overflow-x-auto rounded-2xl border border-gold/10 bg-ink/80 p-4 font-mono text-[11px] leading-6 text-gold/70"><code><span class="text-wineSoft">// TODO:</span> find brave readers
-<span class="text-ash/40">const</span> debut = <span class="text-paper">"La Veglia"</span>;
-<span class="text-ash/40">await</span> unlockHiddenPage(you);</code></pre>
           </div>
 
-          <div class="rounded-3xl border border-gold/15 bg-[#160f0c] p-6 shadow-soft sm:p-8">
-            <form id="arc-form" action="https://formsubmit.co/ajax/" method="POST" class="space-y-5" data-lista="arc">
+          <div class="rounded-3xl border border-gold/15 bg-[#160f0c] p-6 shadow-soft sm:p-7">
+            <form id="arc-form" action="https://formsubmit.co/ajax/" method="POST" class="space-y-4" data-lista="arc">
               <input type="hidden" name="_subject" value="[ANTEPRIMA] Nuova richiesta copia in anteprima — La Veglia" />
               <input type="hidden" name="_template" value="table" />
               <input type="hidden" name="_captcha" value="false" />
@@ -731,34 +547,34 @@
               <input type="hidden" name="lista" value="arc" />
               <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
 
-              <div class="grid gap-5 sm:grid-cols-2">
+              <div class="grid gap-4 sm:grid-cols-2">
                 <div>
-                  <label for="arc-nome" class="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Nome</label>
+                  <label for="arc-nome" class="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Nome</label>
                   <input id="arc-nome" name="nome" type="text" required placeholder="Nome"
-                    class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3.5 text-paper placeholder:text-ash/35" />
+                    class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-paper placeholder:text-ash/35" />
                 </div>
                 <div>
-                  <label for="arc-cognome" class="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Cognome</label>
+                  <label for="arc-cognome" class="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Cognome</label>
                   <input id="arc-cognome" name="cognome" type="text" required placeholder="Cognome"
-                    class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3.5 text-paper placeholder:text-ash/35" />
+                    class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-paper placeholder:text-ash/35" />
                 </div>
               </div>
 
               <div>
-                <label for="arc-email" class="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Indirizzo Email</label>
+                <label for="arc-email" class="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Indirizzo Email</label>
                 <input id="arc-email" name="email" type="email" required placeholder="nome@email.com"
-                  class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3.5 text-paper placeholder:text-ash/35" />
+                  class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-paper placeholder:text-ash/35" />
               </div>
 
               <div>
-                <label for="arc-instagram" class="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">
+                <label for="arc-instagram" class="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">
                   Handle Instagram <span class="text-ash/40">(opzionale)</span>
                 </label>
                 <input id="arc-instagram" name="instagram" type="text" placeholder="@tuohandle"
-                  class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3.5 text-paper placeholder:text-ash/35" />
+                  class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-paper placeholder:text-ash/35" />
               </div>
 
-              <label class="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/25 px-4 py-4 text-sm leading-6 text-ash/80">
+              <label class="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/25 px-4 py-3.5 text-sm leading-6 text-ash/80">
                 <input type="checkbox" name="privacy" value="accepted" required class="mt-1 accent-wine" />
                 <span>
                   Accetto la Privacy Policy e autorizzo l'uso dei miei dati solo per la gestione della copia in anteprima.
@@ -770,7 +586,7 @@
               <button
                 id="arc-form-submit"
                 type="submit"
-                class="cta-shimmer inline-flex w-full items-center justify-center rounded-2xl px-5 py-4 text-sm font-semibold tracking-wide text-white shadow-glow transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-ember/40 disabled:cursor-not-allowed disabled:opacity-60"
+                class="cta-shimmer inline-flex w-full items-center justify-center rounded-2xl px-5 py-3.5 text-sm font-semibold tracking-wide text-white shadow-glow transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-ember/40 disabled:cursor-not-allowed disabled:opacity-60"
               >
                 Richiedi la copia in anteprima
               </button>
@@ -780,40 +596,15 @@
       </div>
     </section>
 
-    <!-- ========== LINK IN BIO ========== -->
-    <section id="links" class="relative">
-      <div class="mx-auto max-w-3xl px-4 py-12 sm:px-6 sm:py-14 lg:px-8">
-        <div class="mb-8 text-center reveal">
-          <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-ember">Link Rapidi</p>
-          <h2 class="mt-2 font-display text-4xl text-paper sm:text-5xl">Link in bio</h2>
-          <p class="mx-auto mt-3 max-w-md text-sm leading-relaxed text-ash/80">
-            Ottimizzati per smartphone — pronti da usare su Instagram.
-          </p>
-        </div>
-
-        <div class="grid gap-3.5">
-          <a href="#arc" class="link-card panel group flex items-center gap-4 rounded-3xl p-5 transition duration-200">
-            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-wine/25 text-xl">📖</span>
-            <span class="min-w-0 flex-1">
-              <span class="block font-mono text-[10px] uppercase tracking-[0.25em] text-gold/60">01</span>
-              <span class="block text-base font-semibold text-paper sm:text-lg">Richiedi la copia in anteprima di «La Veglia»</span>
-            </span>
-            <span class="text-gold/40 transition group-hover:text-gold">→</span>
-          </a>
-        </div>
-      </div>
-    </section>
-
   </main>
 
-  <!-- ========== FOOTER ========== -->
   <footer class="border-t border-gold/10 bg-ink/80">
-    <div class="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 py-10 text-center sm:px-6 md:flex-row md:justify-between md:text-left lg:px-8">
-      <div class="flex flex-col items-center gap-3 md:items-start">
+    <div class="mx-auto flex max-w-6xl flex-col items-center gap-5 px-4 py-8 text-center sm:px-6 md:flex-row md:justify-between md:text-left lg:px-8">
+      <div class="flex flex-col items-center gap-2 md:items-start">
         <img
           src="assets/logo-light.png"
           alt="Paolo Riva"
-          class="h-14 w-auto opacity-90"
+          class="h-12 w-auto opacity-90"
           width="114"
           height="123"
         />
@@ -826,7 +617,6 @@
       </div>
 
       <div class="flex items-center gap-3">
-        <!-- Sostituisci i link con i profili reali -->
         <a href="https://instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"
           class="rounded-full border border-gold/15 p-2.5 text-ash/70 transition hover:border-gold/40 hover:text-paper">
           <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current" aria-hidden="true">
@@ -848,7 +638,6 @@
       </div>
     </div>
   </footer>
-
 
   <script>
     (function () {
@@ -876,16 +665,8 @@
             ctaLabel: "Vai al form →"
           }
         }
-        // Esempio per il prossimo titolo:
-        // {
-        //   id: "opera-ii",
-        //   title: "…",
-        //   subtitle: "…",
-        //   cover: "assets/….png",
-        //   coverAlt: "…",
-        //   synopsis: ["…"],
-        //   preview: null
-        // }
+        // Prossimo titolo: copia l'oggetto sopra e aggiorna id, title, cover, synopsis.
+        // Se ha anteprima, lascia preview: { ... }; altrimenti preview: null
       ];
 
       var activeBookIndex = 0;
@@ -894,6 +675,8 @@
       var prevBtn = document.getElementById("shelf-prev");
       var nextBtn = document.getElementById("shelf-next");
       var heroLatest = document.getElementById("hero-latest-book");
+      var arcBookName = document.getElementById("arc-book-name");
+      var arcSubject = document.querySelector('#arc-form input[name="_subject"]');
 
       function setText(id, value) {
         var el = document.getElementById(id);
@@ -910,29 +693,36 @@
         }
         box.hidden = false;
         box.innerHTML =
-          '<div class="flex items-start gap-4">' +
-            '<div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-wine/30 text-xl" aria-hidden="true">📖</div>' +
+          '<div class="flex items-start gap-3">' +
+            '<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-wine/30 text-lg" aria-hidden="true">📖</div>' +
             '<div>' +
               '<p class="font-mono text-[10px] uppercase tracking-[0.3em] text-gold">' + book.preview.label + '</p>' +
-              '<h4 class="mt-1 font-display text-2xl text-paper">' + book.preview.heading + '</h4>' +
-              '<p class="mt-3 text-sm leading-7 text-ash/85">' + book.preview.bodyHtml + '</p>' +
-              '<a href="' + book.preview.ctaHref + '" class="mt-4 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-wineSoft transition hover:text-paper">' +
+              '<h4 class="mt-1 font-display text-xl text-paper">' + book.preview.heading + '</h4>' +
+              '<p class="mt-2 text-sm leading-6 text-ash/85">' + book.preview.bodyHtml + '</p>' +
+              '<a href="' + book.preview.ctaHref + '" class="mt-3 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-wineSoft transition hover:text-paper">' +
                 book.preview.ctaLabel +
               '</a>' +
             '</div>' +
           '</div>';
       }
 
+      function syncArcCopy(book) {
+        if (arcBookName) arcBookName.textContent = book.title;
+        if (arcSubject && book.preview) {
+          arcSubject.value = "[ANTEPRIMA] Nuova richiesta copia in anteprima — " + book.title;
+        }
+      }
+
       function renderHeroLatest(book) {
         if (!heroLatest || !book) return;
         var img = heroLatest.querySelector("img");
-        var title = heroLatest.querySelector(".font-display.text-2xl");
+        var titleEl = heroLatest.querySelector(".font-display.text-2xl");
         var subtitle = heroLatest.querySelector(".italic");
         if (img) {
           img.src = book.cover;
           img.alt = book.coverAlt || ("Copertina di " + book.title);
         }
-        if (title) title.textContent = book.title;
+        if (titleEl) titleEl.textContent = book.title;
         if (subtitle) subtitle.textContent = book.subtitle || "";
         heroLatest.setAttribute("aria-label", "Ultimo libro: " + book.title + " — vai alla vetrina");
         heroLatest.href = "#libri";
@@ -954,6 +744,7 @@
             .join("");
         }
         renderPreview(book);
+        syncArcCopy(book);
       }
 
       function renderShelf() {
@@ -1014,7 +805,6 @@
         }
       }
 
-      // Reveal on scroll
       var revealEls = document.querySelectorAll(".reveal");
       if ("IntersectionObserver" in window && revealEls.length) {
         var revealObs = new IntersectionObserver(function (entries) {
@@ -1031,11 +821,8 @@
       }
 
       // FOGLIO GOOGLE — elenco candidati anteprima.
-      // Dopo il setup in LISTE.txt, incolla qui l'URL dell'app web:
       var SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbxd7IzVaLR77FvjTQp3gyligToXpCIudG9z2_LdbeAWRz-dUTx__r_u0c0SKdwgG3yA5w/exec";
 
-      // VISITE — GoatCounter (gratis, senza cookie). Setup in LISTE.txt.
-      // Esempio: se il tuo sito è https://paoloriva.goatcounter.com → codice "paoloriva"
       var GOATCOUNTER_CODE = "";
 
       if (GOATCOUNTER_CODE) {
@@ -1056,9 +843,6 @@
         });
       }
 
-      // FormSubmit → avviso email su Proton.
-      // Notifiche email: le gestisce Apps Script (MailApp → Proton).
-      // FormSubmit resta solo come fallback se il foglio fallisce.
       var FORM_ID = "paoloriva_main@proton.me";
       var emailEndpoint = "https://formsubmit.co/ajax/" + FORM_ID;
 
@@ -1138,8 +922,6 @@
               sheetsOk = true;
             }
 
-            // Se il foglio ha salvato, la mail parte da Apps Script.
-            // FormSubmit solo come fallback se il foglio non è configurato.
             if (!sheetsOk) {
               var mail = await notifyEmail(form);
               if (mail.activation) {
