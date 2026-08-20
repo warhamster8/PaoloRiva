@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Preview layout — Paolo Riva</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: "#f0e6d8", ash: "#d4c6b4", wine: "#8f2d3a",
+            gold: "#d4b48c", ember: "#e8a070"
+          },
+          fontFamily: {
+            display: ['"Cormorant Garamond"', "Georgia", "serif"],
+            sans: ["Outfit", "ui-sans-serif", "system-ui", "sans-serif"],
+            mono: ['"JetBrains Mono"', "ui-monospace", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background:
+        radial-gradient(ellipse 90% 55% at 50% -8%, rgba(143, 45, 58, 0.38), transparent 58%),
+        linear-gradient(180deg, #1f1410 0%, #160f0c 42%, #0f0a08 100%);
+      color: #d4c6b4;
+      min-height: 100vh;
+    }
+    .card {
+      background: linear-gradient(160deg, rgba(48,30,24,0.94), rgba(22,15,12,0.9));
+      border: 1px solid rgba(212, 180, 140, 0.16);
+      transition: border-color 0.25s, transform 0.25s;
+    }
+    .card:hover {
+      border-color: rgba(232, 160, 112, 0.45);
+      transform: translateY(-3px);
+    }
+  </style>
+</head>
+<body class="font-sans antialiased">
+  <main class="mx-auto max-w-3xl px-4 py-14 sm:px-6">
+    <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-ember">Preview · non pubblicate</p>
+    <h1 class="mt-2 font-display text-4xl text-paper sm:text-5xl">Layout più compatti</h1>
+    <p class="mt-3 max-w-xl text-base leading-relaxed text-ash/85">
+      Due bozze della landing, stesso stile caldo. Aprine una, confrontale, poi scegli quale portare in produzione.
+    </p>
+
+    <div class="mt-10 grid gap-4 sm:grid-cols-2">
+      <a href="proposta-a-tre-blocchi.html" class="card rounded-3xl p-6">
+        <p class="font-mono text-[10px] uppercase tracking-[0.28em] text-ember">A · consigliata</p>
+        <h2 class="mt-2 font-display text-2xl text-paper">Tre blocchi</h2>
+        <p class="mt-3 text-sm leading-relaxed text-ash/80">
+          Hero snello → libro + bio breve → form anteprima. Circa 2–2,5 scroll.
+        </p>
+        <span class="mt-5 inline-flex font-mono text-xs uppercase tracking-[0.2em] text-gold">Apri preview →</span>
+      </a>
+
+      <a href="proposta-b-form-hero.html" class="card rounded-3xl p-6">
+        <p class="font-mono text-[10px] uppercase tracking-[0.28em] text-ember">B · aggressiva</p>
+        <h2 class="mt-2 font-display text-2xl text-paper">Form in hero</h2>
+        <p class="mt-3 text-sm leading-relaxed text-ash/80">
+          Candidatura già nel primo viewport. Libro e bio sotto. Massima conversione.
+        </p>
+        <span class="mt-5 inline-flex font-mono text-xs uppercase tracking-[0.2em] text-gold">Apri preview →</span>
+      </a>
+    </div>
+
+    <p class="mt-10 text-center font-mono text-[11px] text-ash/45">
+      <a href="../index.html" class="text-gold/70 transition hover:text-gold">← Torna al sito attuale</a>
+    </p>
+  </main>
+</body>
+</html>
