@@ -327,7 +327,7 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      filter: drop-shadow(0 28px 40px rgba(0,0,0,0.55)) drop-shadow(0 0 34px rgba(0,229,255,0.12));
+      filter: drop-shadow(0 0 28px rgba(0,0,0,0.55)) drop-shadow(0 0 22px rgba(0,229,255,0.1));
       animation: sealIn 1.15s cubic-bezier(.2,.8,.2,1) both;
     }
     .medallion-tilt::after {
@@ -664,7 +664,7 @@
     <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-1 sm:px-6 lg:px-8">
       <a href="#top" class="group flex items-center gap-2" aria-label="Paolo Riva — torna all'inizio">
         <img
-          src="assets/logo-fr-sm.webp"
+          src="assets/logo-fr-sm.webp?v=3"
           alt=""
           class="brand-seal h-7 w-7 sm:h-8 sm:w-8"
           width="32"
@@ -739,7 +739,7 @@
               </text>
             </svg>
             <img
-              src="assets/logo-fr.webp"
+              src="assets/logo-fr.webp?v=3"
               alt="Sigillo FR: scrittura e circuito"
               class="medallion"
               width="800"
@@ -1011,7 +1011,7 @@
     <div class="mx-auto flex max-w-6xl flex-col items-center gap-5 px-4 py-8 text-center sm:px-6 md:flex-row md:justify-between md:text-left lg:px-8">
       <div class="flex flex-col items-center gap-2 md:items-start">
         <img
-          src="assets/logo-fr-sm.webp"
+          src="assets/logo-fr-sm.webp?v=3"
           alt="Paolo Riva"
           class="h-9 w-9 opacity-95"
           width="36"
@@ -1243,7 +1243,7 @@
         if (e.clientY < r.top || e.clientY > r.bottom) return;
         var x = (e.clientX - r.left) / r.width - 0.5;
         var y = (e.clientY - r.top) / r.height - 0.5;
-        tilt.style.transform = "rotateY(" + (x * 14) + "deg) rotateX(" + (-y * 10) + "deg)";
+        tilt.style.transform = "rotateY(" + (x * 5) + "deg) rotateX(" + (-y * 3.5) + "deg)";
         var split = 46 + y * 6;
         root.style.setProperty("--split", split.toFixed(2) + "%");
       }
