@@ -142,34 +142,55 @@ C) PAGINA ANTEPRIMA NASCOSTA
 ══════════════════════════════════
 
 URL (non linkata dal sito pubblico):
-  https://warhamster8.github.io/PaoloRiva/SITES/lettura/
+  https://paoloriva.site/SITES/lettura/
+  https://paoloriva.site/SITES/lettura/?libro=la-veglia
 
 Codice di accesso: nome+cognome della protagonista, senza spazi
   (es. NomeCognome — quello concordato in privato)
 Scadenza: 4 settembre 2026 (30 giorni da creazione)
 
 Come usarla:
-  1. Seleziona i lettori dal foglio «Anteprima».
-  2. Mandagli in privato URL + codice (email / DM).
+  1. Seleziona i lettori dal foglio «Anteprima» (o dalla Console).
+  2. Mandagli URL + codice dalla scheda Posta della Console.
   3. Non pubblicare il link su Instagram o in bio.
   4. Non scrivere il codice in chiaro in questo repo.
 
 Protezioni attive:
-  • Codice hashed nel sorgente (non in chiaro)
+  • Codice hashed (non in chiaro)
   • Sessione locale fino alla scadenza
-  • PDF con watermark + niente stampa/copia/modifica
-  • Viewer senza pulsante download; blocco tasto destro,
+  • Viewer senza download; blocco tasto destro,
     Ctrl+S / Ctrl+P / Ctrl+C; overlay se lasci la scheda
   • noindex / robots disallow
 
 Limiti reali (GitHub Pages è statico):
   screenshot di sistema e copia avanzata non si possono
-  impedire al 100%. Il watermark resta la traccia principale.
+  impedire al 100%.
 
-Tu (autore) puoi sempre riaprire la pagina con lo stesso codice.
-  Se scade per i lettori, allunga EXPIRES_AT in
-  SITES/lettura/index.html e fai push. Il PDF locale resta
-  anche in LaVeglia/export/.
+
+══════════════════════════════════
+D) CONSOLE AUTORE (admin)
+══════════════════════════════════
+
+URL (non linkata dal sito, noindex):
+  https://paoloriva.site/SITES/admin/
+
+Da lì puoi:
+  • creare altre pagine nascoste (un libro = un URL ?libro=slug)
+  • caricare il PDF su Google Drive (cartella PaoloRiva-Anteprime)
+  • vedere i candidati del foglio Anteprima
+  • inviare mail con link e codice ({{nome}} {{link}} {{codice}} {{titolo}})
+
+Chiave di accesso: te la sei tenuta in privato (hash nel pannello).
+Per cambiarla, ricalcola SHA-256 e aggiorna ADMIN_HASH in
+  SITES/admin/index.html  e  SITES/liste/Code.gs
+
+PRIMA DI USARE LA CONSOLE (una volta):
+  1. Incolla il nuovo SITES/liste/Code.gs in Apps Script
+  2. Distribuisci → Gestisci distribuzione → Nuova versione
+     (autorizza anche Drive se richiesto)
+  3. Esegui la funzione setupFogli
+  4. Senza questo passaggio La Veglia continua a funzionare
+     col PDF locale; le nuove anteprime e la posta no.
 
 
 LETTURE COMPLETATE

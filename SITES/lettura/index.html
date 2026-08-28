@@ -102,7 +102,7 @@
     <div class="panel w-full max-w-md rounded-3xl p-8 shadow-2xl">
       <img src="../assets/logo-fr-sm.webp?v=3" alt="" class="mx-auto mb-5 h-14 w-14" width="56" height="56" />
       <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-gold">Accesso riservato</p>
-      <h1 class="mt-3 font-serif text-3xl text-paper">La Veglia — anteprima</h1>
+      <h1 id="gate-title" class="mt-3 font-serif text-3xl text-paper">La Veglia — anteprima</h1>
       <p class="mt-3 text-sm leading-relaxed text-ash/80">
         Pagina nascosta per lettori selezionati. Inserisci il codice ricevuto.
         L’accesso scade automaticamente dopo 30 giorni.
@@ -143,7 +143,7 @@
       <div class="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3">
         <div>
           <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-gold">Anteprima riservata</p>
-          <p class="font-serif text-lg text-paper">La Veglia</p>
+          <p id="reader-title" class="font-serif text-lg text-paper">La Veglia</p>
         </div>
         <div class="flex items-center gap-3">
           <p id="expiry-label" class="hidden text-right font-mono text-[10px] uppercase tracking-[0.15em] text-ash/50 sm:block"></p>
@@ -200,12 +200,24 @@
     pdfjsLib.GlobalWorkerOptions.workerSrc =
       "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.8.69/pdf.worker.min.mjs";
 
-    const CODE_HASH = "8173460119b589fdaa25b039cff030af1dfc4f8699d8424f77c13fe8eab27d55";
-    const EXPIRES_AT = Date.parse("2026-09-04T23:59:59+02:00");
-    const SESSION_KEY = "lv_arc_ok";
-    const PDF_URL = "./lv-arc.pdf";
     const SHEETS_ENDPOINT = "https://script.google.com/macros/s/AKfycbxd7IzVaLR77FvjTQp3gyligToXpCIudG9z2_LdbeAWRz-dUTx__r_u0c0SKdwgG3yA5w/exec";
-    const DONE_KEY = "lv_arc_done";
+    const FALLBACK = {
+      id: "la-veglia",
+      title: "La Veglia",
+      hash: "8173460119b589fdaa25b039cff030af1dfc4f8699d8424f77c13fe8eab27d55",
+      expires: "2026-09-04T23:59:59+02:00",
+      localPdf: "./lv-arc.pdf"
+    };
+
+    const slug = (new URLSearchParams(location.search).get("libro") || "la-veglia").toLowerCase();
+    const SESSION_KEY = "lv_arc_ok_" + slug;
+    const DONE_KEY = "lv_arc_done_" + slug;
+
+    let CODE_HASH = slug === "la-veglia" ? FALLBACK.hash : "";
+    let EXPIRES_AT = slug === "la-veglia" ? Date.parse(FALLBACK.expires) : 0;
+    let PDF_URL = slug === "la-veglia" ? FALLBACK.localPdf : "";
+    let BOOK_TITLE = slug === "la-veglia" ? FALLBACK.title : "Anteprima";
+    let pdfBytes = null;
 
     const gate = document.getElementById("gate");
     const reader = document.getElementById("reader");
@@ -234,7 +246,7 @@
     }
 
     function isExpired() {
-      return Date.now() > EXPIRES_AT;
+      return EXPIRES_AT && Date.now() > EXPIRES_AT;
     }
 
     function formatExpiry() {
@@ -350,8 +362,11 @@
 
       try {
         if (!pdfDoc) {
-          const loadingTask = pdfjsLib.getDocument({ url: PDF_URL });
-          pdfDoc = await loadingTask.promise;
+          if (pdfBytes) {
+            pdfDoc = await pdfjsLib.getDocument({ data: pdfBytes }).promise;
+          } else {
+            pdfDoc = await pdfjsLib.getDocument({ url: PDF_URL }).promise;
+          }
         }
         totalPages = pdfDoc.numPages;
         const width = containerWidth();
@@ -433,6 +448,10 @@
       }
 
       const raw = document.getElementById("code").value.trim();
+      if (!CODE_HASH) {
+        showError("Anteprima non disponibile.");
+        return;
+      }
       const hash = await sha256Hex(raw);
       if (hash !== CODE_HASH) {
         showError("Codice non valido.");
@@ -440,6 +459,7 @@
       }
 
       try { localStorage.setItem(SESSION_KEY, CODE_HASH); } catch (_) {}
+      await fetchPdfIfNeeded();
       await openReader();
     });
 
@@ -448,14 +468,86 @@
       location.reload();
     });
 
-    lockDown();
-
-    if (isExpired()) {
-      showError("Questa anteprima è scaduta il " + formatExpiry() + ".");
-      clearSession();
-    } else if (hasValidSession()) {
-      openReader();
+    async function api(payload) {
+      const response = await fetch(SHEETS_ENDPOINT, {
+        method: "POST",
+        body: JSON.stringify(payload),
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        redirect: "follow"
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || data.ok === false) {
+        throw new Error((data && data.error) || "errore");
+      }
+      return data;
     }
+
+    function applyBook(meta) {
+      CODE_HASH = meta.hash || FALLBACK.hash;
+      BOOK_TITLE = meta.title || FALLBACK.title;
+      if (meta.expires) {
+        const parsed = Date.parse(meta.expires);
+        if (!isNaN(parsed)) EXPIRES_AT = parsed;
+      }
+      const titleEl = document.getElementById("gate-title");
+      const readerTitle = document.getElementById("reader-title");
+      if (titleEl) titleEl.textContent = BOOK_TITLE + " — anteprima";
+      if (readerTitle) readerTitle.textContent = BOOK_TITLE;
+      document.title = "Anteprima riservata — " + BOOK_TITLE;
+    }
+
+    async function loadBookMeta() {
+      if (slug === "la-veglia") applyBook(FALLBACK);
+      try {
+        const data = await api({ action: "bookMeta", slug: slug });
+        if (data.book) {
+          applyBook({
+            title: data.book.title,
+            hash: data.book.hash,
+            expires: data.book.expires
+          });
+        }
+      } catch (_) {
+        if (slug !== "la-veglia") {
+          showError("Anteprima non trovata.");
+        }
+      }
+    }
+
+    async function fetchPdfIfNeeded() {
+      pdfBytes = null;
+      try {
+        const data = await api({ action: "bookPdf", slug: slug, proof: CODE_HASH });
+        if (data.pdfBase64) {
+          const bin = atob(data.pdfBase64);
+          const bytes = new Uint8Array(bin.length);
+          for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+          pdfBytes = bytes;
+          return;
+        }
+        if (data.useLocal) {
+          PDF_URL = FALLBACK.localPdf;
+        }
+      } catch (_) {
+        if (slug === "la-veglia") PDF_URL = FALLBACK.localPdf;
+      }
+    }
+
+    async function boot() {
+      await loadBookMeta();
+      if (isExpired()) {
+        showError("Questa anteprima è scaduta il " + formatExpiry() + ".");
+        clearSession();
+        return;
+      }
+      if (hasValidSession()) {
+        await fetchPdfIfNeeded();
+        await openReader();
+      }
+    }
+
+    lockDown();
+    boot();
   </script>
 </body>
 </html>
