@@ -145,8 +145,8 @@ URL (non linkata dal sito pubblico):
   https://paoloriva.site/SITES/lettura/
   https://paoloriva.site/SITES/lettura/?libro=la-veglia
 
-Codice di accesso: nome+cognome della protagonista, senza spazi
-  (es. NomeCognome — quello concordato in privato)
+Codice di accesso: personale, solo hash nel sito (non in chiaro).
+  Lo cambi dalla Console oppure aggiornando l'hash in lettura/index.html.
 Scadenza: 4 settembre 2026 (30 giorni da creazione)
 
 Come usarla:
