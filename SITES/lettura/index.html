@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&family=Syne:wght@600;700&display=swap"
     rel="stylesheet"
   />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -20,16 +20,18 @@
       theme: {
         extend: {
           colors: {
-            ink: "#0d0a09",
-            paper: "#f0e6d8",
-            ash: "#d4c6b4",
-            wine: "#8f2d3a",
-            wineSoft: "#b44552",
-            gold: "#d4b48c",
-            ember: "#e8a070"
+            ink: "#0d0d0d",
+            paper: "#e7e2d8",
+            ash: "#9aa8a8",
+            wine: "#1a3c40",
+            wineSoft: "#2a5a60",
+            gold: "#d4af37",
+            ember: "#00e5ff",
+            cyan: "#00e5ff"
           },
           fontFamily: {
-            display: ['"Cormorant Garamond"', "Georgia", "serif"],
+            display: ["Syne", "ui-sans-serif", "system-ui", "sans-serif"],
+            serif: ['"Cormorant Garamond"', "Georgia", "serif"],
             sans: ["Outfit", "ui-sans-serif", "system-ui", "sans-serif"],
             mono: ['"JetBrains Mono"', "ui-monospace", "monospace"]
           }
@@ -40,24 +42,25 @@
   <style>
     html, body {
       min-height: 100%;
-      background: #160f0c;
-      color: #d4c6b4;
+      background: #07090a;
+      color: #c5d0ce;
       -webkit-user-select: none;
       user-select: none;
       -webkit-touch-callout: none;
     }
     body {
       background-image:
-        radial-gradient(ellipse 90% 55% at 50% -8%, rgba(143, 45, 58, 0.38), transparent 58%),
-        linear-gradient(180deg, #1f1410 0%, #160f0c 42%, #0f0a08 100%);
+        radial-gradient(ellipse 90% 55% at 50% -8%, rgba(26, 60, 64, 0.55), transparent 58%),
+        radial-gradient(ellipse 40% 40% at 100% 100%, rgba(212, 175, 55, 0.08), transparent 50%),
+        linear-gradient(180deg, #102f33 0%, #0b1012 42%, #07090a 100%);
     }
     .panel {
-      background: linear-gradient(160deg, rgba(48,30,24,0.94), rgba(22,15,12,0.9));
-      border: 1px solid rgba(212, 180, 140, 0.16);
+      background: linear-gradient(160deg, rgba(22,48,52,0.72), rgba(10,12,13,0.94));
+      border: 1px solid rgba(212, 175, 55, 0.22);
     }
     .input-field:focus {
-      border-color: rgba(232, 160, 112, 0.55);
-      box-shadow: 0 0 0 3px rgba(232, 160, 112, 0.14);
+      border-color: rgba(0, 229, 255, 0.55);
+      box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.12);
       outline: none;
     }
     #viewer {
@@ -97,8 +100,9 @@
 
   <div id="gate" class="flex min-h-screen items-center justify-center px-4 py-16">
     <div class="panel w-full max-w-md rounded-3xl p-8 shadow-2xl">
+      <img src="../assets/logo-fr-sm.webp" alt="" class="mx-auto mb-5 h-16 w-16 rounded-full" width="64" height="64" />
       <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-gold">Accesso riservato</p>
-      <h1 class="mt-3 font-display text-3xl text-paper">La Veglia — anteprima</h1>
+      <h1 class="mt-3 font-serif text-3xl text-paper">La Veglia — anteprima</h1>
       <p class="mt-3 text-sm leading-relaxed text-ash/80">
         Pagina nascosta per lettori selezionati. Inserisci il codice ricevuto.
         L’accesso scade automaticamente dopo 30 giorni.
@@ -123,7 +127,7 @@
         <p id="gate-error" class="hidden rounded-2xl border border-wine/40 bg-wine/15 px-4 py-3 text-sm text-paper" role="alert"></p>
         <button
           type="submit"
-          class="w-full rounded-2xl bg-wine px-5 py-3.5 font-mono text-xs uppercase tracking-[0.22em] text-paper transition hover:bg-wineSoft"
+          class="w-full rounded-2xl bg-gradient-to-r from-[#9a7a22] via-[#d4af37] to-[#8a7024] px-5 py-3.5 font-mono text-xs uppercase tracking-[0.22em] text-[#12100a] font-semibold transition hover:brightness-110"
         >
           Entra
         </button>
@@ -139,7 +143,7 @@
       <div class="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3">
         <div>
           <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-gold">Anteprima riservata</p>
-          <p class="font-display text-lg text-paper">La Veglia</p>
+          <p class="font-serif text-lg text-paper">La Veglia</p>
         </div>
         <div class="flex items-center gap-3">
           <p id="expiry-label" class="hidden text-right font-mono text-[10px] uppercase tracking-[0.15em] text-ash/50 sm:block"></p>
@@ -162,7 +166,7 @@
     <section id="done-panel" class="mx-auto hidden w-full max-w-md px-4 pb-16">
       <div class="panel relative z-10 rounded-3xl p-6">
         <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-gold">Fine lettura</p>
-        <h2 class="mt-2 font-display text-2xl text-paper">Hai finito?</h2>
+        <h2 class="mt-2 font-serif text-2xl text-paper">Hai finito?</h2>
         <p class="mt-2 text-sm leading-relaxed text-ash/75">
           Segnala che hai completato l’anteprima. Comparirà nel foglio dell’autore.
         </p>
@@ -175,7 +179,7 @@
             class="input-field w-full rounded-2xl border border-gold/20 bg-ink/60 px-4 py-3 text-paper placeholder:text-ash/35" />
           <p id="done-status" class="hidden rounded-2xl border px-4 py-3 text-sm" role="status"></p>
           <button id="done-submit" type="submit"
-            class="w-full rounded-2xl bg-wine px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] text-paper transition hover:bg-wineSoft">
+            class="w-full rounded-2xl bg-gradient-to-r from-[#9a7a22] via-[#d4af37] to-[#8a7024] px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] text-[#12100a] font-semibold transition hover:brightness-110">
             Segnala lettura completata
           </button>
         </form>
@@ -185,7 +189,7 @@
 
   <div id="shield" aria-hidden="true">
     <div>
-      <p class="font-display text-2xl text-paper">Lettura sospesa</p>
+      <p class="font-serif text-2xl text-paper">Lettura sospesa</p>
       <p class="mt-2 font-mono text-xs uppercase tracking-[0.2em] text-ash/60">Torna alla scheda per continuare</p>
     </div>
   </div>
