@@ -486,7 +486,7 @@ function setupFogli() {
     getOrCreateSheet_("libri").appendRow([
       "la-veglia",
       "La Veglia",
-      "8173460119b589fdaa25b039cff030af1dfc4f8699d8424f77c13fe8eab27d55",
+      "dbfcdedcc10a0b2d9ee0eb48dd2c2a31b047817b9ff3c3340314e34e7e0010a4",
       "2026-09-04T23:59:59+02:00",
       "",
       Utilities.formatDate(new Date(), "Europe/Rome", "yyyy-MM-dd HH:mm:ss"),
