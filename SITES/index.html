@@ -143,7 +143,7 @@
 
     .glass-nav {
       background: rgba(7, 9, 10, 0.55);
-      backdrop-filter: blur(18px) saturate(1.2);
+      backdrop-filter: blur(14px) saturate(1.2);
       border-bottom: 1px solid rgba(200, 205, 208, 0.08);
     }
     .glass-nav::after {
@@ -155,12 +155,13 @@
     }
 
     .brand-seal {
-      filter: drop-shadow(0 0 16px rgba(0,229,255,0.18));
+      display: block;
+      filter: drop-shadow(0 0 10px rgba(0,229,255,0.16));
       transition: transform 0.35s ease, filter 0.35s ease;
     }
     .group:hover .brand-seal {
       transform: rotate(-6deg) scale(1.04);
-      filter: drop-shadow(0 0 22px rgba(212,175,55,0.45));
+      filter: drop-shadow(0 0 16px rgba(212,175,55,0.45));
     }
 
     /* ===== HERO: the two hemispheres ===== */
@@ -286,27 +287,27 @@
       flex-direction: column;
       align-items: center;
       justify-content: flex-end;
-      padding: 6.5rem 1.25rem 3.2rem;
+      padding: 4.1rem 1.25rem 2.4rem;
     }
 
     .medallion-scene {
       perspective: 1100px;
-      margin-bottom: 1.4rem;
+      margin-bottom: 1rem;
     }
     .medallion-tilt {
       position: relative;
-      width: min(58vw, 340px);
+      width: min(52vw, 280px);
       aspect-ratio: 1;
       transform-style: preserve-3d;
       transition: transform 0.12s ease-out;
     }
     @media (min-width: 768px) {
-      .medallion-tilt { width: min(42vw, 390px); }
+      .medallion-tilt { width: min(34vw, 320px); }
     }
 
     .orbit-svg {
       position: absolute;
-      inset: -14%;
+      inset: -11%;
       animation: orbitSpin 80s linear infinite;
       pointer-events: none;
     }
@@ -332,14 +333,16 @@
     .medallion-tilt::after {
       content: "";
       position: absolute;
-      inset: 6%;
+      inset: 0;
       border-radius: 50%;
       z-index: 2;
       pointer-events: none;
-      background: linear-gradient(115deg, transparent 38%, rgba(255,255,255,0.28) 50%, transparent 62%);
+      background: linear-gradient(115deg, transparent 38%, rgba(255,255,255,0.22) 50%, transparent 62%);
       background-size: 220% 100%;
       animation: gleam 7s ease-in-out 1.2s infinite;
       mix-blend-mode: screen;
+      -webkit-mask-image: radial-gradient(circle at center, #000 66%, transparent 70%);
+      mask-image: radial-gradient(circle at center, #000 66%, transparent 70%);
     }
     @keyframes sealIn {
       from { opacity: 0; transform: scale(0.82) translateY(18px); filter: blur(8px); }
@@ -658,19 +661,19 @@
   <div class="scroll-trace" aria-hidden="true"><div class="scroll-trace-fill" id="scroll-fill"></div></div>
 
   <header class="sticky top-0 z-50 glass-nav">
-    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-2.5 sm:px-6 lg:px-8">
-      <a href="#top" class="group flex items-center gap-3" aria-label="Paolo Riva — torna all'inizio">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-1 sm:px-6 lg:px-8">
+      <a href="#top" class="group flex items-center gap-2" aria-label="Paolo Riva — torna all'inizio">
         <img
           src="assets/logo-fr-sm.webp"
           alt=""
-          class="brand-seal h-11 w-11 rounded-full sm:h-12 sm:w-12"
-          width="48"
-          height="48"
+          class="brand-seal h-7 w-7 sm:h-8 sm:w-8"
+          width="32"
+          height="32"
         />
-        <span class="hidden font-display text-[11px] font-semibold uppercase tracking-[0.32em] text-silver/80 sm:inline">Paolo Riva</span>
+        <span class="hidden font-display text-[9px] font-semibold uppercase tracking-[0.28em] text-silver/75 sm:inline">Paolo Riva</span>
       </a>
 
-      <nav class="hidden items-center gap-7 font-mono text-[11px] uppercase tracking-[0.22em] text-ash/80 md:flex">
+      <nav class="hidden items-center gap-5 font-mono text-[10px] uppercase tracking-[0.2em] text-ash/80 md:flex">
         <a class="transition hover:text-chrome" href="#libri">I Libri</a>
         <a class="transition hover:text-chrome" href="#chi-sono">Chi sono</a>
         <a class="transition hover:text-chrome" href="#arc">Anteprima</a>
@@ -678,7 +681,7 @@
 
       <a
         href="#arc"
-        class="btn-gold rounded-full px-4 py-2 font-mono text-[11px] uppercase tracking-[0.18em] font-semibold transition hover:brightness-110"
+        class="btn-gold rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] font-semibold transition hover:brightness-110"
       >
         Anteprima
       </a>
@@ -863,7 +866,7 @@
             </div>
           </div>
 
-          <aside id="chi-sono" class="bio-panel reveal rounded-3xl p-6 sm:p-7 lg:sticky lg:top-24">
+          <aside id="chi-sono" class="bio-panel reveal rounded-3xl p-6 sm:p-7 lg:sticky lg:top-14">
             <p class="font-mono text-[10px] uppercase tracking-[0.32em] text-cyan/80">Chi sono</p>
             <h2 class="mt-2 font-display text-3xl font-bold text-paper sm:text-4xl">Paolo Riva</h2>
 
@@ -1010,9 +1013,9 @@
         <img
           src="assets/logo-fr-sm.webp"
           alt="Paolo Riva"
-          class="h-14 w-14 rounded-full opacity-95"
-          width="56"
-          height="56"
+          class="h-9 w-9 opacity-95"
+          width="36"
+          height="36"
         />
         <p class="text-sm text-ash/55">Copyright © Paolo Riva. Tutti i diritti riservati.</p>
         <p>
