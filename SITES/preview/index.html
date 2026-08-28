@@ -4,79 +4,75 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="robots" content="noindex" />
-  <title>Preview layout — Paolo Riva</title>
+  <title>Anteprima redesign FR — Paolo Riva</title>
   <link rel="icon" type="image/png" href="../assets/favicon.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            paper: "#f0e6d8", ash: "#d4c6b4", wine: "#8f2d3a",
-            gold: "#d4b48c", ember: "#e8a070"
-          },
-          fontFamily: {
-            display: ['"Cormorant Garamond"', "Georgia", "serif"],
-            sans: ["Outfit", "ui-sans-serif", "system-ui", "sans-serif"],
-            mono: ['"JetBrains Mono"', "ui-monospace", "monospace"]
-          }
-        }
-      }
-    };
-  </script>
   <style>
     body {
-      background:
-        radial-gradient(ellipse 90% 55% at 50% -8%, rgba(143, 45, 58, 0.38), transparent 58%),
-        linear-gradient(180deg, #1f1410 0%, #160f0c 42%, #0f0a08 100%);
-      color: #d4c6b4;
-      min-height: 100vh;
+      margin: 0;
+      background: #07090a;
+      color: #c5d0ce;
+      font-family: Outfit, ui-sans-serif, system-ui, sans-serif;
     }
-    .card {
-      background: linear-gradient(160deg, rgba(48,30,24,0.94), rgba(22,15,12,0.9));
-      border: 1px solid rgba(212, 180, 140, 0.16);
-      transition: border-color 0.25s, transform 0.25s;
+    main { max-width: 980px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+    p.kicker { letter-spacing: .28em; text-transform: uppercase; font-size: 11px; color: #d4af37; }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.6rem); color: #e7e2d8; margin: .4rem 0 1rem; }
+    a.live {
+      display: inline-block;
+      background: linear-gradient(110deg, #9a7a22, #d4af37, #8a7024);
+      color: #12100a;
+      text-decoration: none;
+      font-weight: 700;
+      padding: .85rem 1.3rem;
+      border-radius: 999px;
+      margin: .5rem .5rem 2rem 0;
     }
-    .card:hover {
-      border-color: rgba(232, 160, 112, 0.45);
-      transform: translateY(-3px);
+    a.ghost {
+      display: inline-block;
+      color: #e7e2d8;
+      text-decoration: none;
+      border: 1px solid rgba(212,175,55,.45);
+      padding: .85rem 1.3rem;
+      border-radius: 999px;
     }
+    figure { margin: 0 0 2rem; }
+    img {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(212,175,55,.2);
+      display: block;
+    }
+    figcaption { margin-top: .6rem; font-size: .9rem; color: #9aa8a8; }
   </style>
 </head>
-<body class="font-sans antialiased">
-  <main class="mx-auto max-w-3xl px-4 py-14 sm:px-6">
-    <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-ember">Preview · non pubblicate</p>
-    <h1 class="mt-2 font-display text-4xl text-paper sm:text-5xl">Layout più compatti</h1>
-    <p class="mt-3 max-w-xl text-base leading-relaxed text-ash/85">
-      Due bozze della landing, stesso stile caldo. Aprine una, confrontale, poi scegli quale portare in produzione.
+<body>
+  <main>
+    <p class="kicker">Anteprima · nuovo sigillo FR</p>
+    <h1>Il sito ridisegnato, da guardare prima di pubblicarlo</h1>
+    <p>paoloriva.site è ancora la versione vecchia. Queste sono le schermate della proposta.</p>
+    <p>
+      <a class="live" href="../index.html">Apri il sito nuovo (questa cartella)</a>
+      <a class="ghost" href="https://github.com/warhamster8/PaoloRiva/pull/1">PR su GitHub</a>
     </p>
-
-    <div class="mt-10 grid gap-4 sm:grid-cols-2">
-      <a href="proposta-a-tre-blocchi.html" class="card rounded-3xl p-6">
-        <p class="font-mono text-[10px] uppercase tracking-[0.28em] text-ember">A · consigliata</p>
-        <h2 class="mt-2 font-display text-2xl text-paper">Tre blocchi</h2>
-        <p class="mt-3 text-sm leading-relaxed text-ash/80">
-          Hero snello → libro + bio breve → form anteprima. Circa 2–2,5 scroll.
-        </p>
-        <span class="mt-5 inline-flex font-mono text-xs uppercase tracking-[0.2em] text-gold">Apri preview →</span>
-      </a>
-
-      <a href="proposta-b-form-hero.html" class="card rounded-3xl p-6">
-        <p class="font-mono text-[10px] uppercase tracking-[0.28em] text-ember">B · aggressiva</p>
-        <h2 class="mt-2 font-display text-2xl text-paper">Form in hero</h2>
-        <p class="mt-3 text-sm leading-relaxed text-ash/80">
-          Candidatura già nel primo viewport. Libro e bio sotto. Massima conversione.
-        </p>
-        <span class="mt-5 inline-flex font-mono text-xs uppercase tracking-[0.2em] text-gold">Apri preview →</span>
-      </a>
-    </div>
-
-    <p class="mt-10 text-center font-mono text-[11px] text-ash/45">
-      <a href="../index.html" class="text-gold/70 transition hover:text-gold">← Torna al sito attuale</a>
-    </p>
+    <figure>
+      <img src="shots/01-hero.png" alt="Hero con medaglione FR, due emisferi scrittura e circuito" width="1400" height="875" />
+      <figcaption>Hero — medaglione, corsivo italiano, circuiti oro</figcaption>
+    </figure>
+    <figure>
+      <img src="shots/02-libri.png" alt="Sezione I Libri con La Veglia e bio" width="1400" height="875" />
+      <figcaption>I Libri + Chi sono</figcaption>
+    </figure>
+    <figure>
+      <img src="shots/03-form.png" alt="Modulo iscrizione anteprima" width="1400" height="875" />
+      <figcaption>Form candidatura anteprima</figcaption>
+    </figure>
+    <figure>
+      <img src="shots/04-hero-mobile.png" alt="Hero su telefono" width="1400" height="875" />
+      <figcaption>Mobile</figcaption>
+    </figure>
+    <figure>
+      <img src="shots/05-lettura.png" alt="Pagina di accesso all anteprima riservata" width="1400" height="875" />
+      <figcaption>Pagina lettura riservata</figcaption>
+    </figure>
   </main>
 </body>
 </html>
