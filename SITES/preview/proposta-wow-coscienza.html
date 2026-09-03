@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Paolo Riva | Scrittore</title>
+  <title>Paolo Riva — Scrittore</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Great+Vibes&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -472,7 +472,12 @@
   </div>
 
   <div class="site" id="site">
-<header class="hero">
+    <div class="preview-banner">
+      <span><strong>PROTOTIPO</strong> · Landing completa</span>
+      <a href="https://paoloriva.site/" target="_blank" rel="noopener">Sito attuale</a>
+    </div>
+
+    <header class="hero">
       <div class="script-field" aria-hidden="true">
         <div class="script-row">storia di parole · inchiostro e sogni · racconti d'autore · scrivere è vivere · frammenti di pensieri · l'arte della scrittura · storia di parole · inchiostro e sogni ·</div>
         <div class="script-row">racconti d'autore · frammenti di pensieri · scrivere è vivere · inchiostro e sogni · storia di parole · l'arte della scrittura · racconti d'autore ·</div>
@@ -636,7 +641,7 @@
           <input type="email" name="email" required placeholder="la tua email" autocomplete="email" aria-label="Email per avvisi uscita" />
           <button class="btn-gold" type="submit">Iscrivimi</button>
         </form>
-        <div class="news-ok" id="news-ok">Iscrizione registrata. Ti avviserò alle prossime uscite.</div>
+        <div class="news-ok" id="news-ok">Iscrizione simulata. In produzione collegheremo un foglio o un servizio mail.</div>
       </section>
 
       <section class="panel faq" id="faq" aria-labelledby="faq-title">
@@ -678,7 +683,7 @@
           subtitle: "La coscienza dentro il mostro",
           statusLabel: "Esordio · Horror",
           soon: false,
-          cover: "assets/la-veglia-cover.png",
+          cover: "https://raw.githubusercontent.com/warhamster8/PaoloRiva/main/SITES/assets/la-veglia-cover.png",
           arcOpen: true,
           excerpt: "Un virus ha trasformato il mondo in predatori. Clara Rinaldi è una di loro — ma dentro è ancora sveglia. Vede. Sente. Ricorda. Soffre per ogni atto che il suo corpo compie senza di lei. Tra scienza e orrore, la coscienza sepolta diventa il vero terreno di battaglia."
         },
@@ -755,7 +760,7 @@
 
       document.getElementById("books").innerHTML = BOOKS.map(function (book) {
         var cta = book.arcOpen
-          ? '<a class="btn-gold" href="anteprima.html?libro=' + encodeURIComponent(book.id) + '">Richiedi anteprima</a>'
+          ? '<a class="btn-gold" href="proposta-wow-anteprima.html?libro=' + encodeURIComponent(book.id) + '">Richiedi anteprima</a>'
           : '<span class="btn-disabled">Available soon</span>';
         var excerpt = book.excerpt
           ? '<p class="excerpt">' + escapeHtml(book.excerpt) + "</p>"
@@ -774,36 +779,10 @@
         );
       }).join("");
 
-      document.getElementById("news-form").addEventListener("submit", async function (e) {
+      document.getElementById("news-form").addEventListener("submit", function (e) {
         e.preventDefault();
-        var ok = document.getElementById("news-ok");
-        var form = e.target;
-        var email = String(new FormData(form).get("email") || "").trim();
-        var btn = form.querySelector('button[type="submit"]');
-        btn.disabled = true;
-        try {
-          var response = await fetch("https://script.google.com/macros/s/AKfycbxd7IzVaLR77FvjTQp3gyligToXpCIudG9z2_LdbeAWRz-dUTx__r_u0c0SKdwgG3yA5w/exec", {
-            method: "POST",
-            body: JSON.stringify({
-              lista: "newsletter",
-              email: email,
-              nome: "",
-              cognome: "",
-              note: "avvisi uscita"
-            }),
-            headers: { "Content-Type": "text/plain;charset=utf-8" },
-            redirect: "follow"
-          });
-          var data = await response.json().catch(function () { return {}; });
-          if (!response.ok || data.ok === false) throw new Error("fail");
-          form.reset();
-          ok.classList.add("is-on");
-          btn.textContent = "Iscritto";
-        } catch (_) {
-          ok.textContent = "Iscrizione non riuscita. Riprova o scrivimi a paoloriva.main@proton.me";
-          ok.classList.add("is-on");
-          btn.disabled = false;
-        }
+        document.getElementById("news-ok").classList.add("is-on");
+        e.target.reset();
       });
     })();
   </script>
