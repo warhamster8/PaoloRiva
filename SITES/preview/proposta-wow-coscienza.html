@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paolo Riva — Scrittore</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Great+Vibes&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --void: #07090a;
+      --paper: #e7e2d8;
+      --gold: #d4af37;
+      --cyan: #00e5ff;
+      --muted: #c5d0ce;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--void);
+      color: var(--muted);
+      font-family: Outfit, ui-sans-serif, system-ui, sans-serif;
+    }
+    body.is-locked { overflow: hidden; height: 100vh; }
+
+    .grain {
+      position: fixed; inset: 0; pointer-events: none; z-index: 90;
+      opacity: 0.045; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    #boot {
+      position: fixed; inset: 0; z-index: 100;
+      background: #020304;
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.7s ease, visibility 0.7s;
+    }
+    #boot.is-done { opacity: 0; visibility: hidden; pointer-events: none; }
+    .boot-inner { width: min(520px, 90vw); text-align: center; }
+    .boot-kicker {
+      font-size: 0.58rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: rgba(212,175,55,0.5); margin-bottom: 0.9rem;
+    }
+    .boot-quote {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(1.35rem, 4vw, 2rem);
+      font-style: italic; color: var(--paper); line-height: 1.3;
+      min-height: 2.6em;
+    }
+    .boot-quote .cursor {
+      display: inline-block; width: 2px; height: 1em;
+      background: var(--cyan); margin-left: 2px; vertical-align: -0.08em;
+      animation: blink 0.85s steps(1) infinite;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    .boot-skip {
+      position: absolute; bottom: 1rem; right: 1rem;
+      background: transparent; border: 1px solid rgba(212,175,55,0.25);
+      color: rgba(231,226,216,0.5); font: 500 0.65rem Outfit, sans-serif;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.4rem 0.7rem; border-radius: 999px; cursor: pointer;
+    }
+
+    .site { opacity: 0; transition: opacity 0.55s ease; }
+    .site.is-visible { opacity: 1; }
+
+    .preview-banner {
+      background: #122a2e;
+      color: rgba(231,226,216,0.85); font-size: 0.65rem; letter-spacing: 0.06em;
+      padding: 0.35rem 0.9rem; display: flex; gap: 0.75rem; flex-wrap: wrap;
+      justify-content: space-between; align-items: center;
+      border-bottom: 1px solid rgba(212,175,55,0.2);
+    }
+    .preview-banner a { color: var(--gold); text-decoration: none; font-weight: 600; }
+
+    .hero {
+      position: relative; overflow: hidden;
+      background:
+        radial-gradient(ellipse 80% 90% at 50% 0%, rgba(90, 140, 138, 0.18), transparent 55%),
+        linear-gradient(180deg, #163a3e 0%, #102f33 38%, #0c2428 62%, #07090a 100%);
+    }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0.14;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(231,226,216,0.035) 28px),
+        repeating-linear-gradient(90deg, transparent, transparent 23px, rgba(231,226,216,0.025) 24px);
+    }
+    .script-field {
+      position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0;
+    }
+    .script-row {
+      display: block;
+      font-family: "Great Vibes", cursive;
+      font-size: clamp(1.6rem, 4vw, 2.8rem);
+      line-height: 1.6; color: rgba(214, 228, 224, 0.11);
+      white-space: nowrap; transform: rotate(-5deg);
+      animation: drift 75s linear infinite;
+    }
+    .script-row:nth-child(2) {
+      animation-duration: 95s; animation-direction: reverse; opacity: 0.7; margin-top: -0.5rem;
+    }
+    @keyframes drift {
+      from { transform: rotate(-5deg) translateX(0); }
+      to { transform: rotate(-5deg) translateX(-38%); }
+    }
+
+    .nav {
+      position: relative; z-index: 2;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; flex-wrap: wrap;
+      padding: 0.65rem clamp(0.9rem, 3vw, 1.6rem);
+      background: rgba(7, 9, 10, 0.35);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(200, 205, 208, 0.07);
+    }
+    .brand {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.25rem; color: var(--paper); text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 0.85rem; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
+    .nav-links a {
+      color: rgba(197,208,206,0.75); text-decoration: none;
+      font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .socials { display: flex; align-items: center; gap: 0.4rem; }
+    .social {
+      width: 2rem; height: 2rem;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(212,175,55,0.28);
+      background: rgba(10,12,13,0.45);
+      color: var(--paper); border-radius: 999px; text-decoration: none;
+      transition: border-color 0.15s, color 0.15s, background 0.15s;
+    }
+    .social:hover {
+      border-color: rgba(212,175,55,0.55); color: var(--gold);
+      background: rgba(26,60,64,0.45);
+    }
+    .social svg { width: 1rem; height: 1rem; display: block; }
+
+    .hero-copy {
+      position: relative; z-index: 2;
+      width: min(1100px, 94vw);
+      margin: 0 auto;
+      padding: 1.2rem 0 1.1rem;
+    }
+    .kicker {
+      font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(212,175,55,0.7); margin-bottom: 0.3rem;
+    }
+    .hero-copy h1 {
+      margin: 0;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
+      font-weight: 600; color: var(--paper); line-height: 0.98;
+    }
+    .hero-copy .tagline {
+      margin: 0.3rem 0 0;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic; font-size: clamp(1.05rem, 2.4vw, 1.3rem);
+      color: rgba(231,226,216,0.85);
+    }
+    .hero-copy .lede {
+      margin: 0.5rem 0 0; max-width: 34rem;
+      font-size: 0.86rem; line-height: 1.5; color: rgba(197,208,206,0.88);
+    }
+    .hero-equator {
+      height: 1px;
+      background: linear-gradient(90deg, transparent 6%, rgba(212,175,55,0.45) 30%, rgba(0,229,255,0.35) 70%, transparent 94%);
+      box-shadow: 0 0 12px rgba(0,229,255,0.15);
+    }
+
+    .wrap {
+      width: min(1100px, 94vw);
+      margin: 0 auto;
+      padding: 1rem 0 1.6rem;
+      display: grid; gap: 0.85rem;
+    }
+
+    .hook {
+      border-left: 2px solid rgba(0,229,255,0.45);
+      padding: 0.55rem 0 0.55rem 1rem;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic; font-size: clamp(1.15rem, 2.5vw, 1.55rem);
+      color: var(--paper); line-height: 1.35;
+    }
+    .hook cite {
+      display: block; margin-top: 0.35rem;
+      font-style: normal; font-family: Outfit, sans-serif;
+      font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(212,175,55,0.7);
+    }
+
+    .status-strip {
+      display: flex; flex-wrap: wrap; gap: 0.45rem 1.1rem;
+      padding: 0.55rem 0.8rem;
+      border: 1px solid rgba(212,175,55,0.13);
+      background: rgba(10,12,13,0.55);
+      font-size: 0.75rem; color: rgba(197,208,206,0.88);
+    }
+    .status-strip strong { color: var(--paper); font-weight: 600; }
+    .status-strip b { color: var(--cyan); font-weight: 600; }
+
+    .panel {
+      border: 1px solid rgba(212,175,55,0.13);
+      background: rgba(10,12,13,0.72);
+    }
+    .panel-head {
+      padding: 0.65rem 0.85rem 0.5rem;
+      border-bottom: 1px solid rgba(212,175,55,0.1);
+    }
+    .panel-head h2, .section-title {
+      margin: 0.1rem 0 0;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.35rem; color: var(--paper);
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(250px, 0.85fr);
+      gap: 0.85rem; align-items: start;
+    }
+
+    .books { display: grid; gap: 0; }
+    .book {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 0.85rem;
+      padding: 0.85rem;
+      border-bottom: 1px solid rgba(212,175,55,0.1);
+    }
+    .book:last-child { border-bottom: none; }
+    .book-cover {
+      width: 88px; aspect-ratio: 2/3; border-radius: 1px; overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(212,175,55,0.35), 4px 8px 18px rgba(0,0,0,0.45);
+      background: #0d1516;
+    }
+    .book-cover img, .book-cover .ph {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+    }
+    .book-cover .ph {
+      display: grid; place-items: center; padding: 0.4rem; text-align: center;
+      background: linear-gradient(160deg, #1a3c40, #0a1012);
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 0.82rem; color: var(--paper); line-height: 1.15;
+    }
+    .book-meta .status { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.3rem; }
+    .pill {
+      font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.2rem 0.4rem; border-radius: 999px;
+      border: 1px solid rgba(212,175,55,0.25); color: rgba(212,175,55,0.85);
+    }
+    .pill.soon { border-color: rgba(0,229,255,0.3); color: rgba(0,229,255,0.9); }
+    .book-meta h3 {
+      margin: 0 0 0.15rem;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.25rem; color: var(--paper); line-height: 1.1;
+    }
+    .book-meta .subtitle {
+      margin: 0 0 0.4rem;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic; font-size: 0.9rem; color: rgba(231,226,216,0.7);
+    }
+    .book-meta .excerpt {
+      margin: 0 0 0.65rem;
+      font-size: 0.78rem; line-height: 1.45; color: rgba(197,208,206,0.9);
+    }
+
+    .btn-gold, .btn-ghost, .btn-disabled {
+      appearance: none; text-decoration: none; cursor: pointer;
+      font: 650 0.72rem Outfit, sans-serif; letter-spacing: 0.03em;
+      padding: 0.55rem 0.85rem; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid transparent;
+    }
+    .btn-gold {
+      border-color: rgba(212,175,55,0.4);
+      background: linear-gradient(110deg, #9a7a22 0%, #d4af37 48%, #8a7024 100%);
+      color: #12100a;
+    }
+    .btn-gold:hover { filter: brightness(1.08); }
+    .btn-ghost {
+      border-color: rgba(212,175,55,0.28);
+      background: transparent; color: var(--paper);
+    }
+    .btn-ghost:hover { background: rgba(26,60,64,0.4); }
+    .btn-disabled {
+      border-color: rgba(212,175,55,0.18);
+      background: rgba(255,255,255,0.03);
+      color: rgba(197,208,206,0.55); cursor: default;
+    }
+
+    .side { display: grid; gap: 0.85rem; }
+    .side-block { padding: 0.85rem; }
+    .side-block h3, .about-side h2 {
+      margin: 0.1rem 0 0.55rem;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.15rem; color: var(--paper);
+    }
+    .about-side { padding: 0.85rem; }
+    .about-side.sticky { position: sticky; top: 0.6rem; }
+    .about-body { overflow: hidden; }
+    .portrait {
+      float: right;
+      width: 92px;
+      aspect-ratio: 1;
+      margin: 0.1rem 0 0.55rem 0.75rem;
+      overflow: hidden;
+      border-radius: 1px;
+      border: 1px solid rgba(212,175,55,0.35);
+      box-shadow: 0 0 0 1px rgba(212,175,55,0.08), 4px 8px 18px rgba(0,0,0,0.4);
+      background: #050607;
+      shape-outside: margin-box;
+    }
+    .portrait img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: center 22%;
+    }
+    .about-side p {
+      margin: 0 0 0.45rem;
+      font-size: 0.78rem; line-height: 1.45; color: rgba(197,208,206,0.9);
+    }
+    .about-side .bio-list { margin-top: 0.35rem; margin-bottom: 0.7rem; clear: both; }
+    .about-side .contact-line {
+      margin: 0.55rem 0 0;
+      font-size: 0.75rem;
+    }
+    .about-side .contact-line a { color: var(--gold); text-decoration: none; }
+    .about-side .contact-line a:hover { color: var(--cyan); }
+    .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.55rem; }
+    .steps li {
+      display: grid; grid-template-columns: 1.5rem 1fr; gap: 0.45rem;
+      font-size: 0.78rem; line-height: 1.4;
+    }
+    .steps b {
+      color: var(--gold); font-size: 0.65rem; letter-spacing: 0.08em;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+    .card { padding: 0.85rem; }
+    .card p {
+      margin: 0 0 0.65rem;
+      font-size: 0.8rem; line-height: 1.45; color: rgba(197,208,206,0.9);
+    }
+    .card .actions { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+    .notes { display: grid; gap: 0; }
+    .note {
+      padding: 0.75rem 0.85rem;
+      border-bottom: 1px solid rgba(212,175,55,0.1);
+    }
+    .note:last-child { border-bottom: none; }
+    .note .when {
+      font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(212,175,55,0.65); margin-bottom: 0.25rem;
+    }
+    .note p { margin: 0; font-size: 0.82rem; line-height: 1.45; color: rgba(197,208,206,0.9); }
+
+    .press {
+      display: flex; flex-wrap: wrap; gap: 0.45rem;
+      padding: 0.7rem 0.85rem;
+      align-items: center;
+    }
+    .press span {
+      font-size: 0.72rem; color: rgba(154,168,168,0.9);
+      border: 1px dashed rgba(212,175,55,0.25);
+      padding: 0.35rem 0.55rem;
+    }
+
+    .newsletter {
+      padding: 0.9rem;
+      background: linear-gradient(160deg, rgba(22,48,52,0.55), rgba(10,12,13,0.9));
+    }
+    .newsletter p {
+      margin: 0.25rem 0 0.7rem;
+      font-size: 0.82rem; line-height: 1.45;
+    }
+    .news-form {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.45rem;
+    }
+    .news-form input {
+      appearance: none; width: 100%;
+      background: rgba(0,0,0,0.35); border: 1px solid rgba(212,175,55,0.22);
+      color: var(--paper); padding: 0.65rem 0.75rem; border-radius: 2px;
+      font: 400 0.85rem Outfit, sans-serif;
+    }
+    .news-form input:focus {
+      outline: none; border-color: rgba(212,175,55,0.5);
+    }
+    .news-ok {
+      display: none; margin-top: 0.55rem; font-size: 0.78rem; color: var(--gold);
+    }
+    .news-ok.is-on { display: block; }
+
+    .faq details {
+      border-bottom: 1px solid rgba(212,175,55,0.1);
+      padding: 0.65rem 0.85rem;
+    }
+    .faq details:last-child { border-bottom: none; }
+    .faq summary {
+      cursor: pointer; color: var(--paper);
+      font-size: 0.88rem; list-style: none;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::before {
+      content: "+"; color: var(--gold); margin-right: 0.45rem; font-weight: 600;
+    }
+    .faq details[open] summary::before { content: "–"; }
+    .faq details p {
+      margin: 0.45rem 0 0.15rem 1.1rem;
+      font-size: 0.8rem; line-height: 1.45; color: rgba(197,208,206,0.9);
+    }
+
+    .bio-list { list-style: none; padding: 0; margin: 0.35rem 0 0; }
+    .bio-list li {
+      position: relative; padding-left: 0.85rem; margin-top: 0.25rem;
+      font-size: 0.74rem; line-height: 1.4;
+    }
+    .bio-list li::before {
+      content: "—"; position: absolute; left: 0; color: rgba(212,175,55,0.5); font-size: 0.65rem;
+    }
+
+    footer {
+      border-top: 1px solid rgba(212,175,55,0.12);
+      padding: 0.85rem clamp(0.9rem, 3vw, 1.6rem) 1.2rem;
+      display: flex; flex-wrap: wrap; gap: 0.6rem 1rem;
+      justify-content: space-between; align-items: center;
+      font-size: 0.75rem; color: rgba(154,168,168,0.85);
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+    footer a:hover { color: var(--cyan); }
+
+    @media (max-width: 900px) {
+      .layout, .grid-2, .news-form { grid-template-columns: 1fr; }
+      .about-side.sticky { position: static; }
+      .nav-links { display: none; }
+      .portrait { width: 84px; }
+    }
+    @media (max-width: 520px) {
+      .book { grid-template-columns: 72px 1fr; gap: 0.65rem; }
+      .book-cover { width: 72px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .script-row { animation: none; }
+      .boot-quote .cursor { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body class="is-locked">
+  <div class="grain" aria-hidden="true"></div>
+
+  <div id="boot" role="dialog" aria-label="Introduzione">
+    <button type="button" class="boot-skip" id="boot-skip">Salta</button>
+    <div class="boot-inner">
+      <div class="boot-kicker">Paolo Riva</div>
+      <p class="boot-quote" id="boot-quote" aria-live="polite"></p>
+    </div>
+  </div>
+
+  <div class="site" id="site">
+    <div class="preview-banner">
+      <span><strong>PROTOTIPO</strong> · Landing completa</span>
+      <a href="https://paoloriva.site/" target="_blank" rel="noopener">Sito attuale</a>
+    </div>
+
+    <header class="hero">
+      <div class="script-field" aria-hidden="true">
+        <div class="script-row">storia di parole · inchiostro e sogni · racconti d'autore · scrivere è vivere · frammenti di pensieri · l'arte della scrittura · storia di parole · inchiostro e sogni ·</div>
+        <div class="script-row">racconti d'autore · frammenti di pensieri · scrivere è vivere · inchiostro e sogni · storia di parole · l'arte della scrittura · racconti d'autore ·</div>
+      </div>
+
+      <nav class="nav">
+        <a class="brand" href="#top">Paolo Riva</a>
+        <ul class="nav-links">
+          <li><a href="#libri">Libri</a></li>
+          <li><a href="#anteprima-come">Anteprima</a></li>
+          <li><a href="#taccuino">Taccuino</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#chi-sono">Chi sono</a></li>
+        </ul>
+        <div class="socials" aria-label="Social">
+          <a class="social" href="https://www.instagram.com/paoloriva_book/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.7"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/></svg>
+          </a>
+          <a class="social" href="https://www.facebook.com/profile.php?id=61592838920359" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.5 8.5V6.8c0-.7.1-1.1 1.2-1.1H17V3h-2.4C11.8 3 11 4.5 11 6.6v1.9H9v2.7h2V21h3.5v-9.8h2.3l.4-2.7h-2.7z"/></svg>
+          </a>
+          <a class="social" href="https://www.wattpad.com/user/PaoloRiva" target="_blank" rel="noopener" aria-label="Wattpad" title="Wattpad">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.2 6.2c.7 0 1.3.3 1.7.9l2.4 3.8c.2.3.4.3.6 0l2.1-3.5c.5-.8 1.1-1.2 2-1.2.9 0 1.5.5 1.5 1.3 0 .3-.1.6-.2.9l-2.8 5.1c-.5.9-1.1 1.3-2 1.3-.8 0-1.5-.4-1.9-1.2L6.2 9.8c-.1-.2-.2-.2-.3 0L4.4 13c-.3.6-.5.9-.9 1.1-.3.2-.6.2-.9.2C1.6 14.3 1 13.7 1 12.7c0-.4.1-.8.3-1.2L3 7.4c.3-.8.8-1.2 1.2-1.2zm11.3 0c.8 0 1.4.4 1.8 1.1l2.5 4.3c.1.2.2.2.3 0l1.2-2.1c.3-.5.5-.8.9-1 .3-.2.6-.3.9-.3.9 0 1.5.6 1.5 1.5 0 .4-.1.8-.3 1.2l-2.2 4.3c-.5.9-1.1 1.3-2 1.3-.8 0-1.4-.4-1.8-1.2l-2.5-4.3c-.1-.2-.2-.2-.3 0l-1.1 1.9c-.3.5-.5.8-.9 1-.3.2-.6.3-1 .3-.8 0-1.4-.6-1.4-1.5 0-.4.1-.8.3-1.2l2-3.9c.5-.9 1.1-1.4 2.1-1.4z"/></svg>
+          </a>
+        </div>
+      </nav>
+
+      <div class="hero-copy" id="top">
+        <div class="kicker">Scrittore · Torino</div>
+        <h1>Paolo Riva</h1>
+        <p class="tagline">Di giorno sistemi. Di notte storie.</p>
+        <p class="lede">
+          Informatico di giorno, scrittore di notte. Ogni libro è un mondo;
+          questo sito è la casa che li raccoglie.
+        </p>
+      </div>
+      <div class="hero-equator" aria-hidden="true"></div>
+    </header>
+
+    <main class="wrap">
+      <blockquote class="hook">
+        «Fu l’ultimo gesto interamente mio.»
+        <cite>Dal manoscritto</cite>
+      </blockquote>
+
+      <div class="status-strip" aria-label="Stato del catalogo">
+        <span><strong>Catalogo</strong></span>
+        <span><b>1</b> in uscita</span>
+        <span><b>2</b> in lavorazione</span>
+        <span>Anteprima aperta sul debutto</span>
+      </div>
+
+      <div class="layout">
+        <section class="panel" id="libri" aria-labelledby="libri-title">
+          <div class="panel-head">
+            <div class="kicker">Catalogo</div>
+            <h2 id="libri-title">I libri</h2>
+          </div>
+          <div class="books" id="books"></div>
+        </section>
+
+        <aside class="side">
+          <section class="panel about-side sticky" id="chi-sono" aria-labelledby="about-title">
+            <div class="kicker">Autore</div>
+            <h2 id="about-title">Chi sono</h2>
+            <div class="about-body">
+              <div class="portrait">
+                <img src="assets/paolo-riva-portrait.jpg" alt="Paolo Riva" width="184" height="184" />
+              </div>
+              <p>
+                Vivo all'ombra della Mole, classe 1984. Tre figli, informatica di giorno, libri sempre.
+                Fino al liceo i libri erano arredamento. Poi <em>Ivanhoe</em> ha acceso la miccia.
+              </p>
+              <ul class="bio-list">
+                <li>Il Signore degli Anelli riletto 7 volte</li>
+                <li>Dumas, Asimov, Christie</li>
+                <li>Incompatibilità diplomatica con il romance</li>
+                <li>Da mesi costruisco il mio catalogo di storie</li>
+              </ul>
+            </div>
+            <div class="socials" aria-label="Social">
+              <a class="social" href="https://www.instagram.com/paoloriva_book/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.7"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/></svg>
+              </a>
+              <a class="social" href="https://www.facebook.com/profile.php?id=61592838920359" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M14.5 8.5V6.8c0-.7.1-1.1 1.2-1.1H17V3h-2.4C11.8 3 11 4.5 11 6.6v1.9H9v2.7h2V21h3.5v-9.8h2.3l.4-2.7h-2.7z"/></svg>
+              </a>
+              <a class="social" href="https://www.wattpad.com/user/PaoloRiva" target="_blank" rel="noopener" aria-label="Wattpad" title="Wattpad">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.2 6.2c.7 0 1.3.3 1.7.9l2.4 3.8c.2.3.4.3.6 0l2.1-3.5c.5-.8 1.1-1.2 2-1.2.9 0 1.5.5 1.5 1.3 0 .3-.1.6-.2.9l-2.8 5.1c-.5.9-1.1 1.3-2 1.3-.8 0-1.5-.4-1.9-1.2L6.2 9.8c-.1-.2-.2-.2-.3 0L4.4 13c-.3.6-.5.9-.9 1.1-.3.2-.6.2-.9.2C1.6 14.3 1 13.7 1 12.7c0-.4.1-.8.3-1.2L3 7.4c.3-.8.8-1.2 1.2-1.2zm11.3 0c.8 0 1.4.4 1.8 1.1l2.5 4.3c.1.2.2.2.3 0l1.2-2.1c.3-.5.5-.8.9-1 .3-.2.6-.3.9-.3.9 0 1.5.6 1.5 1.5 0 .4-.1.8-.3 1.2l-2.2 4.3c-.5.9-1.1 1.3-2 1.3-.8 0-1.4-.4-1.8-1.2l-2.5-4.3c-.1-.2-.2-.2-.3 0l-1.1 1.9c-.3.5-.5.8-.9 1-.3.2-.6.3-1 .3-.8 0-1.4-.6-1.4-1.5 0-.4.1-.8.3-1.2l2-3.9c.5-.9 1.1-1.4 2.1-1.4z"/></svg>
+              </a>
+            </div>
+            <p class="contact-line"><a href="mailto:paoloriva.main@proton.me">paoloriva.main@proton.me</a></p>
+          </section>
+
+          <div class="panel side-block" id="anteprima-come">
+            <div class="kicker">ARC</div>
+            <h3>Come funziona l’anteprima</h3>
+            <ol class="steps">
+              <li><b>01</b><span>Ti candidi dal libro che ti interessa.</span></li>
+              <li><b>02</b><span>Se sei selezionato, ricevi link e codice sul sito.</span></li>
+              <li><b>03</b><span>Leggi in anteprima e, all’uscita, una recensione sincera su Amazon.</span></li>
+            </ol>
+          </div>
+        </aside>
+      </div>
+
+      <section class="panel" id="taccuino" aria-labelledby="taccuino-title">
+        <div class="panel-head">
+          <div class="kicker">Dietro le quinte</div>
+          <h2 class="section-title" id="taccuino-title">Dal taccuino</h2>
+        </div>
+        <div class="notes">
+          <article class="note">
+            <div class="when">Nota · scrittura</div>
+            <p>Scrivo di notte, dopo il lavoro e i figli. L’horror mi interessa quando resta dentro: non il mostro fuori dalla porta, ma la voce che continua a pensare mentre il corpo non obbedisce più.</p>
+          </article>
+          <article class="note">
+            <div class="when">Nota · lettura</div>
+            <p>Fino al liceo i libri erano arredamento. Poi Ivanhoe ha acceso la miccia. Da lì: Tolkien riletto sette volte, Dumas, Asimov, Christie — e la voglia di scrivere una storia mia.</p>
+          </article>
+        </div>
+      </section>
+
+      <div class="grid-2" id="canali">
+        <section class="panel card">
+          <div class="kicker">Instagram</div>
+          <h2 class="section-title">@paoloriva_book</h2>
+          <p>Citazioni, anteprime e aggiornamenti sul debutto. Il canale vivo del catalogo.</p>
+          <div class="actions">
+            <a class="btn-gold" href="https://www.instagram.com/paoloriva_book/" target="_blank" rel="noopener">Apri Instagram</a>
+            <a class="btn-ghost" href="https://www.facebook.com/profile.php?id=61592838920359" target="_blank" rel="noopener">Facebook</a>
+          </div>
+        </section>
+        <section class="panel card">
+          <div class="kicker">Wattpad</div>
+          <h2 class="section-title">PaoloRiva</h2>
+          <p>Racconti e pezzi pubblicati su Wattpad. Un altro modo per entrare nelle storie.</p>
+          <div class="actions">
+            <a class="btn-gold" href="https://www.wattpad.com/user/PaoloRiva" target="_blank" rel="noopener">Apri Wattpad</a>
+          </div>
+        </section>
+      </div>
+
+      <section class="panel" aria-label="Press e uscite">
+        <div class="panel-head">
+          <div class="kicker">In evidenza</div>
+          <h2 class="section-title">Press &amp; uscite</h2>
+        </div>
+        <div class="press">
+          <span>Presto su Amazon</span>
+          <span>Copie in anteprima aperte</span>
+          <span>Spazio per recensioni e menzioni</span>
+        </div>
+      </section>
+
+      <section class="panel newsletter" id="avvisi" aria-labelledby="news-title">
+        <div class="kicker">Avvisi</div>
+        <h2 class="section-title" id="news-title">Dimmi quando esce il prossimo</h2>
+        <p>Solo uscite e aperture anteprima. Niente spam — una mail quando c’è qualcosa da leggere.</p>
+        <form class="news-form" id="news-form">
+          <input type="email" name="email" required placeholder="la tua email" autocomplete="email" aria-label="Email per avvisi uscita" />
+          <button class="btn-gold" type="submit">Iscrivimi</button>
+        </form>
+        <div class="news-ok" id="news-ok">Iscrizione simulata. In produzione collegheremo un foglio o un servizio mail.</div>
+      </section>
+
+      <section class="panel faq" id="faq" aria-labelledby="faq-title">
+        <div class="panel-head">
+          <div class="kicker">Domande</div>
+          <h2 class="section-title" id="faq-title">FAQ</h2>
+        </div>
+        <details>
+          <summary>Cos’è l’anteprima?</summary>
+          <p>Una copia digitale del manoscritto, protetta e riservata ai lettori selezionati, da leggere sul sito prima dell’uscita.</p>
+        </details>
+        <details>
+          <summary>Devo recensire?</summary>
+          <p>Sì: in cambio dell’anteprima chiediamo una recensione sincera su Amazon all’uscita. Non deve essere positiva a tutti i costi — deve essere onesta.</p>
+        </details>
+        <details>
+          <summary>È gratis?</summary>
+          <p>Sì. Non si paga nulla: solo candidatura, selezione e impegno a lasciare un parere pubblico quando il libro sarà disponibile.</p>
+        </details>
+        <details>
+          <summary>Come so se sono stato selezionato?</summary>
+          <p>Ricevi un’email con link e codice di accesso alla pagina di lettura. Se non vieni selezionato, non ti arriverà nulla di automatico — le copie sono limitate.</p>
+        </details>
+      </section>
+    </main>
+
+    <footer>
+      <div>© Paolo Riva</div>
+      <div><a href="mailto:paoloriva.main@proton.me">paoloriva.main@proton.me</a></div>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var BOOKS = [
+        {
+          id: "la-veglia",
+          title: "La Veglia",
+          subtitle: "La coscienza dentro il mostro",
+          statusLabel: "Esordio · Horror",
+          soon: false,
+          cover: "https://raw.githubusercontent.com/warhamster8/PaoloRiva/main/SITES/assets/la-veglia-cover.png",
+          arcOpen: true,
+          excerpt: "Un virus ha trasformato il mondo in predatori. Clara Rinaldi è una di loro — ma dentro è ancora sveglia. Vede. Sente. Ricorda. Soffre per ogni atto che il suo corpo compie senza di lei. Tra scienza e orrore, la coscienza sepolta diventa il vero terreno di battaglia."
+        },
+        {
+          id: "wip-1",
+          title: "Work in progress",
+          subtitle: "Available soon",
+          statusLabel: "Coming soon",
+          soon: true,
+          cover: null,
+          arcOpen: false,
+          excerpt: ""
+        },
+        {
+          id: "wip-2",
+          title: "Work in progress",
+          subtitle: "Available soon",
+          statusLabel: "Coming soon",
+          soon: true,
+          cover: null,
+          arcOpen: false,
+          excerpt: ""
+        }
+      ];
+
+      var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var quote = "Scrivere è restare svegli mentre il mondo dorme.";
+      var boot = document.getElementById("boot");
+      var bootQuote = document.getElementById("boot-quote");
+      var finished = false;
+
+      function finishBoot() {
+        if (finished) return;
+        finished = true;
+        boot.classList.add("is-done");
+        document.getElementById("site").classList.add("is-visible");
+        document.body.classList.remove("is-locked");
+      }
+
+      function typeQuote() {
+        if (reduced) {
+          bootQuote.textContent = quote;
+          setTimeout(finishBoot, 350);
+          return;
+        }
+        var i = 0;
+        bootQuote.innerHTML = '<span class="cursor"></span>';
+        var timer = setInterval(function () {
+          i += 1;
+          bootQuote.innerHTML = quote.slice(0, i) + '<span class="cursor"></span>';
+          if (i >= quote.length) {
+            clearInterval(timer);
+            setTimeout(finishBoot, 550);
+          }
+        }, 28);
+      }
+      document.getElementById("boot-skip").addEventListener("click", finishBoot);
+      typeQuote();
+
+      function escapeHtml(s) {
+        return String(s)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function coverHtml(book) {
+        if (book.cover) {
+          return '<img src="' + escapeHtml(book.cover) + '" alt="Copertina di ' + escapeHtml(book.title) + '" />';
+        }
+        return '<div class="ph">' + escapeHtml(book.title) + "</div>";
+      }
+
+      document.getElementById("books").innerHTML = BOOKS.map(function (book) {
+        var cta = book.arcOpen
+          ? '<a class="btn-gold" href="proposta-wow-anteprima.html?libro=' + encodeURIComponent(book.id) + '">Richiedi anteprima</a>'
+          : '<span class="btn-disabled">Available soon</span>';
+        var excerpt = book.excerpt
+          ? '<p class="excerpt">' + escapeHtml(book.excerpt) + "</p>"
+          : "";
+        return (
+          '<article class="book">' +
+            '<div class="book-cover">' + coverHtml(book) + "</div>" +
+            '<div class="book-meta">' +
+              '<div class="status"><span class="pill' + (book.soon ? " soon" : "") + '">' + escapeHtml(book.statusLabel) + "</span></div>" +
+              "<h3>" + escapeHtml(book.title) + "</h3>" +
+              (book.subtitle ? '<p class="subtitle">' + escapeHtml(book.subtitle) + "</p>" : "") +
+              excerpt +
+              cta +
+            "</div>" +
+          "</article>"
+        );
+      }).join("");
+
+      document.getElementById("news-form").addEventListener("submit", function (e) {
+        e.preventDefault();
+        document.getElementById("news-ok").classList.add("is-on");
+        e.target.reset();
+      });
+    })();
+  </script>
+</body>
+</html>
