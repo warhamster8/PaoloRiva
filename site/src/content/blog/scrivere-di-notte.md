@@ -5,7 +5,7 @@ pubDate: 2026-09-04
 tags:
   - scrittura
   - dietro le quinte
-draft: false
+draft: true
 ---
 
 Scrivo di notte, dopo il lavoro e i figli. L’horror mi interessa quando resta **dentro**: non il mostro fuori dalla porta, ma la voce che continua a pensare mentre il corpo non obbedisce più.

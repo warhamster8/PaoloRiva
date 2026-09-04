@@ -1,0 +1,49 @@
+---
+import { site } from "../data/site";
+
+const books = site.books.filter((book) => book.cover || !book.soon);
+---
+
+<main class="column column-center books-hero" id="libri">
+  <div class="books-hero__head">
+    <div class="kicker">Catalogo</div>
+    <h1>I libri</h1>
+    <p>Mondi in uscita e in lavorazione. Ogni titolo è una porta.</p>
+  </div>
+
+  <div class="books-hero__list">
+    {
+      books.map((book) => (
+        <article class:list={["book-hero", { "book-hero--soon": book.soon }]}>
+          <div class="book-hero__cover">
+            {book.cover ? (
+              <img src={book.cover} alt={`Copertina di ${book.title}`} />
+            ) : (
+              <div class="ph">{book.title}</div>
+            )}
+          </div>
+          <div class="book-hero__meta">
+            <span class:list={["pill", { soon: book.soon }]}>
+              {book.statusLabel}
+            </span>
+            <h2>{book.title}</h2>
+            {book.subtitle && <p class="subtitle">{book.subtitle}</p>}
+            {book.excerpt && <p class="excerpt">{book.excerpt}</p>}
+            {book.arcOpen ? (
+              <a
+                class="btn btn--hero"
+                href={site.previewRequestUrl}
+                target="_blank"
+                rel="noopener"
+              >
+                Richiedi anteprima
+              </a>
+            ) : (
+              <span class="btn-disabled btn--hero">Available soon</span>
+            )}
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</main>

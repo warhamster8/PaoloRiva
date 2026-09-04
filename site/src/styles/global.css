@@ -245,6 +245,14 @@ h3 {
   animation: rise 0.85s ease 0.08s both;
 }
 
+.diptych {
+  display: grid;
+  grid-template-columns: var(--col-bio) minmax(0, 1fr);
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: start;
+  animation: rise 0.85s ease 0.08s both;
+}
+
 .column {
   min-width: 0;
 }
@@ -435,6 +443,95 @@ h3 {
   display: flex;
   flex-direction: column;
   gap: 0.95rem;
+}
+
+.books-hero__head {
+  margin-bottom: 1.35rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.books-hero__head h1 {
+  font-size: clamp(2rem, 4vw, 2.75rem);
+}
+
+.books-hero__head p {
+  margin: 0.35rem 0 0;
+  max-width: 42ch;
+  font-size: 0.95rem;
+}
+
+.books-hero__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.book-hero {
+  display: grid;
+  grid-template-columns: minmax(120px, 180px) minmax(0, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+  padding-bottom: 1.75rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.book-hero:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.book-hero__cover {
+  aspect-ratio: 2 / 3;
+  background: linear-gradient(160deg, #1a3c40, #0a1012);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.book-hero__cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.book-hero__cover .ph {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 0.75rem;
+  text-align: center;
+  font-family: var(--serif);
+  color: rgba(231, 226, 216, 0.45);
+}
+
+.book-hero__meta h2 {
+  font-size: clamp(1.55rem, 3vw, 2rem);
+  margin: 0.35rem 0 0.3rem;
+}
+
+.book-hero__meta .subtitle {
+  margin: 0 0 0.65rem;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.book-hero__meta .excerpt {
+  margin: 0 0 1rem;
+  max-width: 48ch;
+  font-size: 0.95rem;
+  color: rgba(231, 226, 216, 0.82);
+  line-height: 1.55;
+}
+
+.btn--hero,
+.btn.btn--hero,
+.btn-disabled.btn--hero {
+  width: auto;
+  max-width: none;
+  display: inline-flex;
+  padding: 0.65rem 1.1rem;
+  font-size: 0.68rem;
 }
 
 .book {
@@ -657,7 +754,8 @@ h3 {
 }
 
 @media (max-width: 960px) {
-  .triptych {
+  .triptych,
+  .diptych {
     grid-template-columns: 1fr;
   }
 
@@ -688,11 +786,22 @@ h3 {
   .btn-disabled {
     max-width: 120px;
   }
+
+  .btn--hero,
+  .btn.btn--hero,
+  .btn-disabled.btn--hero {
+    max-width: none;
+  }
 }
 
 @media (max-width: 640px) {
   .books-stack {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .book-hero {
+    grid-template-columns: minmax(100px, 132px) minmax(0, 1fr);
+    gap: 0.9rem;
   }
 
   .site-header {

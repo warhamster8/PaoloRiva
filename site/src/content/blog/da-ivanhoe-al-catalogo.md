@@ -5,7 +5,7 @@ pubDate: 2026-09-03
 tags:
   - lettura
   - biografia
-draft: false
+draft: true
 ---
 
 Fino al liceo i libri erano arredamento. Poi *Ivanhoe* ha acceso la miccia.

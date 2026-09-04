@@ -47,8 +47,7 @@ export const site = {
       statusLabel: "Esordio · Horror",
       soon: false,
       arcOpen: true,
-      cover:
-        "https://raw.githubusercontent.com/warhamster8/PaoloRiva/main/SITES/assets/la-veglia-cover.png",
+      cover: "/images/la-veglia-cover.png",
       excerpt:
         "Un virus ha trasformato il mondo in predatori. Clara Rinaldi è una di loro — ma dentro è ancora sveglia.",
     },
@@ -60,16 +59,6 @@ export const site = {
       soon: true,
       arcOpen: false,
       cover: "/images/a-chi-credere-cover.png",
-      excerpt: "",
-    },
-    {
-      id: "wip-2",
-      title: "Work in progress",
-      subtitle: "Available soon",
-      statusLabel: "Coming soon",
-      soon: true,
-      arcOpen: false,
-      cover: null,
       excerpt: "",
     },
   ],

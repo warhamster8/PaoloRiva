@@ -1,21 +1,8 @@
 ---
-import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BioColumn from "../components/BioColumn.astro";
-import BooksColumn from "../components/BooksColumn.astro";
+import BooksHero from "../components/BooksHero.astro";
 import { site } from "../data/site";
-
-const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
-
-function formatDate(date: Date) {
-  return date.toLocaleDateString("it-IT", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-}
 ---
 
 <BaseLayout description={site.bio.short}>
@@ -38,44 +25,9 @@ function formatDate(date: Date) {
       </div>
     </header>
 
-    <div class="triptych">
+    <div class="diptych">
       <BioColumn />
-
-      <main class="column column-center">
-        <div class="blog-head">
-          <div class="kicker">Taccuino</div>
-          <h1>Dal blog</h1>
-          <p>
-            Appunti, dietro le quinte e pezzi che nascono quando mi passa per la
-            testa.
-          </p>
-        </div>
-
-        {
-          posts.length === 0 ? (
-            <p class="empty-blog">Il taccuino è ancora vuoto. Torna presto.</p>
-          ) : (
-            <div class="post-list">
-              {posts.map((post) => (
-                <a class="post-item" href={`/blog/${post.id}/`}>
-                  <div class="post-meta">
-                    <time datetime={post.data.pubDate.toISOString()}>
-                      {formatDate(post.data.pubDate)}
-                    </time>
-                    {post.data.tags.slice(0, 2).map((tag) => (
-                      <span>{tag}</span>
-                    ))}
-                  </div>
-                  <h2 class="post-title">{post.data.title}</h2>
-                  <p class="post-excerpt">{post.data.description}</p>
-                </a>
-              ))}
-            </div>
-          )
-        }
-      </main>
-
-      <BooksColumn />
+      <BooksHero />
     </div>
 
     <footer class="site-footer">
