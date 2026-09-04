@@ -1,0 +1,53 @@
+---
+import { site } from "../data/site";
+---
+
+<aside class="column column-side-books">
+  <div class="column-panel">
+    <div class="kicker">Catalogo</div>
+    <h2>I libri</h2>
+    <div class="books-stack">
+      {
+        site.books.map((book) =>
+          book.soon && !book.cover ? (
+            <article class="book book--soon">
+              <div class="book-soon-bar">
+                <span class="pill soon">{book.statusLabel}</span>
+                <p class="book-soon-title">{book.title}</p>
+              </div>
+            </article>
+          ) : (
+            <article class="book">
+              <div class="book-cover">
+                {book.cover ? (
+                  <img src={book.cover} alt={`Copertina di ${book.title}`} />
+                ) : (
+                  <div class="ph">{book.title}</div>
+                )}
+              </div>
+              <div>
+                <span class:list={["pill", { soon: book.soon }]}>
+                  {book.statusLabel}
+                </span>
+                <h3>{book.title}</h3>
+                {book.subtitle && <p class="subtitle">{book.subtitle}</p>}
+                {book.arcOpen ? (
+                  <a
+                    class="btn"
+                    href={site.previewRequestUrl}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    Richiedi anteprima
+                  </a>
+                ) : (
+                  <span class="btn-disabled">Available soon</span>
+                )}
+              </div>
+            </article>
+          ),
+        )
+      }
+    </div>
+  </div>
+</aside>

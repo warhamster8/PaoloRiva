@@ -1,0 +1,35 @@
+backend:
+  name: github
+  repo: warhamster8/PaoloRiva
+  branch: main
+  # Login: al primo accesso Sveltia chiede un Personal Access Token GitHub
+  # (permesso Contents: Read and write sul repo). In alternativa puoi
+  # collegare un OAuth worker e impostare base_url qui sotto.
+  # base_url: https://TUO-WORKER.workers.dev
+
+media_folder: site/public/images/uploads
+public_folder: /images/uploads
+
+locale: it
+
+collections:
+  - name: blog
+    label: Blog
+    label_singular: Articolo
+    folder: site/src/content/blog
+    create: true
+    slug: "{{slug}}"
+    extension: md
+    format: frontmatter
+    sortable_fields:
+      fields: [pubDate, title]
+      default:
+        field: pubDate
+        direction: descending
+    fields:
+      - { label: Titolo, name: title, widget: string }
+      - { label: Descrizione, name: description, widget: text }
+      - { label: Data, name: pubDate, widget: datetime, date_format: YYYY-MM-DD, time_format: false }
+      - { label: Bozza, name: draft, widget: boolean, default: false }
+      - { label: Tag, name: tags, widget: list, default: [] }
+      - { label: Corpo, name: body, widget: markdown }

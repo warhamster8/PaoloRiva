@@ -1,0 +1,42 @@
+---
+import "../styles/global.css";
+import { site } from "../data/site";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { title, description = site.bio.short } = Astro.props;
+const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — Scrittore`;
+---
+
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <div class="script-field" aria-hidden="true">
+      <div class="script-row">
+        Scrivere è restare svegli mentre il mondo dorme · Fu l’ultimo gesto interamente mio · Paolo Riva · La Veglia · Coscienza · Orrore ·
+        Scrivere è restare svegli mentre il mondo dorme · Fu l’ultimo gesto interamente mio · Paolo Riva ·
+      </div>
+      <div class="script-row">
+        Di giorno sistemi · Di notte storie · Torino · Catalogo · Taccuino · Horror · Ivanhoe · Tolkien ·
+        Di giorno sistemi · Di notte storie · Torino · Catalogo · Taccuino · Horror ·
+      </div>
+    </div>
+    <slot />
+  </body>
+</html>

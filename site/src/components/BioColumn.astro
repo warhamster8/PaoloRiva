@@ -1,0 +1,27 @@
+---
+import { site } from "../data/site";
+import SocialLinks from "./SocialLinks.astro";
+---
+
+<aside class="column column-side-bio">
+  <div class="column-panel">
+    <div class="kicker">Autore</div>
+    <h2>Chi sono</h2>
+    <div class="portrait">
+      <img
+        src="/images/paolo-riva-portrait.jpg"
+        alt="Paolo Riva"
+        width="184"
+        height="184"
+      />
+    </div>
+    <p class="bio-text">{site.bio.body}</p>
+    <ul class="bio-list">
+      {site.bio.notes.map((note) => <li>{note}</li>)}
+    </ul>
+    <SocialLinks />
+    <p class="contact-line">
+      <a href={`mailto:${site.email}`}>{site.email}</a>
+    </p>
+  </div>
+</aside>
