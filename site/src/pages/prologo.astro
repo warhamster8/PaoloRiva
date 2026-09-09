@@ -1,0 +1,99 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../data/site";
+
+const book = site.books.find((item) => item.id === "la-veglia");
+---
+
+<BaseLayout
+  title="Prologo — La Veglia"
+  description="Estratto dal romanzo La Veglia di Paolo Riva: il prologo, in cui Clara Rinaldi è ancora sveglia dietro gli occhi del mostro."
+>
+  <article class="article-page excerpt-page">
+    <a class="back" href="/">← Torna ai libri</a>
+
+    <header class="excerpt-head">
+      {
+        book?.cover && (
+          <div class="excerpt-cover">
+            <img src={book.cover} alt={`Copertina di ${book.title}`} width="176" height="264" />
+          </div>
+        )
+      }
+      <div>
+        <div class="kicker">Estratto · {book?.title}</div>
+        <h1>Prologo</h1>
+        {book?.subtitle && <p class="excerpt-sub">{book.subtitle}</p>}
+      </div>
+    </header>
+
+    <div class="prose prologo-drop">
+      <p>Prima di diventare un mostro, ho avuto un nome.</p>
+      <p>
+        Adesso, dietro il vetro, contano altro. Dicono «soggetto», «unità»,
+        «minaccia contenuta». A volte, se la maschera gli appanna gli occhiali,
+        dicono solo «quella».
+      </p>
+      <p>Io sono ancora Clara.</p>
+      <p>
+        Non lo dico con la bocca. La bocca non è più mia. Apre, chiude, cerca,
+        strappa, deglutisce cose che la mente si rifiuta di nominare. Io resto
+        dall’altra parte, in fondo al cranio, e guardo.
+      </p>
+      <p>
+        Se cercate sangue, ne troverete. Se ne secca sotto le unghie, negli
+        angoli della bocca, nelle fughe delle piastrelle. Ma non è quello che
+        resta. Resta il momento dopo, quando il corpo ha finito e tu sei ancora
+        lì.
+      </p>
+      <p>
+        C’è una differenza tra morire e perdere il comando. Io non sono morta.
+        Sono rimasta chiusa dentro.
+      </p>
+      <p>
+        All’inizio l’ho scambiato per un incubo. Poi ho capito che un incubo
+        almeno si spezza. Questo no. Ogni volta tornavo nello stesso punto:
+        dietro gli occhi.
+      </p>
+      <p>
+        Le mani — le mie — si chiudevano su un collo. C’era odore di ferro,
+        sudore, saliva, e quel dolce marcio che arrivava un attimo prima del
+        morso. Provo a urlare. Esce solo un verso basso, bagnato. Non mi
+        somiglia.
+      </p>
+      <p>
+        Fuori fanno finta che dentro non ci sia più nessuno. Gli serve. Se
+        ammettessero che guardiamo ancora, che ricordiamo ancora, dovrebbero
+        guardare meglio anche il resto: la canna del fucile, il foro netto, il
+        sollievo che arriva un attimo dopo. Non sempre sparano per difendersi.
+      </p>
+      <p>
+        Questa non è la storia di come finisce il mondo. È la storia di quello
+        che non si spegne.
+      </p>
+      <p>
+        Io, Clara Rinaldi, sono ancora qui. Dall’altra parte del vetro c’è una
+        donna in camice. Un giorno alzerà gli occhi nel momento giusto e capirà
+        che nei miei non c’è vuoto.
+      </p>
+      <p>
+        Sarà lì che comincerà l’orrore. Non quando apro la bocca. Quando
+        qualcuno capirà che posso ancora rispondere.
+      </p>
+    </div>
+
+    <div class="excerpt-cta">
+      <a class="btn btn--hero" href={`${site.previewPath}?libro=la-veglia`}>
+        Richiedi anteprima
+      </a>
+      <a class="btn-ghost btn--hero" href="/">Torna al catalogo</a>
+    </div>
+
+    <footer class="site-footer">
+      <div>© {new Date().getFullYear()} {site.name}</div>
+      <div>
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+    </footer>
+  </article>
+</BaseLayout>

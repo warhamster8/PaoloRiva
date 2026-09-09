@@ -31,18 +31,22 @@ import { site } from "../data/site";
                 </span>
                 <h3>{book.title}</h3>
                 {book.subtitle && <p class="subtitle">{book.subtitle}</p>}
-                {book.arcOpen ? (
-                  <a
-                    class="btn"
-                    href={site.previewRequestUrl}
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    Richiedi anteprima
-                  </a>
-                ) : (
-                  <span class="btn-disabled">Available soon</span>
-                )}
+                <div class="book-actions book-actions--stack">
+                  {book.arcOpen && (
+                    <a class="btn" href={`${site.previewPath}?libro=${book.id}`}>
+                      Richiedi anteprima
+                    </a>
+                  )}
+                  {"prologueHref" in book && book.prologueHref && (
+                    <a class="btn-ghost" href={book.prologueHref}>
+                      Leggi il Prologo
+                    </a>
+                  )}
+                  {!book.arcOpen &&
+                    !("prologueHref" in book && book.prologueHref) && (
+                      <span class="btn-disabled">Available soon</span>
+                    )}
+                </div>
               </div>
             </article>
           ),
