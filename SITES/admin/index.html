@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet" />
+  <meta name="googlebot" content="noindex, nofollow" />
+  <title>Console — Paolo Riva</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: "#0d0d0d", paper: "#e7e2d8", ash: "#9aa8a8",
+            gold: "#d4af37", cyan: "#00e5ff", teal: "#1a3c40"
+          },
+          fontFamily: {
+            display: ["Syne", "sans-serif"],
+            serif: ['"Cormorant Garamond"', "Georgia", "serif"],
+            sans: ["Outfit", "sans-serif"],
+            mono: ['"JetBrains Mono"', "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      min-height: 100%;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(26,60,64,.5), transparent 55%),
+        #07090a;
+      color: #c5d0ce;
+    }
+    .panel {
+      background: linear-gradient(160deg, rgba(22,48,52,.72), rgba(10,12,13,.94));
+      border: 1px solid rgba(212,175,55,.22);
+    }
+    .input-field:focus {
+      outline: none;
+      border-color: rgba(0,229,255,.55);
+      box-shadow: 0 0 0 3px rgba(0,229,255,.12);
+    }
+    .tab-btn.is-on { color: #e7e2d8; border-color: #d4af37; }
+    .btn-gold {
+      background: linear-gradient(110deg, #9a7a22, #d4af37, #8a7024);
+      color: #12100a;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased">
+
+  <div id="gate" class="flex min-h-screen items-center justify-center px-4 py-16">
+    <div class="panel w-full max-w-md rounded-3xl p-8">
+      <img src="../assets/logo-fr-sm.webp?v=3" alt="" class="mx-auto mb-4 h-12 w-12" width="48" height="48" />
+      <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-gold">Console riservata</p>
+      <h1 class="mt-2 font-display text-3xl font-bold text-paper">Accesso autore</h1>
+      <form id="gate-form" class="mt-6 space-y-4" autocomplete="off">
+        <div>
+          <label for="admin-code" class="mb-2 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Chiave</label>
+          <input id="admin-code" type="password" required autocomplete="new-password"
+            class="input-field w-full rounded-2xl border border-gold/20 bg-ink/60 px-4 py-3 font-mono text-paper" />
+        </div>
+        <p id="gate-error" class="hidden rounded-2xl border border-teal/40 bg-teal/20 px-4 py-3 text-sm"></p>
+        <button type="submit" class="btn-gold w-full rounded-2xl px-5 py-3 font-mono text-xs uppercase tracking-[0.2em] font-semibold">Entra</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="desk" class="hidden min-h-screen">
+    <header class="sticky top-0 z-40 border-b border-gold/10 bg-ink/90 backdrop-blur">
+      <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-2">
+        <div class="flex items-center gap-2">
+          <img src="../assets/logo-fr-sm.webp?v=3" alt="" class="h-7 w-7" width="28" height="28" />
+          <span class="font-display text-[10px] font-semibold uppercase tracking-[0.24em] text-silver">Console</span>
+        </div>
+        <nav class="flex gap-2 font-mono text-[10px] uppercase tracking-[0.16em]">
+          <button type="button" data-tab="books" class="tab-btn is-on rounded-full border border-transparent px-3 py-1">Anteprime</button>
+          <button type="button" data-tab="readers" class="tab-btn rounded-full border border-transparent px-3 py-1">Lettori</button>
+          <button type="button" data-tab="mail" class="tab-btn rounded-full border border-transparent px-3 py-1">Posta</button>
+        </nav>
+        <button id="logout" type="button" class="rounded-full border border-gold/20 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-ash/70">Esci</button>
+      </div>
+    </header>
+
+    <main class="mx-auto max-w-6xl px-4 py-8 space-y-8">
+      <p id="desk-status" class="hidden rounded-2xl border px-4 py-3 text-sm"></p>
+
+      <section id="tab-books" class="tab-panel">
+        <div class="grid gap-6 lg:grid-cols-[1.05fr_.95fr]">
+          <div class="panel rounded-3xl p-6">
+            <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-cyan/80">Nuova o aggiorna</p>
+            <h2 class="mt-1 font-serif text-2xl text-paper">Pagina nascosta</h2>
+            <form id="book-form" class="mt-5 space-y-3">
+              <div class="grid gap-3 sm:grid-cols-2">
+                <div>
+                  <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-gold/80">Titolo</label>
+                  <input id="book-title" required placeholder="La Veglia"
+                    class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-3 py-2.5 text-paper" />
+                </div>
+                <div>
+                  <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-gold/80">Id / slug</label>
+                  <input id="book-id" required placeholder="la-veglia"
+                    class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-3 py-2.5 font-mono text-sm text-paper" />
+                </div>
+              </div>
+              <div class="grid gap-3 sm:grid-cols-2">
+                <div>
+                  <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-gold/80">Codice di accesso</label>
+                  <input id="book-code" type="text" placeholder="lascia vuoto per non cambiare"
+                    class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-3 py-2.5 font-mono text-sm text-paper" />
+                </div>
+                <div>
+                  <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-gold/80">Scadenza</label>
+                  <input id="book-exp" type="date"
+                    class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-3 py-2.5 text-paper" />
+                </div>
+              </div>
+              <div>
+                <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-gold/80">PDF del manoscritto</label>
+                <input id="book-pdf" type="file" accept="application/pdf"
+                  class="w-full rounded-2xl border border-white/10 bg-black/30 px-3 py-2 text-sm text-ash" />
+                <p class="mt-1 font-mono text-[10px] text-ash/50">Consigliato sotto i 12 MB. Se non carichi un file, resta il PDF già presente.</p>
+              </div>
+              <button type="submit" class="btn-gold w-full rounded-2xl px-4 py-2.5 font-mono text-xs uppercase tracking-[0.18em] font-semibold">Salva anteprima</button>
+            </form>
+          </div>
+          <div>
+            <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-gold">Pagine attive</p>
+            <div id="book-list" class="mt-3 space-y-3"></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tab-readers" class="tab-panel hidden">
+        <div class="flex items-center justify-between gap-3">
+          <h2 class="font-serif text-2xl text-paper">Candidati anteprima</h2>
+          <button type="button" id="reload-readers" class="rounded-full border border-gold/25 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.16em]">Ricarica</button>
+        </div>
+        <div class="mt-4 overflow-x-auto panel rounded-3xl">
+          <table class="w-full min-w-[640px] text-left text-sm">
+            <thead class="font-mono text-[10px] uppercase tracking-[0.16em] text-gold/80">
+              <tr>
+                <th class="px-4 py-3"><input id="sel-all" type="checkbox" /></th>
+                <th class="px-2 py-3">Nome</th>
+                <th class="px-2 py-3">Email</th>
+                <th class="px-2 py-3">Instagram</th>
+                <th class="px-2 py-3">Data</th>
+              </tr>
+            </thead>
+            <tbody id="reader-rows" class="text-ash/90"></tbody>
+          </table>
+        </div>
+        <p class="mt-3 font-mono text-[10px] text-ash/45">Seleziona i destinatari e passa a Posta per scrivere.</p>
+      </section>
+
+      <section id="tab-mail" class="tab-panel hidden">
+        <div class="panel rounded-3xl p-6 max-w-3xl">
+          <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-cyan/80">Invio</p>
+          <h2 class="mt-1 font-serif text-2xl text-paper">Scrivi ai lettori</h2>
+          <p id="mail-count" class="mt-2 text-sm text-ash/70">Nessun destinatario selezionato.</p>
+          <form id="mail-form" class="mt-5 space-y-3">
+            <div>
+              <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-gold/80">Libro / link da inserire</label>
+              <select id="mail-book" class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-3 py-2.5 text-paper"></select>
+            </div>
+            <div>
+              <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-gold/80">Oggetto</label>
+              <input id="mail-subject" required
+                class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-3 py-2.5 text-paper" />
+            </div>
+            <div>
+              <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-gold/80">Codice (opzionale, placeholder {{codice}})</label>
+              <input id="mail-code" class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-3 py-2.5 font-mono text-sm text-paper" />
+            </div>
+            <div>
+              <label class="mb-1 block font-mono text-[10px] uppercase tracking-[0.18em] text-gold/80">Testo</label>
+              <textarea id="mail-body" required rows="12"
+                class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-3 py-2.5 text-sm leading-6 text-paper"></textarea>
+              <p class="mt-1 font-mono text-[10px] text-ash/45">Segnaposto: {{nome}} {{cognome}} {{link}} {{codice}} {{titolo}}</p>
+            </div>
+            <button type="submit" class="btn-gold w-full rounded-2xl px-4 py-2.5 font-mono text-xs uppercase tracking-[0.18em] font-semibold">Invia</button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      var ENDPOINT = "https://script.google.com/macros/s/AKfycbxd7IzVaLR77FvjTQp3gyligToXpCIudG9z2_LdbeAWRz-dUTx__r_u0c0SKdwgG3yA5w/exec";
+      var ADMIN_HASH = "f040e290c043e21722f6c2ee7cb7b818d60691c962503d49919836ce9abe7918";
+      var SESSION = "pr_admin_ok";
+      var adminKey = "";
+      var books = [];
+      var readers = [];
+
+      var DEFAULT_MAIL =
+        "Ciao {{nome}},\n\n" +
+        "sei in lista per l'anteprima di {{titolo}}.\n\n" +
+        "Pagina riservata:\n{{link}}\n\n" +
+        "Codice di accesso: {{codice}}\n\n" +
+        "Non condividere il link. In cambio, una recensione sincera su Amazon all'uscita.\n\n" +
+        "Paolo Riva";
+
+      async function sha256Hex(text) {
+        var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+        return Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+      }
+
+      async function api(payload) {
+        payload.adminKey = adminKey;
+        var res = await fetch(ENDPOINT, {
+          method: "POST",
+          body: JSON.stringify(payload),
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          redirect: "follow"
+        });
+        var data = await res.json().catch(function () { return {}; });
+        if (!res.ok || data.ok === false) {
+          throw new Error(data.error || "richiesta non riuscita");
+        }
+        return data;
+      }
+
+      function showStatus(ok, msg) {
+        var el = document.getElementById("desk-status");
+        el.className = "rounded-2xl border px-4 py-3 text-sm " + (ok ? "border-gold/30 bg-gold/10 text-gold" : "border-teal/40 bg-teal/20 text-paper");
+        el.textContent = msg;
+      }
+
+      function openDesk() {
+        document.getElementById("gate").classList.add("hidden");
+        document.getElementById("desk").classList.remove("hidden");
+        document.getElementById("mail-body").value = DEFAULT_MAIL;
+        document.getElementById("mail-subject").value = "Sei in lista per l'anteprima";
+        var d = new Date();
+        d.setDate(d.getDate() + 30);
+        document.getElementById("book-exp").value = d.toISOString().slice(0, 10);
+        refreshBooks();
+      }
+
+      document.getElementById("gate-form").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        var err = document.getElementById("gate-error");
+        err.classList.add("hidden");
+        var hash = await sha256Hex(document.getElementById("admin-code").value.trim());
+        if (hash !== ADMIN_HASH) {
+          err.textContent = "Chiave non valida.";
+          err.classList.remove("hidden");
+          return;
+        }
+        adminKey = hash;
+        try { sessionStorage.setItem(SESSION, hash); } catch (_) {}
+        openDesk();
+      });
+
+      document.getElementById("logout").addEventListener("click", function () {
+        try { sessionStorage.removeItem(SESSION); } catch (_) {}
+        location.reload();
+      });
+
+      document.querySelectorAll(".tab-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var tab = btn.getAttribute("data-tab");
+          document.querySelectorAll(".tab-btn").forEach(function (b) { b.classList.remove("is-on"); });
+          btn.classList.add("is-on");
+          document.querySelectorAll(".tab-panel").forEach(function (p) { p.classList.add("hidden"); });
+          document.getElementById("tab-" + tab).classList.remove("hidden");
+          if (tab === "readers") refreshReaders();
+          if (tab === "mail") fillMailBooks();
+        });
+      });
+
+      document.getElementById("book-title").addEventListener("input", function () {
+        var id = document.getElementById("book-id");
+        if (id.dataset.locked === "1") return;
+        id.value = document.getElementById("book-title").value.toLowerCase()
+          .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 48);
+      });
+
+      async function fileToBase64(file) {
+        var buf = await file.arrayBuffer();
+        var bytes = new Uint8Array(buf);
+        var chunk = 0x8000;
+        var parts = [];
+        for (var i = 0; i < bytes.length; i += chunk) {
+          parts.push(String.fromCharCode.apply(null, bytes.subarray(i, i + chunk)));
+        }
+        return btoa(parts.join(""));
+      }
+
+      document.getElementById("book-form").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        var title = document.getElementById("book-title").value.trim();
+        var id = document.getElementById("book-id").value.trim();
+        var code = document.getElementById("book-code").value.trim();
+        var exp = document.getElementById("book-exp").value;
+        var pdf = document.getElementById("book-pdf").files[0];
+        var existing = books.find(function (b) { return b.id === id; });
+        if (!code && !existing) {
+          showStatus(false, "Per una nuova anteprima serve il codice di accesso.");
+          return;
+        }
+        try {
+          showStatus(true, "Salvataggio…");
+          var payload = {
+            action: "saveBook",
+            id: id,
+            titolo: title,
+            hash: code ? await sha256Hex(code) : (existing && existing.hash) || "",
+            scadenza: exp ? exp + "T23:59:59+02:00" : ""
+          };
+          var saved = await api(payload);
+          if (pdf) {
+            if (pdf.size > 12 * 1024 * 1024) {
+              showStatus(false, "PDF troppo grande (max 12 MB). Comprimilo e riprova.");
+              return;
+            }
+            showStatus(true, "Caricamento PDF…");
+            await api({
+              action: "uploadPdf",
+              id: id,
+              pdfBase64: await fileToBase64(pdf)
+            });
+          }
+          document.getElementById("book-code").value = "";
+          document.getElementById("book-pdf").value = "";
+          document.getElementById("book-id").dataset.locked = "";
+          showStatus(true, "Anteprima pronta: " + saved.book.url);
+          await refreshBooks();
+        } catch (err) {
+          showStatus(false, err.message + " — se è la prima volta, aggiorna Apps Script (LISTE.txt).");
+        }
+      });
+
+      async function refreshBooks() {
+        var box = document.getElementById("book-list");
+        box.innerHTML = "<p class='text-sm text-ash/60'>Caricamento…</p>";
+        try {
+          var data = await api({ action: "listBooks" });
+          books = data.books || [];
+          if (!books.length) {
+            box.innerHTML = "<p class='text-sm text-ash/60'>Nessuna pagina. Creane una qui a sinistra. Se il foglio non è aggiornato, esegui setupFogli in Apps Script.</p>";
+            return;
+          }
+          box.innerHTML = books.map(function (b) {
+            return '<div class="panel rounded-2xl p-4">' +
+              '<p class="font-serif text-xl text-paper">' + escapeHtml(b.titolo) + '</p>' +
+              '<p class="mt-1 break-all font-mono text-[11px] text-cyan/80">' + escapeHtml(b.url) + '</p>' +
+              '<p class="mt-1 font-mono text-[10px] text-ash/50">' + (b.fileId ? "PDF su Drive" : "PDF locale (La Veglia)") +
+              (b.scadenza ? " · scade " + escapeHtml(String(b.scadenza).slice(0, 10)) : "") + "</p>" +
+              '<div class="mt-3 flex flex-wrap gap-2">' +
+              '<button type="button" data-copy="' + encodeURIComponent(b.url) + '" class="copy-link rounded-full border border-gold/25 px-3 py-1 font-mono text-[10px] uppercase">Copia link</button>' +
+              '<button type="button" data-edit="' + encodeURIComponent(b.id) + '" class="edit-book rounded-full border border-gold/25 px-3 py-1 font-mono text-[10px] uppercase">Modifica</button>' +
+              (b.id !== "la-veglia" ? '<button type="button" data-del="' + encodeURIComponent(b.id) + '" class="del-book rounded-full border border-white/15 px-3 py-1 font-mono text-[10px] uppercase text-ash/60">Archivia</button>' : "") +
+              "</div></div>";
+          }).join("");
+          box.querySelectorAll(".copy-link").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              navigator.clipboard.writeText(decodeURIComponent(btn.getAttribute("data-copy")));
+              showStatus(true, "Link copiato.");
+            });
+          });
+          box.querySelectorAll(".edit-book").forEach(function (btn) {
+            btn.addEventListener("click", function () {
+              var id = decodeURIComponent(btn.getAttribute("data-edit"));
+              var b = books.find(function (x) { return x.id === id; });
+              if (!b) return;
+              document.getElementById("book-title").value = b.titolo;
+              document.getElementById("book-id").value = b.id;
+              document.getElementById("book-id").dataset.locked = "1";
+              document.getElementById("book-code").value = "";
+              document.getElementById("book-exp").value = String(b.scadenza || "").slice(0, 10);
+            });
+          });
+          box.querySelectorAll(".del-book").forEach(function (btn) {
+            btn.addEventListener("click", async function () {
+              if (!confirm("Archiviare questa anteprima?")) return;
+              try {
+                await api({ action: "deleteBook", id: decodeURIComponent(btn.getAttribute("data-del")) });
+                await refreshBooks();
+                showStatus(true, "Archiviata.");
+              } catch (err) {
+                showStatus(false, err.message);
+              }
+            });
+          });
+          fillMailBooks();
+        } catch (err) {
+          box.innerHTML = "<p class='text-sm text-ash/70'>Non riesco a leggere i libri dal foglio. Aggiorna Apps Script con SITES/liste/Code.gs e lancia setupFogli. La pagina La Veglia continua a funzionare in locale.</p>";
+        }
+      }
+
+      async function refreshReaders() {
+        var tb = document.getElementById("reader-rows");
+        tb.innerHTML = "<tr><td class='px-4 py-4' colspan='5'>Caricamento…</td></tr>";
+        try {
+          var data = await api({ action: "listReaders" });
+          readers = data.readers || [];
+          if (!readers.length) {
+            tb.innerHTML = "<tr><td class='px-4 py-4' colspan='5'>Nessun candidato nel foglio Anteprima.</td></tr>";
+            return;
+          }
+          tb.innerHTML = readers.map(function (r, i) {
+            return "<tr class='border-t border-white/5'>" +
+              "<td class='px-4 py-2'><input type='checkbox' class='r-sel' data-i='" + i + "' /></td>" +
+              "<td class='px-2 py-2 text-paper'>" + escapeHtml(r.nome + " " + r.cognome) + "</td>" +
+              "<td class='px-2 py-2 font-mono text-xs'>" + escapeHtml(r.email) + "</td>" +
+              "<td class='px-2 py-2'>" + escapeHtml(r.instagram) + "</td>" +
+              "<td class='px-2 py-2 font-mono text-[10px] text-ash/50'>" + escapeHtml(r.data) + "</td></tr>";
+          }).join("");
+          updateMailCount();
+          tb.querySelectorAll(".r-sel").forEach(function (c) {
+            c.addEventListener("change", updateMailCount);
+          });
+        } catch (err) {
+          tb.innerHTML = "<tr><td class='px-4 py-4' colspan='5'>" + escapeHtml(err.message) + "</td></tr>";
+        }
+      }
+
+      document.getElementById("reload-readers").addEventListener("click", refreshReaders);
+      document.getElementById("sel-all").addEventListener("change", function () {
+        var on = document.getElementById("sel-all").checked;
+        document.querySelectorAll(".r-sel").forEach(function (c) { c.checked = on; });
+        updateMailCount();
+      });
+
+      function selectedReaders() {
+        return Array.from(document.querySelectorAll(".r-sel:checked")).map(function (c) {
+          return readers[Number(c.getAttribute("data-i"))];
+        }).filter(Boolean);
+      }
+
+      function updateMailCount() {
+        var n = selectedReaders().length;
+        document.getElementById("mail-count").textContent = n
+          ? n + " destinatari selezionati."
+          : "Nessun destinatario selezionato — sceglili in Lettori.";
+      }
+
+      function fillMailBooks() {
+        var sel = document.getElementById("mail-book");
+        var cur = sel.value;
+        sel.innerHTML = '<option value="">Pagina lettura generica</option>' +
+          books.map(function (b) {
+            return '<option value="' + escapeHtml(b.id) + '">' + escapeHtml(b.titolo) + "</option>";
+          }).join("");
+        if (cur) sel.value = cur;
+      }
+
+      document.getElementById("mail-form").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        var rec = selectedReaders();
+        if (!rec.length) {
+          showStatus(false, "Seleziona almeno un lettore nella scheda Lettori.");
+          return;
+        }
+        try {
+          showStatus(true, "Invio in corso…");
+          var data = await api({
+            action: "sendMail",
+            recipients: rec,
+            subject: document.getElementById("mail-subject").value.trim(),
+            body: document.getElementById("mail-body").value,
+            bookId: document.getElementById("mail-book").value,
+            codice: document.getElementById("mail-code").value.trim()
+          });
+          showStatus(true, "Inviate " + data.sent + " mail." + (data.failed && data.failed.length ? " Errori: " + data.failed.length : ""));
+        } catch (err) {
+          showStatus(false, err.message);
+        }
+      });
+
+      function escapeHtml(s) {
+        return String(s || "").replace(/[&<>"']/g, function (c) {
+          return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c];
+        });
+      }
+
+      try {
+        var saved = sessionStorage.getItem(SESSION);
+        if (saved === ADMIN_HASH) {
+          adminKey = saved;
+          openDesk();
+        }
+      } catch (_) {}
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /SITES/lettura/
+Disallow: /SITES/admin/
+Disallow: /PaoloRiva/SITES/lettura/
+Disallow: /PaoloRiva/SITES/admin/
