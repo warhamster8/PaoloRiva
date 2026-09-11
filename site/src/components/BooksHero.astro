@@ -1,5 +1,6 @@
 ---
 import { site } from "../data/site";
+import PreviewCounter from "./PreviewCounter.astro";
 
 const books = site.books.filter((book) => book.cover || !book.soon);
 ---
@@ -29,24 +30,27 @@ const books = site.books.filter((book) => book.cover || !book.soon);
             <h2>{book.title}</h2>
             {book.subtitle && <p class="subtitle">{book.subtitle}</p>}
             {book.excerpt && <p class="excerpt">{book.excerpt}</p>}
-            <div class="book-actions">
-              {book.arcOpen && (
-                <a
-                  class="btn btn--hero"
-                  href={`${site.previewPath}?libro=${book.id}`}
-                >
-                  Richiedi anteprima
-                </a>
-              )}
-              {"prologueHref" in book && book.prologueHref && (
-                <a class="btn-ghost btn--hero" href={book.prologueHref}>
-                  Leggi il Prologo
-                </a>
-              )}
-              {!book.arcOpen &&
-                !("prologueHref" in book && book.prologueHref) && (
-                  <span class="btn-disabled btn--hero">Available soon</span>
+            <div class="preview-cta">
+              <div class="book-actions">
+                {book.arcOpen && (
+                  <a
+                    class="btn btn--hero"
+                    href={`${site.previewPath}?libro=${book.id}`}
+                  >
+                    Richiedi anteprima
+                  </a>
                 )}
+                {"prologueHref" in book && book.prologueHref && (
+                  <a class="btn-ghost btn--hero" href={book.prologueHref}>
+                    Leggi il Prologo
+                  </a>
+                )}
+                {!book.arcOpen &&
+                  !("prologueHref" in book && book.prologueHref) && (
+                    <span class="btn-disabled btn--hero">Available soon</span>
+                  )}
+              </div>
+              {book.arcOpen && <PreviewCounter />}
             </div>
           </div>
         </article>

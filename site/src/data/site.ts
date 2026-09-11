@@ -38,7 +38,7 @@ export const site = {
       id: "la-veglia",
       title: "La Veglia",
       subtitle: "La coscienza dentro il mostro",
-      statusLabel: "Esordio · Horror",
+      statusLabel: "Esordio · Thriller",
       soon: false,
       arcOpen: true,
       cover: "/images/la-veglia-cover.png",
