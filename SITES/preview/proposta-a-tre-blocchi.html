@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Preview A — Tre blocchi | Paolo Riva</title>
+  <link rel="icon" type="image/png" href="../assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            mahogany: "#1a0f0c", desk: "#241612", ink: "#0d0a09",
+            paper: "#f0e6d8", ash: "#d4c6b4", wine: "#8f2d3a",
+            wineSoft: "#b44552", leather: "#9a6b45", gold: "#d4b48c",
+            circuit: "#b8895c", ember: "#e8a070", roseGlow: "#c98b8b"
+          },
+          fontFamily: {
+            display: ['"Cormorant Garamond"', "Georgia", "serif"],
+            sans: ["Outfit", "ui-sans-serif", "system-ui", "sans-serif"],
+            mono: ['"JetBrains Mono"', "ui-monospace", "monospace"]
+          },
+          boxShadow: {
+            soft: "0 24px 60px rgba(0,0,0,0.45)",
+            glow: "0 0 40px rgba(232,160,112,0.22)",
+            lift: "0 30px 80px rgba(0,0,0,0.55)"
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: #160f0c;
+      background-image:
+        radial-gradient(ellipse 90% 55% at 50% -8%, rgba(143, 45, 58, 0.38), transparent 58%),
+        radial-gradient(ellipse 50% 45% at 0% 30%, rgba(232, 160, 112, 0.14), transparent 55%),
+        linear-gradient(180deg, #1f1410 0%, #160f0c 42%, #0f0a08 100%);
+      color: #d4c6b4;
+    }
+    .glass {
+      background: rgba(16, 11, 9, 0.62);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .hero-overlay {
+      background:
+        linear-gradient(180deg, rgba(16,11,9,0.3) 0%, rgba(16,11,9,0.55) 45%, rgba(16,11,9,0.94) 100%),
+        linear-gradient(90deg, rgba(16,11,9,0.5) 0%, rgba(16,11,9,0.15) 50%, rgba(16,11,9,0.45) 100%);
+    }
+    .cta-shimmer {
+      background-image: linear-gradient(110deg, #8f2d3a 0%, #b44552 35%, #e8a070 50%, #b44552 65%, #8f2d3a 100%);
+      background-size: 220% 100%;
+      animation: shimmer 3.2s ease-in-out infinite;
+    }
+    @keyframes shimmer {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .wood-grain {
+      background-image:
+        linear-gradient(90deg, rgba(0,0,0,0.12) 1px, transparent 1px),
+        radial-gradient(ellipse at 30% 20%, rgba(232,160,112,0.07), transparent 45%);
+      background-size: 80px 100%, 100% 100%;
+    }
+    .spotlight-cover {
+      position: relative;
+      isolation: isolate;
+    }
+    .spotlight-cover::before {
+      content: "";
+      position: absolute;
+      inset: -8% -12%;
+      background: radial-gradient(ellipse at center, rgba(232,160,112,0.45), transparent 70%);
+      filter: blur(16px);
+      z-index: -1;
+    }
+    .spotlight-cover img {
+      border-radius: 2px;
+      box-shadow:
+        0 0 0 1.5px rgba(232,160,112,0.65),
+        0 0 32px rgba(232,160,112,0.28),
+        16px 26px 50px rgba(0,0,0,0.55);
+    }
+    .preview-banner {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      background: linear-gradient(90deg, #8f2d3a, #9a6b45);
+      color: #f0e6d8;
+    }
+    .input-field:focus {
+      border-color: rgba(232, 160, 112, 0.55);
+      box-shadow: 0 0 0 3px rgba(232, 160, 112, 0.14);
+      outline: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .cta-shimmer { animation: none; }
+    }
+  </style>
+</head>
+<body class="font-sans antialiased selection:bg-wine/70 selection:text-white">
+
+  <div class="preview-banner px-4 py-2 text-center font-mono text-[10px] uppercase tracking-[0.22em] sm:text-[11px]">
+    Preview A · Tre blocchi ·
+    <a href="index.html" class="underline underline-offset-2 hover:text-white">Hub</a>
+    ·
+    <a href="proposta-b-form-hero.html" class="underline underline-offset-2 hover:text-white">Proposta B</a>
+    ·
+    <a href="../index.html" class="underline underline-offset-2 hover:text-white">Sito attuale</a>
+  </div>
+
+  <header class="sticky top-[2.1rem] z-50 glass">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+      <a href="#top" class="flex items-center" aria-label="Paolo Riva">
+        <img src="../assets/logo-light.png" alt="Paolo Riva" class="h-10 w-auto sm:h-11" width="114" height="123" />
+      </a>
+      <nav class="hidden items-center gap-6 font-mono text-[11px] uppercase tracking-[0.22em] text-ash/80 md:flex">
+        <a class="transition hover:text-paper" href="#libro">Il libro</a>
+        <a class="transition hover:text-paper" href="#arc">Anteprima</a>
+      </nav>
+      <a href="#arc" class="rounded-full cta-shimmer px-4 py-2 font-mono text-[11px] uppercase tracking-[0.18em] text-white transition hover:brightness-110">
+        Anteprima
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- BLOCCO 1: Hero compatto -->
+    <section class="relative min-h-[58vh] overflow-hidden lg:min-h-[62vh]">
+      <img
+        src="../assets/facebook-banner.png"
+        alt=""
+        class="absolute inset-0 h-full w-full object-cover object-center"
+        width="1024"
+        height="480"
+        aria-hidden="true"
+      />
+      <div class="hero-overlay absolute inset-0"></div>
+
+      <div class="relative mx-auto flex min-h-[58vh] max-w-6xl flex-col justify-end px-4 pb-10 pt-20 sm:px-6 sm:pb-12 lg:min-h-[62vh] lg:flex-row lg:items-end lg:justify-between lg:gap-10 lg:px-8 lg:pb-14">
+        <div class="max-w-xl">
+          <h1 class="font-display text-5xl leading-[0.95] text-paper sm:text-6xl lg:text-7xl">
+            Paolo&nbsp;Riva
+          </h1>
+          <p class="mt-3 max-w-md text-base leading-relaxed text-paper/90 sm:text-lg">
+            Di giorno costruisco sistemi. Di notte smonto la realtà e la ricompongo in storie.
+          </p>
+          <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <a href="#arc" class="cta-shimmer inline-flex items-center justify-center rounded-full px-7 py-3 text-sm font-semibold text-white shadow-glow transition hover:brightness-110">
+              Richiedi l'anteprima
+            </a>
+            <a href="#libro" class="inline-flex items-center justify-center rounded-full border border-ember/40 bg-black/30 px-7 py-3 text-sm font-medium text-paper backdrop-blur-sm transition hover:border-ember/80 hover:bg-black/45">
+              Scopri <em class="ml-1 font-display text-lg not-italic">La Veglia</em>
+            </a>
+          </div>
+        </div>
+
+        <a href="#libro" class="mt-8 flex items-end gap-4 lg:mt-0" aria-label="La Veglia — vai al libro">
+          <img
+            src="../assets/la-veglia-cover.png"
+            alt="Copertina di La Veglia"
+            class="w-28 rounded-sm object-cover shadow-lift ring-1 ring-ember/50 sm:w-32"
+            width="160"
+            height="240"
+          />
+          <div class="pb-1">
+            <p class="font-mono text-[10px] uppercase tracking-[0.28em] text-ember">Ultimo libro</p>
+            <p class="mt-1 font-display text-2xl text-paper">La Veglia</p>
+            <p class="font-display text-sm italic text-ember/85">La coscienza dentro il mostro</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- BLOCCO 2: Libro + bio breve -->
+    <section id="libro" class="wood-grain border-y border-gold/10">
+      <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+        <div class="grid items-start gap-8 lg:grid-cols-[0.9fr_1.2fr] lg:gap-12">
+          <div class="mx-auto w-full max-w-[15rem] lg:mx-0 lg:max-w-[17rem]">
+            <div class="spotlight-cover">
+              <img
+                src="../assets/la-veglia-cover.png"
+                alt="Copertina del romanzo La Veglia"
+                class="w-full object-cover"
+                width="400"
+                height="600"
+              />
+            </div>
+          </div>
+
+          <div>
+            <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-ember">Il debutto</p>
+            <h2 class="mt-2 font-display text-4xl leading-none text-paper sm:text-5xl">La Veglia</h2>
+            <p class="mt-2 font-display text-xl italic text-ember/90">La coscienza dentro il mostro</p>
+
+            <p class="mt-5 text-[0.98rem] leading-relaxed text-ash/90">
+              Un virus ha trasformato il mondo in predatori. Clara Rinaldi è una di loro — ma dentro è ancora sveglia.
+              Vede. Sente. Ricorda. Il mondo la chiama mostro; lei sa ancora di chiamarsi Clara.
+            </p>
+            <p class="mt-3 text-[0.98rem] leading-relaxed text-ash/90">
+              Tra scienza, orrore e un contatto proibito, dovrà scegliere: chiedere la morte — o restare abbastanza da liberare chi è ancora chiuso dentro.
+            </p>
+
+            <div class="mt-7 border-t border-gold/15 pt-6">
+              <p class="font-mono text-[10px] uppercase tracking-[0.3em] text-ember/80">Tra terminale e taccuino</p>
+              <p class="mt-2 max-w-xl text-sm leading-relaxed text-ash/85 sm:text-base">
+                Informatico di giorno, scrittore di notte. Non scelgo tra logica e narrativa: le faccio dialogare.
+                Ogni bug ha una trama. Ogni capitolo è un stack di decisioni.
+              </p>
+            </div>
+
+            <blockquote class="mt-6 border-l-2 border-ember/50 pl-4">
+              <p class="font-display text-xl italic leading-snug text-paper sm:text-2xl">
+                « Cercasi lettori coraggiosi per il mio debutto. »
+              </p>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOCCO 3: Anteprima -->
+    <section id="arc" class="border-b border-gold/10 bg-ink/40">
+      <div class="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
+        <div class="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-10">
+          <div class="flex flex-col justify-center">
+            <p class="font-mono text-[11px] uppercase tracking-[0.35em] text-ember">Copia in anteprima</p>
+            <h2 class="mt-2 font-display text-4xl text-paper sm:text-5xl">Partecipa al lancio</h2>
+            <p class="mt-4 text-base leading-relaxed text-ash/85">
+              Candidati a leggere <span class="text-paper">La Veglia</span> in anteprima.
+              Se sei selezionato, riceverai link e password per una pagina riservata del sito.
+            </p>
+            <p class="mt-3 text-sm leading-relaxed text-ash/70">
+              In cambio: una recensione sincera su Amazon all'uscita.
+            </p>
+          </div>
+
+          <div class="rounded-3xl border border-gold/15 bg-[#160f0c] p-6 shadow-soft sm:p-7">
+            <form class="space-y-4" onsubmit="event.preventDefault(); alert('Preview: il form non invia dati.');">
+              <div class="grid gap-4 sm:grid-cols-2">
+                <div>
+                  <label class="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Nome</label>
+                  <input type="text" required placeholder="Nome"
+                    class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-paper placeholder:text-ash/35" />
+                </div>
+                <div>
+                  <label class="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Cognome</label>
+                  <input type="text" required placeholder="Cognome"
+                    class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-paper placeholder:text-ash/35" />
+                </div>
+              </div>
+              <div>
+                <label class="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">Email</label>
+                <input type="email" required placeholder="nome@email.com"
+                  class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-paper placeholder:text-ash/35" />
+              </div>
+              <div>
+                <label class="mb-1.5 block font-mono text-[11px] uppercase tracking-[0.2em] text-gold/80">
+                  Instagram <span class="text-ash/40">(opzionale)</span>
+                </label>
+                <input type="text" placeholder="@tuohandle"
+                  class="input-field w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-paper placeholder:text-ash/35" />
+              </div>
+              <label class="flex items-start gap-3 rounded-2xl border border-white/10 bg-black/25 px-4 py-3.5 text-sm leading-6 text-ash/80">
+                <input type="checkbox" required class="mt-1 accent-wine" />
+                <span>Accetto la Privacy Policy e autorizzo l'uso dei dati solo per l'anteprima.</span>
+              </label>
+              <button type="submit" class="cta-shimmer inline-flex w-full items-center justify-center rounded-2xl px-5 py-3.5 text-sm font-semibold text-white shadow-glow transition hover:brightness-110">
+                Richiedi la copia in anteprima
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-gold/10 bg-ink/80">
+    <div class="mx-auto flex max-w-6xl flex-col items-center gap-4 px-4 py-8 text-center sm:px-6 md:flex-row md:justify-between md:text-left lg:px-8">
+      <div>
+        <img src="../assets/logo-light.png" alt="Paolo Riva" class="mx-auto h-12 w-auto opacity-90 md:mx-0" width="114" height="123" />
+        <p class="mt-2 text-sm text-ash/55">Copyright © Paolo Riva. Tutti i diritti riservati.</p>
+      </div>
+      <a href="mailto:paoloriva.main@proton.me" class="font-mono text-sm text-gold/80 transition hover:text-gold">
+        paoloriva.main@proton.me
+      </a>
+    </div>
+  </footer>
+</body>
+</html>

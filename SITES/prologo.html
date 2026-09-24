@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Prologo — La Veglia | Paolo Riva</title>
+  <meta
+    name="description"
+    content="Estratto dal romanzo La Veglia di Paolo Riva: il prologo, in cui Clara Rinaldi è ancora sveglia dietro gli occhi del mostro."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --void: #07090a;
+      --paper: #e7e2d8;
+      --gold: #d4af37;
+      --cyan: #00e5ff;
+      --muted: #c5d0ce;
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 0%, rgba(26,60,64,0.4), transparent 60%),
+        var(--void);
+      color: var(--muted);
+      font-family: Outfit, ui-sans-serif, system-ui, sans-serif;
+    }
+    .grain {
+      position: fixed; inset: 0; pointer-events: none; z-index: 90;
+      opacity: 0.045; mix-blend-mode: overlay;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+    .wrap {
+      width: min(720px, 94vw);
+      margin: 0 auto;
+      padding: 1.4rem 0 2.8rem;
+    }
+    .back {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      color: rgba(197,208,206,0.8); text-decoration: none;
+      font-size: 0.75rem; letter-spacing: 0.06em; margin-bottom: 1rem;
+    }
+    .back:hover { color: var(--gold); }
+    .panel {
+      border: 1px solid rgba(212,175,55,0.2);
+      background: linear-gradient(160deg, rgba(22,48,52,0.72), rgba(10,12,13,0.94));
+      padding: 1.2rem 1.25rem 1.4rem;
+    }
+    .kicker {
+      font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(212,175,55,0.7);
+    }
+    .book-row {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 0.85rem;
+      margin: 0.7rem 0 1.1rem;
+      align-items: center;
+    }
+    .cover {
+      width: 72px; aspect-ratio: 2/3; border-radius: 1px; overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(212,175,55,0.35), 4px 8px 16px rgba(0,0,0,0.45);
+      background: #0d1516;
+    }
+    .cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    h1 {
+      margin: 0;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: clamp(1.7rem, 4vw, 2.3rem); color: var(--paper); line-height: 1.1;
+    }
+    .subtitle {
+      margin: 0.2rem 0 0;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-style: italic; color: rgba(231,226,216,0.75);
+    }
+    .prose {
+      font-family: "Cormorant Garamond", Georgia, serif;
+      font-size: 1.18rem; line-height: 1.7;
+      color: rgba(231,226,216,0.9);
+    }
+    .prose p { margin: 0 0 1rem; }
+    .prose p:first-of-type::first-letter {
+      float: left;
+      font-size: 3.4rem;
+      line-height: 0.8;
+      padding: 0.08em 0.1em 0 0;
+      color: var(--gold);
+    }
+    .actions {
+      display: flex; flex-wrap: wrap; gap: 0.45rem;
+      margin-top: 1.2rem; padding-top: 1rem;
+      border-top: 1px solid rgba(212,175,55,0.18);
+    }
+    .btn-gold, .btn-ghost {
+      appearance: none; text-decoration: none; cursor: pointer;
+      font: 650 0.72rem Outfit, sans-serif; letter-spacing: 0.03em;
+      padding: 0.55rem 0.85rem; border-radius: 999px;
+      display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid transparent;
+    }
+    .btn-gold {
+      border-color: rgba(212,175,55,0.4);
+      background: linear-gradient(110deg, #9a7a22 0%, #d4af37 48%, #8a7024 100%);
+      color: #12100a;
+    }
+    .btn-ghost {
+      border-color: rgba(212,175,55,0.28);
+      background: transparent; color: var(--paper);
+    }
+    .btn-ghost:hover { background: rgba(26,60,64,0.4); }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <main class="wrap">
+    <a class="back" href="index.html">← Torna ai libri</a>
+    <section class="panel">
+      <div class="kicker">Estratto · La Veglia</div>
+      <div class="book-row">
+        <div class="cover">
+          <img src="assets/la-veglia-cover.png" alt="Copertina di La Veglia" width="144" height="216" />
+        </div>
+        <div>
+          <h1>Prologo</h1>
+          <p class="subtitle">La coscienza dentro il mostro</p>
+        </div>
+      </div>
+      <div class="prose">
+        <p>Prima di diventare un mostro, ho avuto un nome.</p>
+        <p>Adesso, dietro il vetro, contano altro. Dicono «soggetto», «unità», «minaccia contenuta». A volte, se la maschera gli appanna gli occhiali, dicono solo «quella».</p>
+        <p>Io sono ancora Clara.</p>
+        <p>Non lo dico con la bocca. La bocca non è più mia. Apre, chiude, cerca, strappa, deglutisce cose che la mente si rifiuta di nominare. Io resto dall’altra parte, in fondo al cranio, e guardo.</p>
+        <p>Se cercate sangue, ne troverete. Se ne secca sotto le unghie, negli angoli della bocca, nelle fughe delle piastrelle. Ma non è quello che resta. Resta il momento dopo, quando il corpo ha finito e tu sei ancora lì.</p>
+        <p>C’è una differenza tra morire e perdere il comando. Io non sono morta. Sono rimasta chiusa dentro.</p>
+        <p>All’inizio l’ho scambiato per un incubo. Poi ho capito che un incubo almeno si spezza. Questo no. Ogni volta tornavo nello stesso punto: dietro gli occhi.</p>
+        <p>Le mani — le mie — si chiudevano su un collo. C’era odore di ferro, sudore, saliva, e quel dolce marcio che arrivava un attimo prima del morso. Provo a urlare. Esce solo un verso basso, bagnato. Non mi somiglia.</p>
+        <p>Fuori fanno finta che dentro non ci sia più nessuno. Gli serve. Se ammettessero che guardiamo ancora, che ricordiamo ancora, dovrebbero guardare meglio anche il resto: la canna del fucile, il foro netto, il sollievo che arriva un attimo dopo. Non sempre sparano per difendersi.</p>
+        <p>Questa non è la storia di come finisce il mondo. È la storia di quello che non si spegne.</p>
+        <p>Io, Clara Rinaldi, sono ancora qui. Dall’altra parte del vetro c’è una donna in camice. Un giorno alzerà gli occhi nel momento giusto e capirà che nei miei non c’è vuoto.</p>
+        <p>Sarà lì che comincerà l’orrore. Non quando apro la bocca. Quando qualcuno capirà che posso ancora rispondere.</p>
+      </div>
+      <div class="actions">
+        <a class="btn-gold" href="anteprima.html?libro=la-veglia">Richiedi anteprima</a>
+        <a class="btn-ghost" href="index.html">Torna al catalogo</a>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
