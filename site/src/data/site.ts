@@ -1,19 +1,13 @@
 /**
  * Configurazione del sito.
- * Aggiorna `previewRequestUrl` con il link reale del foglio / form Google
- * dove tieni traccia delle richieste di anteprima.
  */
 export const site = {
   name: "Paolo Riva",
   tagline: "Di giorno sistemi. Di notte storie.",
   email: "paoloriva.main@proton.me",
   location: "Torino",
-  /**
-   * Link unico per tutte le richieste di anteprima.
-   * Incolla qui l’URL del foglio Google Drive (o del form collegato).
-   */
-  previewRequestUrl:
-    "https://docs.google.com/spreadsheets/d/INCOLLA-QUI-IL-TUO-ID/edit",
+  /** Form interno per le candidature anteprima. */
+  previewPath: "/anteprima",
   bio: {
     short:
       "Informatico di giorno, scrittore di notte. Ogni libro è un mondo; questo sito è la casa che li raccoglie.",
@@ -44,10 +38,11 @@ export const site = {
       id: "la-veglia",
       title: "La Veglia",
       subtitle: "La coscienza dentro il mostro",
-      statusLabel: "Esordio · Horror",
+      statusLabel: "Esordio · Thriller",
       soon: false,
       arcOpen: true,
       cover: "/images/la-veglia-cover.png",
+      prologueHref: "/prologo",
       excerpt:
         "Un virus ha trasformato il mondo in predatori. Clara Rinaldi è una di loro — ma dentro è ancora sveglia.",
     },

@@ -22,9 +22,9 @@ Gli articoli esempio sono in bozza. Per ripristinare la home con blog:
 git checkout feature/blog
 ```
 
-## Link anteprima → Google Drive
+## Link anteprima
 
-In `src/data/site.ts` aggiorna `previewRequestUrl`.
+Le candidature vanno a `/anteprima`. Il prologo pubblico di *La Veglia* è in `/prologo`.
 
 ## Deploy GitHub Pages
 

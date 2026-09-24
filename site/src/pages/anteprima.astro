@@ -1,0 +1,166 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../data/site";
+
+const books = site.books.map((book) => ({
+  id: book.id,
+  title: book.title,
+  subtitle: book.subtitle,
+  cover: "cover" in book ? book.cover : "",
+  arcOpen: book.arcOpen,
+  prologueHref: "prologueHref" in book ? book.prologueHref : "",
+}));
+---
+
+<BaseLayout
+  title="Richiedi anteprima"
+  description="Candidati per leggere in anteprima un romanzo di Paolo Riva. Se sei selezionato, ricevi link e codice sul sito."
+>
+  <article class="article-page excerpt-page">
+    <a class="back" href="/">← Torna ai libri</a>
+
+    <header class="excerpt-head">
+      <div class="excerpt-cover" id="cover"></div>
+      <div>
+        <div class="kicker">Copia in anteprima</div>
+        <h1 id="title">Anteprima</h1>
+        <p class="excerpt-sub" id="subtitle"></p>
+      </div>
+    </header>
+
+    <p class="hint" id="hint">
+      Candidati per ricevere una copia in anteprima sul sito. In cambio, una
+      recensione sincera su Amazon all’uscita.
+    </p>
+
+    <form class="arc-form" id="arc-form" novalidate>
+      <input type="hidden" name="libro" id="arc-libro" value="" />
+      <div class="row2">
+        <label>Nome<input type="text" name="nome" required autocomplete="given-name" /></label>
+        <label>Cognome<input type="text" name="cognome" required autocomplete="family-name" /></label>
+      </div>
+      <label>Email<input type="email" name="email" required autocomplete="email" /></label>
+      <label>
+        Instagram (opz.)
+        <input type="text" name="instagram" autocomplete="username" placeholder="@utente" />
+      </label>
+      <label class="check">
+        <input type="checkbox" name="privacy" required />
+        <span>Accetto la Privacy Policy per la gestione della copia in anteprima.</span>
+      </label>
+      <button class="btn btn--hero" type="submit" id="arc-submit">Richiedi anteprima</button>
+      <p class="form-note">Se sei selezionato, ti mando link e password per la lettura sul sito.</p>
+      <div class="form-ok" id="form-ok"></div>
+      <div class="form-err" id="form-err"></div>
+    </form>
+
+    <p class="prologue-alt" id="prologue-alt" hidden>
+      Vuoi prima un assaggio? <a href="/prologo">Leggi il Prologo</a>.
+    </p>
+  </article>
+
+  <script is:inline define:vars={{ books }}>
+    (function () {
+      var map = {};
+      books.forEach(function (book) {
+        map[book.id] = book;
+      });
+      var slug = (new URLSearchParams(location.search).get("libro") || "la-veglia").toLowerCase();
+      var book = map[slug] || map["la-veglia"] || books[0];
+      if (!book) return;
+
+      function escapeHtml(s) {
+        return String(s)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      document.title = "Richiedi anteprima — " + book.title;
+      document.getElementById("title").textContent = book.title;
+      document.getElementById("subtitle").textContent = book.subtitle || "";
+      document.getElementById("arc-libro").value = book.id;
+
+      var cover = document.getElementById("cover");
+      if (book.cover) {
+        cover.innerHTML =
+          '<img src="' +
+          escapeHtml(book.cover) +
+          '" alt="Copertina di ' +
+          escapeHtml(book.title) +
+          '" width="176" height="264" />';
+      } else {
+        cover.innerHTML = '<div class="ph">' + escapeHtml(book.title) + "</div>";
+      }
+
+      var submit = document.getElementById("arc-submit");
+      var err = document.getElementById("form-err");
+      var prologueAlt = document.getElementById("prologue-alt");
+      if (book.prologueHref && prologueAlt) {
+        prologueAlt.hidden = false;
+        prologueAlt.querySelector("a").href = book.prologueHref;
+      }
+
+      if (!book.arcOpen) {
+        submit.disabled = true;
+        submit.textContent = "Anteprima non disponibile";
+        document.getElementById("hint").textContent =
+          "Questo titolo non ha ancora aperte le candidature anteprima.";
+        err.textContent = "Torna alla homepage e scegli un libro con anteprima attiva.";
+        err.classList.add("is-on");
+      }
+
+      var SHEETS_ENDPOINT =
+        "https://script.google.com/macros/s/AKfycbxd7IzVaLR77FvjTQp3gyligToXpCIudG9z2_LdbeAWRz-dUTx__r_u0c0SKdwgG3yA5w/exec";
+
+      document.getElementById("arc-form").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        if (!book.arcOpen) return;
+        var ok = document.getElementById("form-ok");
+        var form = e.target;
+        err.classList.remove("is-on");
+        ok.classList.remove("is-on");
+        submit.disabled = true;
+        submit.textContent = "Invio in corso…";
+
+        var fd = new FormData(form);
+        var payload = {
+          lista: "arc",
+          libro: book.id,
+          nome: String(fd.get("nome") || "").trim(),
+          cognome: String(fd.get("cognome") || "").trim(),
+          email: String(fd.get("email") || "").trim(),
+          instagram: String(fd.get("instagram") || "").trim(),
+          privacy: fd.get("privacy") ? "accepted" : "",
+          note: "anteprima — " + book.title,
+        };
+
+        try {
+          var response = await fetch(SHEETS_ENDPOINT, {
+            method: "POST",
+            body: JSON.stringify(payload),
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            redirect: "follow",
+          });
+          var data = await response.json().catch(function () {
+            return {};
+          });
+          if (!response.ok || data.ok === false) {
+            throw new Error((data && data.error) || "errore");
+          }
+          form.reset();
+          document.getElementById("arc-libro").value = book.id;
+          ok.textContent = "Richiesta inviata. Se sei selezionato, ti mando link e password.";
+          ok.classList.add("is-on");
+          submit.textContent = "Richiesta inviata";
+        } catch (_) {
+          err.textContent = "Qualcosa è andato storto. Riprova tra un momento.";
+          err.classList.add("is-on");
+          submit.disabled = false;
+          submit.textContent = "Richiedi anteprima";
+        }
+      });
+    })();
+  </script>
+</BaseLayout>

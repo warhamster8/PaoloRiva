@@ -353,7 +353,7 @@
       margin: 0 0 0.65rem;
       font-size: 0.8rem; line-height: 1.45; color: rgba(197,208,206,0.9);
     }
-    .card .actions { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .card .actions, .book-meta .actions { display: flex; flex-wrap: wrap; gap: 0.4rem; }
 
     .notes { display: grid; gap: 0; }
     .note {
@@ -680,6 +680,7 @@
           soon: false,
           cover: "assets/la-veglia-cover.png",
           arcOpen: true,
+          prologueHref: "prologo.html",
           excerpt: "Un virus ha trasformato il mondo in predatori. Clara Rinaldi è una di loro — ma dentro è ancora sveglia. Vede. Sente. Ricorda. Soffre per ogni atto che il suo corpo compie senza di lei. Tra scienza e orrore, la coscienza sepolta diventa il vero terreno di battaglia."
         },
         {
@@ -754,9 +755,16 @@
       }
 
       document.getElementById("books").innerHTML = BOOKS.map(function (book) {
-        var cta = book.arcOpen
-          ? '<a class="btn-gold" href="anteprima.html?libro=' + encodeURIComponent(book.id) + '">Richiedi anteprima</a>'
-          : '<span class="btn-disabled">Available soon</span>';
+        var actions = [];
+        if (book.arcOpen) {
+          actions.push('<a class="btn-gold" href="anteprima.html?libro=' + encodeURIComponent(book.id) + '">Richiedi anteprima</a>');
+        }
+        if (book.prologueHref) {
+          actions.push('<a class="btn-ghost" href="' + escapeHtml(book.prologueHref) + '">Leggi il Prologo</a>');
+        }
+        if (!actions.length) {
+          actions.push('<span class="btn-disabled">Available soon</span>');
+        }
         var excerpt = book.excerpt
           ? '<p class="excerpt">' + escapeHtml(book.excerpt) + "</p>"
           : "";
@@ -768,7 +776,7 @@
               "<h3>" + escapeHtml(book.title) + "</h3>" +
               (book.subtitle ? '<p class="subtitle">' + escapeHtml(book.subtitle) + "</p>" : "") +
               excerpt +
-              cta +
+              '<div class="actions">' + actions.join("") + "</div>" +
             "</div>" +
           "</article>"
         );
